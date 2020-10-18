@@ -1,0 +1,20 @@
+---
+title: Starting over
+date: '2020-10-18'
+author: jmm
+---
+
+Like many, I keep starting to put stuff online only to get caught
+into something else and letting things drift until some new medium
+appears to make me want to start over. So, here we go, this is
+my new home online...
+
+What's the new tech this time, then ? I am using [next.js](https://nextjs.org/)
+and hosting using Vercel. I have never felt comfortable with Wordpress and,
+even though it can do whatever I might need (and more), I never
+feel entirely satisfied. It's a bit like Word, actually, big piece of
+software that can do whatever but feels like driving a big truck. What
+I really need is a motorcycle.
+
+I have no doubt that there will be a good level of frustration with
+this setup too, but at least it will be frustration I created for myself :)

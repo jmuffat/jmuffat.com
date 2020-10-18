@@ -1,0 +1,126 @@
+@import "./config.scss";
+
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300&family=Nunito&family=Open+Sans:wght@300;400&display=swap');
+
+$font-stack: 'Open Sans',-apple-system, BlinkMacSystemFont, Avenir Next, Avenir, Helvetica, sans-serif;
+
+header {
+  display: flex;
+  justify-content: center;
+  // background-image: radial-gradient(ellipse at bottom,#3975BD 0%,#3264A1 100%);
+  // background-image: radial-gradient(ellipse at bottom,#666 0%,#000 100%);
+  background-image: radial-gradient(ellipse at bottom,#5D5A53 0%,#37322C 100%);
+  width:100%
+}
+
+nav {
+  height: 56px;
+  color: $color5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: $width-large;
+
+  >div {
+    padding: 0.25em 1em
+  }
+
+  a {
+    color: $color5;
+    text-decoration: none;
+  }
+}
+
+button {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 0.66em;
+  border-radius: 0.66em;
+  font-size: 0.90em;
+  cursor: pointer;
+}
+
+@media (max-width: $width-large){
+  nav > .searchbox {
+    display: none
+  }
+}
+
+nav > .brand {
+  font-family: 'Nunito';
+  font-size: 1.50em;
+  font-weight: bold
+}
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+  font-weight: 300;
+  background-color: $color5;
+  display:flex
+}
+
+footer {
+  background-color: #ccc;
+  color: $color1;
+  padding: 1em;
+  box-sizing: border-box;
+  margin-bottom: 10em;
+
+  a {color:$color1}
+  a:visited {color:$color1}
+}
+
+
+h1 {font-size: 1.6em}
+h2 {font-size: 1.4em}
+h3 {font-size: 1.2em}
+
+.page-content {
+  background-color: white;
+  padding: 1em;
+  box-sizing: border-box;
+  min-height: 66vh
+};
+
+.md-preview {
+  h1, h2, h3, h4 {
+    font-family:Nunito
+  }
+}
+
+quote, blockquote {
+  font-family: 'Merriweather', serif;
+}
+
+blockquote {
+  padding-left: 10%;
+
+  #attribution {
+    font-family: $font-stack;
+    font-size: .8em;
+    font-style: normal;
+    text-align: right
+  }
+}
+
+@media (min-width:$width-medium) {
+  body {
+    display:block;
+  }
+
+  .container {
+    max-width: $width-medium;
+    margin-right: auto;
+    margin-left: auto
+  }
+}
+
+@import "./nav.scss";
+@import "./embed.scss";
+@import "./post.scss";
+@import "./big-logo.scss";
+/* @import "/fa/css/all.css";
+@import "./form.scss"; */

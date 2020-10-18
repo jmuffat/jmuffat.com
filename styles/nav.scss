@@ -1,0 +1,51 @@
+.main-menu {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline;
+      padding:1em;
+      font-weight: 400;
+    }
+  }
+
+}
+
+
+
+.searchbar {
+  display: none;
+  max-width:40em;
+  width:100%;
+}
+
+.searchbar-input {
+  flex:1;
+
+  border: 1px solid #c6c9d5;
+  border-radius: 4px 0 0 4px;
+  // border-right:0;
+  // border-style: none;
+
+  margin: 4px 0 4px 4px;
+  padding: 0 4px;
+
+  background-color: $color5;
+}
+
+.searchbar-button {
+  border-radius: 0 4px 4px 0;
+  margin: 4px 4px 4px 0;
+}
+
+.searchbar input:focus{
+  outline: none;
+}
+
+@media (min-width:$width-small) {
+  .searchbar {
+    display: flex;
+  }
+}
