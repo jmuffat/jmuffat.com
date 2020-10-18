@@ -10,7 +10,7 @@ function BasePage(props){
   return (
     <div>
       <Head>
-        <title>{props.title || "Mirandola"}</title>
+        <title>{props.title || "jmuffat"}</title>
 
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="48x48" href="/android-icon-48x48.png"/>
@@ -32,6 +32,7 @@ function BasePage(props){
         <section className="page-content">{props.children}</section>
         <footer>
           <small><Link href="/privacy-policy"><a>Privacy Policy</a></Link></small><br/>
+          <small>site créé par Jérôme Muffat-Méridol, hébergé par <a href="https://vercel.com/" target="_blank">vercel.com</a></small>
           {/*<small><Link href="/cookies"><a>Cookies consent</a></Link></small>*/}
         </footer>
       </div>
