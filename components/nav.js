@@ -6,6 +6,7 @@ const Nav = ()=> (
     <div className="brand"><Link href="/"><a>jmuffat</a></Link></div>
 
     <ul>
+      <li><Link href="/webphotomag"><a>webphotomag</a></Link></li>
       <li><Link href="/posts"><a>News</a></Link></li>
       <li><Link href="/about"><a>About</a></Link></li>
       <li><Link href="/member"><a><i className="fas fa-user-circle fa-lg"></i></a></Link></li>

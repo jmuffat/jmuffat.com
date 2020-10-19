@@ -17,7 +17,7 @@ function getCoverImage(post) {
   const reURL = /https:\/\/.*/
   if (reURL.test(cover)) return cover;
 
-  return `https://jmuffat.com${cover}`
+  return `${process.env.NEXT_PUBLIC_FRONTEND_URL}${cover}`
 }
 
 function SocialButton(props) {
@@ -81,6 +81,12 @@ export function PostPage(props) {
         {/*<meta property="og:image:width" content="1024" />
         <meta property="og:image:height" content="768" />*/}
       </Head>
+
+      {coverImage && (
+        <div className="cover">
+          <img src={coverImage}/>
+        </div>
+      )}
 
       <div className="title">
         <h1>{post.title}</h1>
