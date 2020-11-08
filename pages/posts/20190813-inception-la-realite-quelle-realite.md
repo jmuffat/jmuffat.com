@@ -11,28 +11,26 @@ D’où vient cette certitude ? C’est cette ligne de réflexion qui m’a amen
 
 Alors, j’en conviens, cette explication, comme la précédente ne colle pas tout à fait au film. Toutefois, les perspectives ouvertes sont fascinantes. Deux personnages qui viennent de réalités différentes, ça n’est pas si rare dans les contes de fée, on pense à Peter Pan, à Alice. Chacun finit généralement par retourner dans sa réalité et ça ne va pas plus loin. Là, une fois sur ce toboggan, une fois que l’idée s’est insinuée, on ne peut plus l’arrêter : et s’il n’y avait pas une mais une multitude de réalité… Et si elles étaient poreuses ?
 
-```
-COBB
-
-There’s something you have to understand about me. About inception. You see, an idea is like a virus…
-
-Cobb leads her out of the lift…
-
-INT. PENTHOUSE (LIMBO) – CONTINUOUS
-
-Cobb and Ariadne step off the lift and into the incongruous interior of a craftsman house. They cautiously move down the corridor towards the back of the house…
-
-COBB
-
-Resilient…
-
-(turns to Ariadne)
-
-Highly contagious, and an idea can grow. The smallest seed of an idea can grow to define or destroy your world…
-
-Cobb is staring into the kitchen. Mal is sitting at the table, back to them, staring out at the porch- the TOWERS of Limbo stretching off behind it.
-
-MAL
-
-The smallest idea, such as… « Your world is not real. »
-```
+> **COBB**
+>
+> There’s something you have to understand about me. About inception. You see, an idea is like a virus…
+>
+> Cobb leads her out of the lift…
+>
+> **INT. PENTHOUSE (LIMBO) – CONTINUOUS**
+>
+> Cobb and Ariadne step off the lift and into the incongruous interior of a craftsman house. They cautiously move down the corridor towards the back of the house…
+>
+> **COBB**
+>
+> Resilient…
+>
+> (turns to Ariadne)
+>
+> Highly contagious, and an idea can grow. The smallest seed of an idea can grow to define or destroy your world…
+>
+> Cobb is staring into the kitchen. Mal is sitting at the table, back to them, staring out at the porch- the TOWERS of Limbo stretching off behind it.
+>
+> **MAL**
+>
+> The smallest idea, such as… « Your world is not real. »
