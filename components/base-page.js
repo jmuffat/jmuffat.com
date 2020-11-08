@@ -8,7 +8,7 @@ import Nav from './nav';
 function BasePage(props){
   const router = useRouter()
   return (
-    <div>
+    <div className="accept-youtube">
       <Head>
         <title>{props.title || "jmuffat"}</title>
 

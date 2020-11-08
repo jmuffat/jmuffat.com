@@ -12,8 +12,7 @@ function tokenizeVideo(md,options) {
     const pageURL  = `https://www.youtube.com/watch?v=${videoID}`;
     const imageURL = `https://img.youtube.com/vi/${videoID}/0.jpg`
 
-    if (options.acceptYoutube) {
-      return `
+    return `
 <div class="embed-responsive embed-responsive-16by9">
   <iframe
     class="embed-responsive-item ${service}-player"
@@ -25,15 +24,6 @@ function tokenizeVideo(md,options) {
     webkitallowfullscreen mozallowfullscreen allowfullscreen>
   </iframe>
 </div>`;
-    }
-    else {
-      return `
-<div class="without-accept-youtube">
-  <img src="${imageURL}"/>
-  <a href="${pageURL}" target="_blank">${pageURL}</a><br/>
-  <small>to view videos directly on this page, your <a href="/cookies">consent</a> is necessary.</small>
-</div>`;
-    }
   }
 }
 
