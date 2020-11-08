@@ -3,6 +3,22 @@ title: Programmer, sans coder
 date: '2019-06-20'
 author: jmm
 ---
-Les languages de programmation évoluent, mais une chose reste constante : ils se présentent principalement sous la forme de fichiers texte à la syntaxe extrêmement rigoureuse. Programmer, c’est avant de faire quoi que ce soit, s’assurer que chaque parenthèse, chaque accolade ouverte est bien fermée, coder c’est vérifier d’abord que tous les point-virgules nécessaires sont […]
 
-(content was lost)
+Les languages de programmation évoluent, mais une chose reste constante : ils se présentent principalement sous la forme de fichiers texte à la syntaxe extrêmement rigoureuse. Programmer, c'est avant de faire quoi que ce soit, s’assurer que chaque parenthèse, chaque accolade ouverte est bien fermée, coder c'est vérifier d'abord que tous les point-virgules nécessaires sont bien là... Je ne m'en rend plus compte, je fais ça mécaniquement, mes doigts se sont comme programmés à cet exercice. Il y a cependant quelque chose d'archaïque à continuer à saisir du code, au 21e siècle, quand l'informatique a révolutionné tous les autres métiers.
+
+Il y a eu de nombreuses tentatives pour remplacer cette représentation textuelle par des diagrammes ou autres représentations graphiques. Il y a longtemps, il m’est arrivé d’utiliser un normographe pour tracer des organigrammes. Plus tard, des interfaces graphiques ont été créées pour coder sous forme de diagrammes, comme dans [Houdini](http://www.sidefx.com/docs/houdini/basics/intro.html), [Maya](http://help.autodesk.com/view/MAYALT/2019/ENU/?guid=GUID-EBC629FE-0075-42BF-816F-9DEFFD17D6FC) ou [Substance Designer](https://docs.substance3d.com/sddoc/the-graph-view-129368149.html). Des représentations graphiques sont courantes pour représenter des schémas de bases de données, l’architecture d’un système ([UML](https://www.nomagic.com/products/magicdraw#screenshots) notamment) ou, plus récemment, le [dataflow](https://www.tensorflow.org/guide/graphs) d’un réseau de deep-learning. Dans l’ensemble de ces cas, on a l’impression de regarder un schéma électronique, une usine à gaz et aucune vision synthétique ne semble véritablement émerger qui soit supérieure à la représentation textuelle : la programmation paraît condamnée à un certain niveau de complexité.
+
+<!-- wp:image {"id":79} -->
+<figure class="wp-block-image"><img src="https://jmuffat.com/wp-content/uploads/2019/06/houdini.png" alt="" class="wp-image-79"/><figcaption>The Houdini Node System - by <a href="http://www.sidefx.com/docs/houdini/basics/intro.html" target="_blank" rel="noreferrer noopener" aria-label="SideFx (s’ouvre dans un nouvel onglet)">SideFx</a></figcaption></figure>
+<!-- /wp:image -->
+
+
+Pourtant, une des promesses du micro-ordinateur, c’était la possibilité pour tout un chacun de coder. Le language [BASIC](https://www.youtube.com/watch?v=pqAg0GJLPGk) n’avait pas d’autre objectif : être un langage à tout faire, pour débutant. Aujourd’hui, pour s’initier à la programmation, on commencera par bidouiller du HTML, on tentera d’apprendre un peu de JavaScript et, inévitablement, l’expérience se révèlera simplement frustrante.
+
+Il y a cependant un outil qui permet aux utilisateurs de parvenir à un résultat satisfaisant sans tous ces efforts : le tableur. [Visicalc](http://www.bricklin.com/history/saiidea.htm) est la killer-app qui a propulsé l’Apple][ dans le monde de l’entreprise au début des années 80. Avec cet outil, on peut modéliser et analyser des problèmes très complexes, étudier des alternatives sans recommencer tous les calculs, on prend une longueur d’avance. **Sans savoir programmer.** Pourtant, il s’agit de la même chose : des données en entrée, des données en sortie et des opérations au milieu. On ne le voit pas parce que, pendant tout ce temps, les outils de programmation se sont focalisés sur le code et ont établi une ségrégation d’avec les données (au prétexte du principe de « separation of concerns »). Les tableurs, eux se sont focalisés sur les données et n’ont pas su proposer de structures permettant de modéliser tests, boucles, fonctions ou sous-programmes.
+
+@[youtube](IU96Pd_npn4)
+
+C’est cette idée qui me trotte dans la tête depuis quelques années : développer un outil qui ressemble à un tableur, un "visual calculator" qui présente des résultats plutôt que des symboles et des formules, qui permette à tout un chacun de _créer des programmes, sans coder_.
+
+La prochaine fois, je vous parlerai des autres raisons qui me font penser que, même si l’on n’est plus débutant, il est temps de passer à ce niveau d’abstraction supplémentaire. Et, si le vent le veux, j’espère bien faire quelques expériences pratiques, voir à quoi ça pourrait ressembler...

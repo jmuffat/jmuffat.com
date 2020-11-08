@@ -1,12 +1,12 @@
 ---
 title: 'Inception, en réalité…'
-date: '2019-03-30'
+date: '2019-08-30'
 author: jmm
 ---
 
 >
 > Quand ton personnage est dans la scène, c’est la réalité.
-> 
+>
 
 C’est ce que Christopher Nollan a dit à Michael Caine, quand il lui a posé la question de ce qui est réel dans le film. Quand j’ai entendu cela, j’ai trouvé que c’était tout bêtement de la direction d’acteur : quelque soit l’interprétation qu’on fait du film, le rôle de Miles se joue sans se préoccuper de cette question de réalité.
 

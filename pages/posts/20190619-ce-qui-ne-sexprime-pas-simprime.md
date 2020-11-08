@@ -3,6 +3,18 @@ title: '« Ce qui ne s’exprime pas s’imprime »'
 date: '2019-06-20'
 author: jmm
 ---
-J’entendais une femme quasiment chanter cette maxime à une autre sur le quai de la gare… Elles revenaient sur une discussion où quelque chose d’important avait été dit, ce qu’on aurait appelé autrefois « vider son sac », une « discussion franche et honnête » ou « je lui ai dis ses quatre vérités ». Mais elles n’en parlaient pas comme […]
 
-(content was lost)
+J'entendais une femme quasiment chanter cette maxime à une autre sur le quai de la gare... Elles revenaient sur une discussion où quelque chose d'important avait été dit, ce qu'on aurait appelé autrefois _"vider son sac"_, une _"discussion franche et honnête"_ ou _"je lui ai dis ses quatre vérités"_. Mais elles n'en parlaient pas comme cela et cette forme de maxime est sortie, dite sur le ton d'une comptine enfantine. Ça a conclu leur discussion.
+
+Pourtant, pour ma part, c'est tout un train de pensées qui est entré en gare !
+
+
+Qu'est-ce qui fait qu'on accorde tant de crédit à une petite phrase comme celle-ci ? Il y a indéniablement un facteur esthétique, ce fait que ça puisse se chanter, une bonne maxime a un rythme, une sonorité, elle invite à une théâtralité. Il y a une structure aussi qui fait que c'est à la fois simple et complet, à une bonne maxime il n'y a rien à ajouter. C'est un petit objet bien rond, parfait sous tous les angles, péremptoire mais charmant. En un sens, ça a les mêmes propriétés qu'un trait d'humour, l'esprit se régale de la quantité de sens dans une si courte formule.
+
+Et, ainsi, la maxime accède au rang de vérité. L'habileté apparaît comme de la sagesse, cette petite merveille de symétrie se doit, en plus, de renfermer un secret. Séduit par cette beauté, on accepte le message.
+
+Pourtant.
+
+Mon expérience personnelle, c'est qu'une fois qu'une chose est dite, elle prend corps. Une fois qu'une chose est dite, on a du mal à revenir dessus : _c'est dit !_ Mon expérience c'est qu'un projet n'a pas véritablement commencé tant qu'on ne l'a pas baptisé, qu'il devient réel dès lors qu'on lui donne un nom et, à ce moment là, il prend une vie propre : les dés en sont jetés. Avant cela, il flottait dans le royaume nébuleux des idées, ça trottait dans la tête, bribes incomplètes, malléables et changeantes. Et puis, un jour on sait lui donner un nom, et _"ça prend forme"_. Et tout cela peut se généraliser à la pensée quand elle s'applique à d'autres enjeux que les projets.
+
+Alors, si _"ce qui ne s'exprime pas s'imprime"_, il se trouve aussi que _"ce qui s'exprime s'incarne..."_. En fin de compte, je n'aime pas tellement les maximes ou les citations : ce sont des raccourcis de l'esprit, elles masquent autant qu'elles révèlent.
