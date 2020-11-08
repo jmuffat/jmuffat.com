@@ -1,0 +1,17 @@
+---
+title: How I decided to become an entrepreneur
+date: '2020-03-06'
+author: jmm
+---
+
+Episode #2 of my story starting [here](/posts/20200304-my-first-paid-job).
+
+By the mid-80’s, when my friends were making pocket money by giving lessons to kids, I started writing programs for my friends’ parents. After IBM had made micro-computers a serious thing, everybody was buying PC’s; only to realise you could only go so far with BASIC or Multiplan. Most of the time, they were artisans or small businesses wanting to automate invoices, quotes, a bit of stock management. Nothing too complex on the surface although I faced straight away the bane of software development: nobody wants to do things exactly the same way and, with flexibility comes complexity.
+
+At that time, I was at University studying towards a Maths+Physics degree that would give me access to the Computer Science cursus I was after. There was a computer course as part of that and, since I had already taught myself Pascal, the teacher let me attend the 2nd year courses straight away. I wasn’t so keen on thermodynamics or quantum physics or clever calculus methods, instead I was spending my time in the computer labs, making use of as much screen time as I could get. Several teachers gave me a hand even though I was a bit of a stowaway, there was a beautiful spirit of discovery and exploration because the PC, and the Macintosh, were such new things at the time that we were all learning from each other’s experiments.
+
+As my project, I had chosen to look at the problem of Hidden Line Removal. High resolution graphics back then was about wireframe rendering at 720×350, monochrome (as in black or green). Which, on a 10MHz processor with a few hundred kilobytes of RAM turns out to be quite challenging. As a matter of fact, it turns out quite challenging whatever the hardware because the base operation is about splitting segments across their intersections in image space and, as the face count grows, number of intersections increase, and resulting segments become smaller and smaller. You quickly run into numerical precision problems. So, as always with computers, the solution is to avoid having to do the calculations in the first place and leverage special cases wherever possible. After a couple of years of that I still hadn’t managed to get that Math+Physics degree but I had become very experienced with 3D graphics.
+
+There came a point where I had to chose between those jobs I was doing on the side and university: I had reached the revenue threshold where I needed to do proper invoices and declarations, pay taxes and act as a professional. There was also this opportunity I was seeing with the father of a friend: he had a furniture store specialised in made-to-measure cabinets, he needed a program to compute all parts required (boards, hinges, handles, screws…) and print quotes and invoices. I created a graphics UI for him that let him just draw the project and let the computer worry about what parts were needed. It printed parts lists, made quotes, and… displayed a 3D representation of the resulting layout. His store was a franchise, no doubt I would be able to sell the software to the other stores, no doubt I would be able to sell the concept to other interior design companies. My mind was set, I can do this, I will, enough with these tensors, laplacians and wave functions: I’m not a scientist, I am an Entrepreneur !
+
+Partagez15
