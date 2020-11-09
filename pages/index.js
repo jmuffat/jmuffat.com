@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link'
 import BasePage from '~/components/base-page';
 
-export default function (props) {
+function Home(props) {
   return (
     <BasePage>
       <br/>
@@ -15,3 +15,5 @@ export default function (props) {
     </BasePage>
   );
 }
+
+export default Home
