@@ -2,6 +2,7 @@
 title: Use what you sell, sell what you use
 date: '2020-05-07'
 author: jmm
+thread: jmm-story
 ---
 
 Episode #7 of my story starting [here](/posts/20200304-my-first-paid-job).

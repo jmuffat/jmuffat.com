@@ -2,6 +2,7 @@
 title: 'Inception : la réalité, quelle réalité ?'
 date: '2019-08-13'
 author: jmm
+thread: inception
 ---
 Dans la [première partie](/posts/20190808-inception-la-realite-en-tant-quidee-obsolete) de cette série d’articles, j’aimais bien l’idée que la réalité ne soit pas montrée dans le film, que Cobb soit toujours « dans les limbes », mais quid de Mal, alors ?
 

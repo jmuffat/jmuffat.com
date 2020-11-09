@@ -2,6 +2,7 @@
 title: My first paid job
 date: '2020-03-04'
 author: jmm
+thread: jmm-story
 ---
 
 After almost twelve years at Intel, the company has decided to let me go. Like I often say, with a job at an American company, the ejector seat is fitted as standard; so, no hard feelings. It feels quite strange, though, to sit down and put a CV together at this stage in my career: there is so much I want to talk about ! Which led me to something obvious: why not blog about it? So, here we go, first post in a series where I will look back at past projects and the learnings I took from them.

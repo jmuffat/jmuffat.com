@@ -2,6 +2,7 @@
 title: 'Inception, la réalité en tant qu’idée obsolète'
 date: '2019-08-08'
 author: jmm
+thread: inception
 ---
 
 La première fois que j'ai vu Inception, c'était dans un avion à destination des USA... Comme souvent, je me suis endormi rapidement et je me suis réveillé vers la fin, juste à temps pour voir l'équipe se réveiller dans un avion, passer l'immigration et... FIN. Comme il restait du temps de vol, j'ai repris le film vers où j'avais dû m'endormir et ainsi de suite : ma première fois, ça a été dans le désordre et à bord d'un avion, ce qui a résulté en un grand effet de confusion, cela va sans dire...

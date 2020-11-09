@@ -2,6 +2,7 @@
 title: How I decided to become an entrepreneur
 date: '2020-03-06'
 author: jmm
+thread: jmm-story
 ---
 
 Episode #2 of my story starting [here](/posts/20200304-my-first-paid-job).

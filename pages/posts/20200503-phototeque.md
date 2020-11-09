@@ -2,6 +2,7 @@
 title: Phototèque
 date: '2020-05-03'
 author: jmm
+thread: jmm-story
 ---
 
 Episode #6 of my story starting [here](/posts/20200304-my-first-paid-job).
@@ -12,7 +13,7 @@ The first thing I did was make a program to print these photos on the few color 
 
 The Phototèque software I wrote at the time, really was mostly a simple database system referencing files, sorting by time, place and keywords. The simple fact it could display and print images was a big thing. The most interesting feature, retrospectively, was the keyword system where users would only assign the most precise keywords they could think of, and group similar keywords later as the need would arise. This progressively created a tree, organically, as the collection grew. The strength of that system was in changing the problem from that of sorting hundreds of photos to that of sorting dozens of keywords. That observation is still valid today, with the only caveat that what I thought was a tree really is a graph.
 
-We targeted a number of professions, starting from our existing customers doing Insurance Expertise as their reports require photos. We pitched the added value of photos to Real Estate agencies. We even talked to an art museum. But, hey, it wasn't even 1990, the quality wasn't there, the cost was over the roof and people could just not picture it yet... Definitely too early on this one. 
+We targeted a number of professions, starting from our existing customers doing Insurance Expertise as their reports require photos. We pitched the added value of photos to Real Estate agencies. We even talked to an art museum. But, hey, it wasn't even 1990, the quality wasn't there, the cost was over the roof and people could just not picture it yet... Definitely too early on this one.
 
 
 

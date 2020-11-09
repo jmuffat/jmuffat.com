@@ -2,6 +2,7 @@
 title: A rewrite takes about a quarter of the time
 date: '2020-03-09'
 author: jmm
+thread: jmm-story
 ---
 
 Episode #3 of my story starting [here](/posts/20200304-my-first-paid-job).

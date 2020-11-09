@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import matter from 'gray-matter'
 
@@ -9,6 +10,7 @@ import ShareButton from './share-button';
 import {getPost, getAllPosts} from '~/lib/compile-posts';
 
 import authors from '~/data/authors.json'
+import threads from '~/data/threads.json'
 
 function getCoverImage(post) {
   const cover = post.coverImage
@@ -47,13 +49,44 @@ function Author(props) {
   );
 }
 
+function ThreadPost(props) {
+  const {current,post} = props
+
+  if (current.slug===post.slug) {
+    return <span><strong>{post.title}</strong></span>
+  }
+
+  return (
+    <span><Link href={`./${post.slug}`}>{post.title}</Link></span>
+  )
+}
+
+function Thread(props) {
+  const {post} = props
+  const {threadPosts} = post
+
+  if (!threadPosts || !threadPosts.length) return null;
+
+  const title = threads[post.thread]?.title || post.thread || 'Thread'
+
+  return (
+    <>
+      <h3>{title}</h3>
+      <ol>
+      {threadPosts.map(a=><li key={a.slug}><ThreadPost current={post} post={a}/></li>)}
+      </ol>
+    </>
+  )
+}
+
 export function PostPage(props) {
 
   const { data, content } = matter(props.md)
 
   const post = {
     ...data,
-    slug:props.slug
+    slug:props.slug,
+    threadPosts:props.threadPosts
   };
 
   const date = new Date(post.date)
@@ -100,7 +133,7 @@ export function PostPage(props) {
       <Author author={author} date={strDate}/>
 
       <div className="more">
-        {/*More posts...*/}
+        <Thread post={post} />
       </div>
     </BasePage>
   );
