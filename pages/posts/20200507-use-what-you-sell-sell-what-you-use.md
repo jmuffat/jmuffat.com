@@ -1,5 +1,6 @@
 ---
 title: Use what you sell, sell what you use
+coverImage: /img/bluelib.jpg
 date: '2020-05-07'
 author: jmm
 thread: jmm-story

@@ -1,5 +1,6 @@
 ---
 title: 'Inception : la réalité, quelle réalité ?'
+coverImage: /img/img_0719.jpg
 date: '2019-08-13'
 author: jmm
 thread: inception

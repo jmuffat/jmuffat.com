@@ -1,5 +1,6 @@
 ---
 title: '« Ce qui ne s’exprime pas s’imprime »'
+coverImage: /img/exprime-imprime.jpg
 date: '2019-06-20'
 author: jmm
 thread: rant

@@ -1,5 +1,6 @@
 ---
 title: You have to be a good salesman
+coverImage: /img/floppy-folder.jpg
 date: '2020-03-24'
 author: jmm
 thread: jmm-story

@@ -1,5 +1,6 @@
 ---
 title: 'Inception, toujours plus de réalités…'
+coverImage: /img/img_0738.jpg
 date: '2019-08-20'
 author: jmm
 thread: inception

@@ -1,5 +1,6 @@
 ---
 title: Histoires de Renards
+coverImage: /img/img_0612.png
 date: '2019-07-12'
 author: jmm
 ---

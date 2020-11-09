@@ -1,5 +1,6 @@
 ---
 title: Programmer, sans coder
+_coverImage: /img/houdini.png
 date: '2019-06-20'
 author: jmm
 ---
@@ -8,10 +9,7 @@ Les languages de programmation évoluent, mais une chose reste constante : ils s
 
 Il y a eu de nombreuses tentatives pour remplacer cette représentation textuelle par des diagrammes ou autres représentations graphiques. Il y a longtemps, il m’est arrivé d’utiliser un normographe pour tracer des organigrammes. Plus tard, des interfaces graphiques ont été créées pour coder sous forme de diagrammes, comme dans [Houdini](http://www.sidefx.com/docs/houdini/basics/intro.html), [Maya](http://help.autodesk.com/view/MAYALT/2019/ENU/?guid=GUID-EBC629FE-0075-42BF-816F-9DEFFD17D6FC) ou [Substance Designer](https://docs.substance3d.com/sddoc/the-graph-view-129368149.html). Des représentations graphiques sont courantes pour représenter des schémas de bases de données, l’architecture d’un système ([UML](https://www.nomagic.com/products/magicdraw#screenshots) notamment) ou, plus récemment, le [dataflow](https://www.tensorflow.org/guide/graphs) d’un réseau de deep-learning. Dans l’ensemble de ces cas, on a l’impression de regarder un schéma électronique, une usine à gaz et aucune vision synthétique ne semble véritablement émerger qui soit supérieure à la représentation textuelle : la programmation paraît condamnée à un certain niveau de complexité.
 
-<!-- wp:image {"id":79} -->
-<figure class="wp-block-image"><img src="https://jmuffat.com/wp-content/uploads/2019/06/houdini.png" alt="" class="wp-image-79"/><figcaption>The Houdini Node System - by <a href="http://www.sidefx.com/docs/houdini/basics/intro.html" target="_blank" rel="noreferrer noopener" aria-label="SideFx (s’ouvre dans un nouvel onglet)">SideFx</a></figcaption></figure>
-<!-- /wp:image -->
-
+![Houdini](/img/houdini.png)
 
 Pourtant, une des promesses du micro-ordinateur, c’était la possibilité pour tout un chacun de coder. Le language [BASIC](https://www.youtube.com/watch?v=pqAg0GJLPGk) n’avait pas d’autre objectif : être un langage à tout faire, pour débutant. Aujourd’hui, pour s’initier à la programmation, on commencera par bidouiller du HTML, on tentera d’apprendre un peu de JavaScript et, inévitablement, l’expérience se révèlera simplement frustrante.
 

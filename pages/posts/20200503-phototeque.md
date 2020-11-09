@@ -1,5 +1,6 @@
 ---
 title: Phototèque
+coverImage: /img/canon-ion.jpg
 date: '2020-05-03'
 author: jmm
 thread: jmm-story

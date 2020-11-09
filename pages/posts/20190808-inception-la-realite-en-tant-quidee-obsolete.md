@@ -1,5 +1,6 @@
 ---
 title: 'Inception, la réalité en tant qu’idée obsolète'
+coverImage: /img/img_0716.jpg
 date: '2019-08-08'
 author: jmm
 thread: inception

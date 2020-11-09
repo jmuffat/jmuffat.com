@@ -1,5 +1,6 @@
 ---
 title: A rewrite takes about a quarter of the time
+coverImage: /img/ip20.jpg
 date: '2020-03-09'
 author: jmm
 thread: jmm-story
