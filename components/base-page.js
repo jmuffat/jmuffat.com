@@ -23,8 +23,7 @@ function BasePage(props){
         <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png"/>
         <link rel="apple-touch-icon" sizes="72x72"   href="/apple-icon-72x72.png"/>
 
-        <meta property="og:site_name" content="Mirandola" />
-        <meta property="og:locale" content="en_GB" />
+        <meta property="og:site_name" content="jmuffat.com" />
       </Head>
 
       <header><Nav/></header>
