@@ -2,6 +2,17 @@ const path = require('path');
 
 const pagesFolder = path.resolve(__dirname,'pages')
 
+async function redirects() {
+  // old blog used this format : /2020/03/04/my-first-paid-job
+  return [
+    {
+      source: '/:yy(\\d{1,})/:mm(\\d{1,})/:dd(\\d{1,})/:slug',
+      destination: '/posts/:yy:mm:dd-:slug',
+      permanent: false
+    }
+  ]
+}
+
 module.exports = {
   env: {
     ROOT: path.resolve(process.cwd())
@@ -44,4 +55,6 @@ module.exports = {
 
     return config
   },
+
+  redirects
 }
