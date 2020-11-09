@@ -59,6 +59,7 @@ body {
   font-family: $font-stack;
   font-weight: 300;
   background-color: $color5;
+  display: inline-block;
 }
 
 footer {
@@ -107,7 +108,7 @@ blockquote {
 
 @media (min-width:$width-medium) {
   body {
-    display:block;
+    display: block;
   }
 
   .container {
