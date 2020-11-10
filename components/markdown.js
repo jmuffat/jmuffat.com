@@ -1,5 +1,6 @@
 import React from 'react';
 import MarkdownIt from 'markdown-it';
+import ContainerPlugin from 'markdown-it-container'
 import Video from './mdit-video';
 
 function rewriteLink(token) {
@@ -27,6 +28,22 @@ function Markdown(props) {
     prezi: { width: 550, height: 400 }
   });
 
+  md.use(ContainerPlugin, 'metadata', {
+    validate: params => params.trim().match(/^metadata\s*(.*)$$/),
+    render: (tokens, idx) => {
+      const titleMatch = tokens[idx].info.trim().match(/^metadata\s+(.*)$/);
+      const title = titleMatch? titleMatch[1] : 'Metadata'
+      
+      if (tokens[idx].nesting === 1) {
+        // opening tag
+        return `<div class="post-metadata"><h3>${title}</h3><code><pre>\n`;
+      } else {
+        // closing tag
+        return '</pre></code></div>\n';
+      }
+    }
+  });
+
   const old_render = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
     return self.renderToken(tokens, idx, options);
   };
@@ -35,6 +52,8 @@ function Markdown(props) {
     rewriteLink(tokens[idx])
     return old_render(tokens, idx, options, env, self);
   };
+
+
 
   const markup = {__html: md.render(props.md)};
 

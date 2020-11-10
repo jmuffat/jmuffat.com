@@ -16,12 +16,11 @@ I went for a solution that would be really easy to carry around, I told them the
 
 After this project, there was no question: « this is what I do ». I was useful to society, I experienced this feeling of achievement, people trusted me ! To this day, this remains my drive: being trusted with a problem to solve, and cracking it.
 
-:: metadata
-Historical Metadata
+::: metadata Historical metadata
 Year: 1982
 OS: n/a
 CPU: custom 4bits,0.25MHz,1C1T
 GPU: n/a
 RAM: 1.5KB(?!) Storage: n/a
 Connectivity: cassette tapes
-::
+:::

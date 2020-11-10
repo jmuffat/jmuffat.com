@@ -20,7 +20,7 @@ That version 2.0 was looking amazing plus, Moore’s law to the rescue, it ran e
 
 The irony is that they did not really need all this rendering, the actual business need was the parts lists necessary to all quotes and invoices. I was focusing too much on the graphics side of it, and they did too… Around the same time, I was contracted by a kitchens store and when I had shown them _ipdraw_, they said _« that’s exactly what we need, except the graphics »_ : they had professional draftsmen who drew plans to drool for. This ended up being much better business, much better customer satisfaction and really good reuse of code…
 
-:: metadata
+::: metadata Historical metadata
 Year: 1986
 OS: MS-DOS
 CPU: 8086 8/16bits,8MHz,1C1T
@@ -28,4 +28,4 @@ GPU: Hercules
 RAM: 640KB Storage: 20MB
 Connectivity: 360KB Floppy disks
 Language: v1 Pascal; v2 C
-::
+:::

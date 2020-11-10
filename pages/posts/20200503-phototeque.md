@@ -16,6 +16,4 @@ The Phototèque software I wrote at the time, really was mostly a simple databas
 
 We targeted a number of professions, starting from our existing customers doing Insurance Expertise as their reports require photos. We pitched the added value of photos to Real Estate agencies. We even talked to an art museum. But, hey, it wasn't even 1990, the quality wasn't there, the cost was over the roof and people could just not picture it yet... Definitely too early on this one.
 
-
-
 I keep coming back to this topic, though, so it was never too early. Hardware evolves, we always have more storage, better displays, an absolutely amazing camera in our pocket at all times and the issue remains : looking for a specific photo isn't very much easier than when prints used to live in shoeboxes. This is actually the reason why I haven't taken much time to continue telling my story for a while, I have started coding again on this very topic and I'm quite excited with the results ! More about this in a few weeks, I hope...
