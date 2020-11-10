@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "gray-matter": "^4.0.2",
+    "image-size": "^0.9.3",
     "markdown-it": "^11.0.1",
     "next": "^10.0.1",
     "react": "^17.0.1",

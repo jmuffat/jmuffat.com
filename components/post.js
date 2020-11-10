@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 import matter from 'gray-matter'
 
 import BasePage from './base-page';
@@ -117,7 +118,7 @@ export function PostPage(props) {
 
       {coverImage && (
         <div className="cover">
-          <img src={coverImage}/>
+          <Image src={post.coverImage} width={props.coverSize.w} height={props.coverSize.h}/>
         </div>
       )}
 
