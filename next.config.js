@@ -8,7 +8,7 @@ async function redirects() {
     {
       source: '/:yy(\\d{1,})/:mm(\\d{1,})/:dd(\\d{1,})/:slug',
       destination: '/posts/:yy:mm:dd-:slug',
-      permanent: false
+      permanent: true
     }
   ]
 }
