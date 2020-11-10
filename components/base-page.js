@@ -31,8 +31,8 @@ function BasePage(props){
         <section className="page-content">{props.children}</section>
         <footer>
           <small><Link href="/privacy-policy"><a>Privacy Policy</a></Link></small><br/>
-          <small>site créé par Jérôme Muffat-Méridol, hébergé par <a href="https://vercel.com/" target="_blank">vercel.com</a></small>
-          {/*<small><Link href="/cookies"><a>Cookies consent</a></Link></small>*/}
+          <small><Link href="/attribution"><a>Attribution</a></Link></small><br/>
+          <small>site créé par Jérôme Muffat-Méridol, hébergé par <a href="https://vercel.com/" target="_blank">vercel.com</a></small><br/>
         </footer>
       </div>
     </div>

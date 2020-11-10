@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link'
+
 import BasePage from '~/components/base-page';
+import CVDownload from '~/components/cvjmm';
 
 function Home(props) {
   return (
@@ -12,6 +14,10 @@ function Home(props) {
         <div id="title">jmuffat</div>
         <div id="subtitle">what can be done can be done better</div>
       </div>
+
+      <br/>
+      <br/>
+      <CVDownload/>
     </BasePage>
   );
 }
