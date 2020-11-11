@@ -80,6 +80,24 @@ function Thread(props) {
   )
 }
 
+function HistoricMetadata(props) {
+  const metadata = props.metadata?.historicMetadata
+  if (!metadata) return null;
+
+  return (
+    <>
+      <h3>Metadata</h3>
+      <code>
+        <ul>
+        {Object.keys(metadata).map((item,idx)=>(
+          <li key={idx}>{item} : {metadata[item]}</li>
+        ))}
+        </ul>
+      </code>
+    </>
+  )
+}
+
 export function PostPage(props) {
 
   const { data, content } = matter(props.md)
@@ -128,6 +146,7 @@ export function PostPage(props) {
 
       <div className="content">
         <Markdown md={content}/>
+        <HistoricMetadata metadata={data}/>
         <ShareButton title={post.title} text={post.excerpt} url={canonicalURL} />
       </div>
 

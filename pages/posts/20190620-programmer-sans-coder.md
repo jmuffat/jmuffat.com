@@ -15,7 +15,7 @@ Pourtant, une des promesses du micro-ordinateur, c’était la possibilité pour
 
 Il y a cependant un outil qui permet aux utilisateurs de parvenir à un résultat satisfaisant sans tous ces efforts : le tableur. [Visicalc](http://www.bricklin.com/history/saiidea.htm) est la killer-app qui a propulsé l’Apple][ dans le monde de l’entreprise au début des années 80. Avec cet outil, on peut modéliser et analyser des problèmes très complexes, étudier des alternatives sans recommencer tous les calculs, on prend une longueur d’avance. **Sans savoir programmer.** Pourtant, il s’agit de la même chose : des données en entrée, des données en sortie et des opérations au milieu. On ne le voit pas parce que, pendant tout ce temps, les outils de programmation se sont focalisés sur le code et ont établi une ségrégation d’avec les données (au prétexte du principe de « separation of concerns »). Les tableurs, eux se sont focalisés sur les données et n’ont pas su proposer de structures permettant de modéliser tests, boucles, fonctions ou sous-programmes.
 
-@[youtube](IU96Pd_npn4)
+[@youtube](IU96Pd_npn4)
 
 C’est cette idée qui me trotte dans la tête depuis quelques années : développer un outil qui ressemble à un tableur, un "visual calculator" qui présente des résultats plutôt que des symboles et des formules, qui permette à tout un chacun de _créer des programmes, sans coder_.
 

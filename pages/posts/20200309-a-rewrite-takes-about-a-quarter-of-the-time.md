@@ -4,6 +4,15 @@ coverImage: /img/ip20.jpg
 date: '2020-03-09'
 author: jmm
 thread: jmm-story
+historicMetadata:
+  Year: 1986
+  OS: MS-DOS
+  CPU: 8086 8/16bits,8MHz,1C1T
+  GPU: Hercules
+  RAM: 640KB
+  Storage: 20MB
+  Connectivity: 360KB Floppy disks
+  Language: v1 Pascal; v2 C
 ---
 
 Episode #3 of my story starting [here](/posts/20200304-my-first-paid-job).
@@ -19,13 +28,3 @@ I had no idea how to do the plotter thing (I knew proper Hidden Lines Removal wa
 That version 2.0 was looking amazing plus, Moore’s law to the rescue, it ran exceptionally fast on the shiny new generation of PC’s… But let’s go back to that business lesson I was talking about. I had taken upon myself to do the development on my funds, hoping to sell the software by the dozen once it was ready, but every time I was thinking « this is _the_ version », there was a complaint about some special item in the catalog that could not be rendered. I think I finally realised this would never end when they required rounded corner desks… I had made a classic mistake: I was working for free and they were trying to make the most of it. Always make sure your client has a stake in the project, make sure that there is _both_ common interest and common risk.
 
 The irony is that they did not really need all this rendering, the actual business need was the parts lists necessary to all quotes and invoices. I was focusing too much on the graphics side of it, and they did too… Around the same time, I was contracted by a kitchens store and when I had shown them _ipdraw_, they said _« that’s exactly what we need, except the graphics »_ : they had professional draftsmen who drew plans to drool for. This ended up being much better business, much better customer satisfaction and really good reuse of code…
-
-::: metadata Historical metadata
-Year: 1986
-OS: MS-DOS
-CPU: 8086 8/16bits,8MHz,1C1T
-GPU: Hercules
-RAM: 640KB Storage: 20MB
-Connectivity: 360KB Floppy disks
-Language: v1 Pascal; v2 C
-:::
