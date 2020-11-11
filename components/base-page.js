@@ -7,6 +7,8 @@ import Nav from './nav';
 
 function BasePage(props){
   const router = useRouter()
+  const sectionClassName = props.extraClass? 'page-content '+props.extraClass : 'page-content'
+
   return (
     <div className="accept-youtube">
       <Head>
@@ -28,7 +30,9 @@ function BasePage(props){
 
       <header><Nav/></header>
       <div className={props.className || "container"}>
-        <section className="page-content">{props.children}</section>
+        <section className={sectionClassName}>
+          {props.children}
+        </section>
         <footer>
           <small><Link href="/privacy-policy"><a>Privacy Policy</a></Link></small><br/>
           <small><Link href="/attribution"><a>Attribution</a></Link></small><br/>

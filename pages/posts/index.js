@@ -9,12 +9,12 @@ function Post(props) {
   const {post,folder} = props
 
   const date = new Date(post.date)
-  const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
   const strDate = date.toLocaleDateString('en-us',options)
 
   return (
     <>
-      <small>{strDate}</small>&nbsp;
+      <span className="post-date">{strDate}</span>&nbsp;&nbsp;&nbsp;
       <Link href={`/${folder}/${post.slug}`}>
         <a>
           {post.title}
@@ -56,7 +56,7 @@ function Uncategorized(props) {
 
 function Page(props) {
   return (
-    <BasePage title="Posts">
+    <BasePage title="Posts" extraClass="post-toc">
       <h1>Posts</h1>
       {Object.keys(threads).map(t=><Thread id={t} {...props}/>)}
       <Uncategorized {...props}/>
