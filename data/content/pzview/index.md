@@ -1,5 +1,5 @@
 ---
-title: pzview
+title: pzView
 coverImage: /pzview/pzview.png
 ---
 
@@ -20,4 +20,4 @@ tablets](https://www.youtube.com/watch?v=qFVH9egfPcA) amongst other things.
 
 In 2020, I was part of a round of redundancies. Intel gave me permission to
 keep creating derivative works of the concept and, putting confinement time to
-good use, bringing pan+zoom to iPhone/iPad's photo library. 
+good use, I've been bringing pan+zoom to iPhone/iPad's photo library.
