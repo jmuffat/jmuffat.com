@@ -62,12 +62,16 @@ function ThreadPost(props) {
   )
 }
 
+function postHasThread(post) {
+  const {threadPosts} = post
+  return threadPosts && threadPosts.length
+}
+
 function Thread(props) {
   const {post} = props
+  if (!postHasThread(post)) return null;
+
   const {threadPosts} = post
-
-  if (!threadPosts || !threadPosts.length) return null;
-
   const title = threads[post.thread]?.title || post.thread || 'Thread'
 
   return (
@@ -98,7 +102,7 @@ function HistoricMetadata(props) {
   )
 }
 
-export function PostPage(props) {
+function PostPage(props) {
 
   const { data, content } = matter(props.md)
 
@@ -136,7 +140,7 @@ export function PostPage(props) {
 
       {coverImage && (
         <div className="cover">
-          <Image src={post.coverImage} width={props.coverSize.w} height={props.coverSize.h}/>
+          <Image className="cover-image" src={post.coverImage} width={props.coverSize.w} height={props.coverSize.h}/>
         </div>
       )}
 
@@ -147,14 +151,19 @@ export function PostPage(props) {
       <div className="content">
         <Markdown md={content}/>
         <HistoricMetadata metadata={data}/>
+        {props.children}
         <ShareButton title={post.title} text={post.excerpt} url={canonicalURL} />
       </div>
 
       <Author author={author} date={strDate}/>
 
-      <div className="more">
-        <Thread post={post} />
-      </div>
+      {postHasThread(post) && (
+        <div className="more">
+          <Thread post={post} />
+        </div>
+      )}
     </BasePage>
   );
 }
+
+export default PostPage
