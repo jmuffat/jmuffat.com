@@ -7,4 +7,5 @@ author: 'jmm'
 ---
 
 
-Télécharger : [webphotomag #4](/webphotomag/webphotomag_4_fr.pdf)
+Télécharger :
+- [webphotomag #4 [EN]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_4.pdf)

@@ -18,5 +18,6 @@ L'introduction dit tout ce qu'il y a à savoir sur ce numéro :
 > permettre de convaincre d’autres photographes que c’est leurs oeuvres qui
 > devraient apparaître dans ces pages, plutôt que les miennes ! "
 
-
-Télécharger : [webphotomag #0](/webphotomag/webphotomag_0_fr.pdf)
+Télécharger :
+- [webphotomag #0 [FR]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_0_fr.pdf)
+- [webphotomag #0 [EN]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_0.pdf)

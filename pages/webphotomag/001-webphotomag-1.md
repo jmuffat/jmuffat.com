@@ -20,4 +20,6 @@ que d'élire des "meilleurs".
 C'est de ces photos là dont j'ai envie de parler, celles qui persistent dans ma
 mémoire...
 
-Télécharger : [webphotomag #1](/webphotomag/webphotomag_1_fr.pdf)
+Télécharger :
+- [webphotomag #1 [FR]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_1_fr.pdf)
+- [webphotomag #1 [EN]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_1.pdf)
