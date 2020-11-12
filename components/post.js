@@ -14,7 +14,7 @@ import authors from '~/data/authors.json'
 import threads from '~/data/threads.json'
 
 function getCoverImage(post) {
-  const cover = post.coverImage
+  const cover = post.coverImage || post._coverImage
   if (!cover) return null;
 
   const reURL = /https:\/\/.*/
@@ -64,7 +64,7 @@ function ThreadPost(props) {
 
 function postHasThread(post) {
   const {threadPosts} = post
-  return threadPosts && threadPosts.length
+  return threadPosts && threadPosts.length!=0
 }
 
 function Thread(props) {
@@ -138,7 +138,7 @@ function PostPage(props) {
         <meta property="og:image:height" content="768" />*/}
       </Head>
 
-      {coverImage && (
+      {post.coverImage && (
         <div className="cover">
           <Image className="cover-image" src={post.coverImage} width={props.coverSize.w} height={props.coverSize.h}/>
         </div>

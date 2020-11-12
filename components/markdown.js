@@ -15,10 +15,22 @@ function embedYoutube(href) {
         width={640}
         height={390}
         src={embedURL}
-        frameborder="0"
-        webkitallowfullscreen mozallowfullscreen allowfullscreen>
+        frameBorder="0"
+        allowFullScreen>
       </iframe>
     </div>
+  )
+}
+
+function embedAppStore(appId) {
+  const href = `https://apps.apple.com/${appId}`
+
+  return (
+    <Link href={href}>
+      <a target="_blank">
+        <img src="/img/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"/>
+      </a>
+    </Link>
   )
 }
 
@@ -29,6 +41,7 @@ function rewriteLink(href,children) {
   if (typeof simpleLabel ==='string') {
     switch (simpleLabel) {
       case '@youtube': return embedYoutube(href)
+      case '@appstore': return embedAppStore(href)
     }
   }
 
