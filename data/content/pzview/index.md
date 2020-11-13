@@ -13,7 +13,7 @@ leverage the Pan&Zoom concept that was emerging together with multitouch.
 When I joined Intel in 2008, the company bought the IP and the project became
 part of my work. It got renamed
 [deepViewer](https://www.youtube.com/watch?v=7M3WrdDy_Dg), the focus on gpu
-wasn't too popular internally :) . We used it a bit like a cancept car,
+wasn't too popular internally :) . We used it a bit like a concept car,
 as a forward looking workload and demonstrating the [level of interactivity
 that could be achieved on Atom
 tablets](https://www.youtube.com/watch?v=qFVH9egfPcA) amongst other things.
