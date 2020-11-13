@@ -102,6 +102,32 @@ function HistoricMetadata(props) {
   )
 }
 
+function CoverImage(props) {
+  const {post,coverSize} = props
+  if (!post.coverImage) return null;
+
+  const maxAspect = 1080/1920
+  const aspect = coverSize.h/coverSize.w
+
+  if (aspect < maxAspect) {
+    return (
+      <div className="cover">
+        <Image className="cover-image" src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
+      </div>
+    )
+  }
+
+  const ratio = maxAspect / aspect
+
+  return (
+    <div className="cover">
+      <div style={{width:`${100*ratio}%`}}>
+        <Image className="cover-image" src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
+      </div>
+    </div>
+  )
+}
+
 function PostPage(props) {
 
   const { data, content } = matter(props.md)
@@ -138,11 +164,7 @@ function PostPage(props) {
         <meta property="og:image:height" content="768" />*/}
       </Head>
 
-      {post.coverImage && (
-        <div className="cover">
-          <Image className="cover-image" src={post.coverImage} width={props.coverSize.w} height={props.coverSize.h}/>
-        </div>
-      )}
+      <CoverImage post={post} coverSize={props.coverSize}/>
 
       <div className="title">
         <h1>{post.title}</h1>
