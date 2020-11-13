@@ -1,0 +1,40 @@
+---
+title: baladovore
+coverImage: /baladovore/cover.jpg
+---
+
+En 2013, avec le chef [Nicolas Gautier](https://www.restaurant-nature.com/),
+Caroline Miquel et Marie Sauce, nous lancions cette app qui se proposait de
+recueillir auprès des chefs les adresses des producteurs avec lesquels ils
+travaillent et de mettre à disposition du public une carte permettant au
+public de les trouver.
+
+Nous avons été très fiers d'être récompensés dès 2013 par le prix Numérique
+Culinaire des Gastronomades, recommandés par l'émission Midi en France, ainsi
+que de recevoir le prix "Digital" aux Gourmand Awards 2014 à Pékin.
+
+En 2016, la situation de chacun évoluant, l'activité de l'association fut
+largement ralentie et nous avons pris la décision de déclarer la clotûre du
+projet en 2019. Mais, quelque part, à l'arrière de nos cerveaux, l'envie de
+reprendre le flambeau est toujours là.
+
+## baladovore, c'était quoi ?
+
+Au départ, il y a une constatation toute simple : je vais me mettre au vert, je
+déniche une petite location douillette dans une région paisible et féconde, et
+qu’est-ce que je fais dès que j’arrive ? Je cours à l’hyper du coin, m’occuper
+du ravitaillement. Pas vraiment le choix, je n’ai pas de repères et puis, comme
+ça, c’est fait. Et bien souvent, c’est seulement plus tard, au retour, que je
+découvre les vrais bons plans, en refaisant le voyage sur le web… Grrr…
+
+Ce serait tellement plus simple si mon smartphone pouvait me dire « là, le
+fromage, là, la charcuterie, et là, le vigneron ». Comme ça, je fonce toujours
+à l’hyper pour le tout-venant, mais je me réserve pour ce qui se déguste…
+
+Si c’est simple comme ça, on est tous baladovores…
+
+## Liens  
+
+ - [version interactive web](https://cloud.baladovore.com/) (incomplète, données datant de 2016)
+ - [page Facebook](https://www.facebook.com/Baladovore)
+ - [site](https://www.baladovore.com)
