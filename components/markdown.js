@@ -34,6 +34,11 @@ function embedAppStore(appId) {
   )
 }
 
+function embedComponent(src) {
+  const Component = require(`./${src}`).default
+  return <Component/>
+}
+
 function rewriteLink(href,children) {
   const simpleLabel = children ? children[0].props?.children : null
 
@@ -42,6 +47,7 @@ function rewriteLink(href,children) {
     switch (simpleLabel) {
       case '@youtube': return embedYoutube(href)
       case '@appstore': return embedAppStore(href)
+      case '@react': return embedComponent(href)
     }
   }
 
