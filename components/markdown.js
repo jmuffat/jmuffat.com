@@ -2,6 +2,23 @@ import React from 'react';
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 
+function reduceChildren(children, child) {
+    var lastIndex = children.length - 1;
+    if (typeof child === 'string' && typeof children[lastIndex] === 'string') {
+        children[lastIndex] += child;
+    } else {
+        children.push(child);
+    }
+
+    return children;
+}
+
+function createElement(tagName, props, children) {
+    var nodeChildren = Array.isArray(children) && children.reduce(reduceChildren, []);
+    var args = [tagName, props].concat(nodeChildren || children);
+    return React.createElement.apply(React, args);
+}
+
 function embedYoutube(href) {
   const embedURL = `https://www.youtube-nocookie.com/embed/${href}?rel=0`;
   // const pageURL  = `https://www.youtube.com/watch?v=${videoID}`;
@@ -61,8 +78,20 @@ function rewriteLink(href,children) {
   }
 }
 
+function rewriteHeader(a) {
+  if (a.level==6) {
+    const node = a?.children[0]?.props?.node
+    if (node && node.type==="text") {
+      return embedComponent(a.children[0].props.node.value.trim())
+    }
+  }
+
+  return createElement('h' + a.level, null, a.children)
+}
+
 const renderers = {
-  link: a=>rewriteLink(a.href,a.children)
+  link: a=>rewriteLink(a.href,a.children),
+  heading: a=>rewriteHeader(a)
 }
 
 function Markdown(props) {

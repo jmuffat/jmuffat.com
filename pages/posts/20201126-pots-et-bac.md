@@ -42,7 +42,7 @@ de réunir le plus de pots dans le bac.
 La longueur et la largeur sont exprimées en largeur de pot : on prétend que le
 diamètre du pot vaut 1.
 
-[@react](pots-et-bac/simul)
+###### pots-et-bac/simul
 
 L'espace disponible tel qu'il est calculé me semble très surestimé, mais je
 ne me l'explique pas encore. Je le calcule en retirant de la surface du bac,
