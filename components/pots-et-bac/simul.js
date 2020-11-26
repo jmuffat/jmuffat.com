@@ -110,16 +110,16 @@ function Component(props) {
       <p>Nombre: <strong>{circles.length}</strong>, disponibilité: <strong>{spaceLeft.toFixed(1)}</strong> (pots)</p>
 
       <p onChange={onChangeMethod}>Méthode:
-        <input type="radio" id="methodBest" name="method" value="best"/>
+        <input type="radio" id="methodBest" name="method" value="best" checked={state.method=="best"}/>
         <label for="methodBest">Meilleure</label>&nbsp;
 
-        <input type="radio" id="method1" name="method" value="1"/>
+        <input type="radio" id="method1" name="method" value="1" checked={state.method=="1"}/>
         <label for="method1">1</label>&nbsp;
 
-        <input type="radio" id="method2" name="method" value="2"/>
+        <input type="radio" id="method2" name="method" value="2" checked={state.method=="2"}/>
         <label for="method2">2</label>&nbsp;
 
-        <input type="radio" id="method3" name="method" value="3"/>
+        <input type="radio" id="method3" name="method" value="3" checked={state.method=="3"}/>
         <label for="method3">3</label>&nbsp;
       </p>
 
