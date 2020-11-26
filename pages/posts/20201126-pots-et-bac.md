@@ -46,7 +46,7 @@ diamètre du pot vaut 1.
 
 L'espace disponible tel qu'il est calculé me semble très surestimé, mais je
 ne me l'explique pas encore. Je le calcule en retirant de la surface du bac,
-celle occupées par les pots, puis je corrige par la [densité maximale de
+celle occupée par les pots, puis je corrige par la [densité maximale de
 l'empilement](https://fr.wikipedia.org/wiki/Empilement_compact) et je divise la
 surface résultante par celle occupée par un pot. Cette méthode me paraît
 raisonnable, mais elle donne un résultat qui me laisse perplexe.
