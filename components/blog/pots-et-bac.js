@@ -2,7 +2,7 @@ import React from 'react'
 import {useRouter} from 'next/router'
 
 
-function Simul(props) {
+function SimulSVG(props) {
   const {width,height} = props
   const dim = Math.max(width,height)
   const canvasDim = 1.05*dim
@@ -75,17 +75,38 @@ function fitCircles(width,height, method) {
 }
 
 
-function Component(props) {
+function MethodButton(props) {
+  const {id,value} = props
+  const [state,setState] = props.stateMgr
+
+  const onChangeMethod = e=>setState({...state,method:id})
+
+  return (
+    <>
+      <input
+        type="radio"
+        id={`method-${id}`}
+        name="method"
+        value={id}
+        checked={state.method===id}
+        onChange={onChangeMethod}/>
+      <label htmlFor={`method-${id}`}>{props.children}</label>
+      &nbsp;
+    </>
+  )
+}
+
+function Simul(props) {
   const router = useRouter()
-  const [state,setState] = React.useState({
+  const stateMgr = React.useState({
     width: "3.666",
     height: "5.666",
     method: "best"
   })
 
+  const [state,setState] = stateMgr
   const onChangeSlider = e=>setState({...state,[e.currentTarget.id]: (e.currentTarget.value/1000).toString() })
   const onChange = e=>setState({...state,[e.currentTarget.id]:e.currentTarget.value})
-  const onChangeMethod = e=>setState({...state,method:e.target.value})
 
   const width  = parseFloat(state.width)
   const height = parseFloat(state.height)
@@ -109,25 +130,21 @@ function Component(props) {
       </p>
       <p>Nombre: <strong>{circles.length}</strong>, disponibilité: <strong>{spaceLeft.toFixed(1)}</strong> (pots)</p>
 
-      <p onChange={onChangeMethod}>Méthode:
-        <input type="radio" id="methodBest" name="method" value="best" checked={state.method=="best"}/>
-        <label for="methodBest">Meilleure</label>&nbsp;
-
-        <input type="radio" id="method1" name="method" value="1" checked={state.method=="1"}/>
-        <label for="method1">1</label>&nbsp;
-
-        <input type="radio" id="method2" name="method" value="2" checked={state.method=="2"}/>
-        <label for="method2">2</label>&nbsp;
-
-        <input type="radio" id="method3" name="method" value="3" checked={state.method=="3"}/>
-        <label for="method3">3</label>&nbsp;
+      <p>
+        Méthode:&nbsp;
+        <MethodButton id="best" stateMgr={stateMgr}>Meilleure</MethodButton>
+        <MethodButton id="1"    stateMgr={stateMgr}>1</MethodButton>
+        <MethodButton id="2"    stateMgr={stateMgr}>2</MethodButton>
+        <MethodButton id="3"    stateMgr={stateMgr}>3</MethodButton>
       </p>
 
       <div style={{display:"flex",justifyContent:"center"}}>
-        <Simul width={width} height={height} circles={circles}/>
+        <SimulSVG width={width} height={height} circles={circles}/>
       </div>
     </div>
   )
 }
 
-export default Component
+export default {
+  Simul
+}

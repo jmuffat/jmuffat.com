@@ -171,7 +171,7 @@ function PostPage(props) {
       </div>
 
       <div className="content">
-        <Markdown md={content}/>
+        <Markdown md={content} script={props.script}/>
         <HistoricMetadata metadata={data}/>
         {props.children}
         <ShareButton title={post.title} text={post.excerpt} url={canonicalURL} />

@@ -51,11 +51,6 @@ function embedAppStore(appId) {
   )
 }
 
-function embedComponent(src) {
-  const Component = require(`./${src}`).default
-  return <Component/>
-}
-
 function rewriteLink(href,children) {
   const simpleLabel = children ? children[0].props?.children : null
 
@@ -78,23 +73,24 @@ function rewriteLink(href,children) {
   }
 }
 
-function rewriteHeader(a) {
+function rewriteHeader(a,scripts) {
   if (a.level==6) {
     const node = a?.children[0]?.props?.node
     if (node && node.type==="text") {
-      return embedComponent(a.children[0].props.node.value.trim())
+      const componentName = a.children[0].props.node.value.trim()
+      return React.createElement(scripts[componentName])
     }
   }
 
   return createElement('h' + a.level, null, a.children)
 }
 
-const renderers = {
-  link: a=>rewriteLink(a.href,a.children),
-  heading: a=>rewriteHeader(a)
-}
-
 function Markdown(props) {
+  const renderers = {
+    link: a=>rewriteLink(a.href,a.children),
+    heading: a=>rewriteHeader(a,props.script)
+  }
+
   return (
     <ReactMarkdown renderers={renderers}>
     {props.md}

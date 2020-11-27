@@ -3,6 +3,7 @@ title: Des pots dans un bac
 coverImage: /img/pots-et-bac.jpg
 date: '2020-11-26'
 author: jmm
+script: '~/components/blog/pots-et-bac'
 ---
 
 L'ami [Ludovic Bisot](https://www.toutunfromage.com/), fromager à la curiosité
@@ -42,7 +43,7 @@ de réunir le plus de pots dans le bac.
 La longueur et la largeur sont exprimées en largeur de pot : on prétend que le
 diamètre du pot vaut 1.
 
-###### pots-et-bac/simul
+###### Simul
 
 L'espace disponible tel qu'il est calculé me semble très surestimé, mais je
 ne me l'explique pas encore. Je le calcule en retirant de la surface du bac,
