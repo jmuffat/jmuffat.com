@@ -3,7 +3,8 @@ title: Des pots dans un bac
 coverImage: /img/pots-et-bac.jpg
 date: '2020-11-26'
 author: jmm
-script: '~/components/blog/pots-et-bac'
+script: '~/components/blog/pots-et-bac/sim1'
+thread: pots
 ---
 
 L'ami [Ludovic Bisot](https://www.toutunfromage.com/), fromager à la curiosité
