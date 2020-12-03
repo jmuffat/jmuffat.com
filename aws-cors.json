@@ -1,0 +1,15 @@
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "https://jmuffat.com",
+            "http://localhost:3000"
+        ],
+        "ExposeHeaders": []
+    }
+]
