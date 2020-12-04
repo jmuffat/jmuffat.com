@@ -8,7 +8,7 @@ export function TextField(props) {
     filter?
       e=>{
         form.updateData({
-          [e.currentTarget.field]: filter(e.currentTarget.value)
+          [field]: filter(e.currentTarget.value)
         })
       }
     : form.onChange
