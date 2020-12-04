@@ -30,7 +30,7 @@ function mercator(A){
 const mercatorLatLon = M=>mercator({x:M.lng,y:M.lat});
 
 function TransformPolyline(props){
-  const {points} = props
+  const {points,colors} = props
 
   const s = (
     points
@@ -41,21 +41,35 @@ function TransformPolyline(props){
     .join('')
   )
 
-  return <path d={s}/>
+  return <path d={s+' Z'} fill={props.fill} onClick={props.onClick} onDoubleClick={props.onDoubleClick}/>
 }
 
 function TransformPart(props) {
-  const {part} = props
+  const {part, colors, onClick, onDoubleClick} = props
+  const fill = props.countries.includes(part.iso_a2)? colors.sel : colors.land
 
   return (
     <g id={part.name}>
-      <TransformPolyline points={part.geometry.points}/>
+      <TransformPolyline
+        points={part.geometry.points}
+        fill={fill}
+        onClick={onClick}
+        onDoubleClick={onDoubleClick}
+      />
     </g>
   )
 }
 
 export function Map(props) {
   const [data,setData] = React.useState([])
+  const colors = {
+    water: "#f6f6f6", //"#cceeff",
+    land:  "#ffffff", //"#f8f8f8",
+    sel:   "#c00"
+  }
+
+  const [offset,setOffset] = React.useState({x:0,y:0})
+  const [dragState] = React.useState({})
 
   React.useEffect(()=>{
     fetch('https://s3.eu-west-3.amazonaws.com/jmuffat.com/map-data/countries-50m.json')
@@ -71,7 +85,7 @@ export function Map(props) {
   if (!data.length) {
     return (
       <svg viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
-        <rect fill="#f8f8f8" id="background" width={width+2} height={height+2} y="-1" x="-1"/>
+        <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1"/>
       </svg>
     )
   }
@@ -98,12 +112,50 @@ export function Map(props) {
   const scaleMap=Math.min(2/range.x,2*aspect/range.y);
   const strokeWidth = stroke/scaleMap/scaleScreen
 
+  const countries = props.countries.split(' ').filter(a=>a.length>0)
+
+  const onMouseDown = downEvent=>{
+    const startX = downEvent.pageX - offset.x
+    const startY = downEvent.pageY - offset.y
+
+    const handler = moveEvent=>{
+      if (!moveEvent) return
+      setOffset({x:moveEvent.pageX-startX, y:moveEvent.pageY-startY});
+    }
+
+    document.addEventListener('mousemove', handler)
+    dragState.onMouseMove = handler
+  }
+
+  const onMouseUp = upEvent=>{
+    if (dragState.onMouseMove) {
+      document.removeEventListener('mousemove', dragState.onMouseMove);
+      dragState.onMouseMove = null
+    }
+  }
+
+
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
-      <rect fill="#f8f8f8" id="background" width={width+2} height={height+2} y="-1" x="-1"/>
-      <g transform={`translate(${width/2} ${height/2}) scale(${scaleScreen})`} >
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      onDragStart={()=>false}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1"/>
+      <g transform={`translate(${width/2+offset.x} ${height/2+offset.y}) scale(${scaleScreen})`} >
         <g transform={`scale(${scaleMap},${-scaleMap}) translate(${-center.x} ${-center.y})`} stroke="#000" strokeWidth={strokeWidth} fill="none">
-          { data.map(part=> <TransformPart key={part.name} part={part}/>) }
+          { data.map(part=> (
+            <TransformPart
+              key={part.name}
+              part={part}
+              colors={colors}
+              countries={countries}
+              onClick={props.onClick && (()=>props.onClick(part))}
+              onDoubleClick={props.onDoubleClick && (()=>props.onDoubleClick(part))}
+            />
+          )) }
         </g>
       </g>
     </svg>
