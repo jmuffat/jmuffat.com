@@ -1,4 +1,6 @@
 import React from 'react'
+import {PanZoom} from './pan-zoom'
+import {loadMap} from './map-load'
 
 function computeBbox(data) {
   return data.reduce(
@@ -29,29 +31,14 @@ function mercator(A){
 
 const mercatorLatLon = M=>mercator({x:M.lng,y:M.lat});
 
-function TransformPolyline(props){
-  const {points,colors} = props
-
-  const s = (
-    points
-    .map(A=>{
-      const proj = mercator(A)
-      return `${A.t} ${proj.x.toFixed(6)},${proj.y.toFixed(6)} `
-    })
-    .join('')
-  )
-
-  return <path d={s+' Z'} fill={props.fill} onClick={props.onClick} onDoubleClick={props.onDoubleClick}/>
-}
-
 function TransformPart(props) {
   const {part, colors, onClick, onDoubleClick} = props
   const fill = props.countries.includes(part.iso_a2)? colors.sel : colors.land
 
   return (
     <g id={part.name}>
-      <TransformPolyline
-        points={part.geometry.points}
+      <path
+        d={part.geometry.svgPath}
         fill={fill}
         onClick={onClick}
         onDoubleClick={onDoubleClick}
@@ -61,6 +48,7 @@ function TransformPart(props) {
 }
 
 export function Map(props) {
+  const svgRef = React.useRef(null)
   const [data,setData] = React.useState([])
   const colors = {
     water: "#f6f6f6", //"#cceeff",
@@ -68,14 +56,22 @@ export function Map(props) {
     sel:   "#c00"
   }
 
-  const [offset,setOffset] = React.useState({x:0,y:0})
-  const [dragState] = React.useState({})
+  const [offset] = React.useState({x:0,y:0})
+  const [redraw,setRedraw] = React.useState(Date.now())
 
   React.useEffect(()=>{
-    fetch('https://s3.eu-west-3.amazonaws.com/jmuffat.com/map-data/countries-50m.json')
-    .then( res=>res.json())
+    loadMap('countries-50m.json',mercator)
     .then( data=>setData(data))
   },[])
+
+  React.useEffect(()=>{
+    if (!svgRef.current) return
+    const controller = new PanZoom(svgRef.current,{
+      onPan: delta=>{offset.x=offset.x+2*delta.x; offset.y=offset.y+2*delta.y; setRedraw(Date.now())}
+    })
+    console.log(controller)
+    return ()=>controller.close()
+  },[svgRef?.current])
 
   const width = props.width  || 1024;
   const height= props.height ||  512;
@@ -114,33 +110,12 @@ export function Map(props) {
 
   const countries = props.countries.split(' ').filter(a=>a.length>0)
 
-  const onMouseDown = downEvent=>{
-    const startX = downEvent.pageX - offset.x
-    const startY = downEvent.pageY - offset.y
-
-    const handler = moveEvent=>{
-      if (!moveEvent) return
-      setOffset({x:moveEvent.pageX-startX, y:moveEvent.pageY-startY});
-    }
-
-    document.addEventListener('mousemove', handler)
-    dragState.onMouseMove = handler
-  }
-
-  const onMouseUp = upEvent=>{
-    if (dragState.onMouseMove) {
-      document.removeEventListener('mousemove', dragState.onMouseMove);
-      dragState.onMouseMove = null
-    }
-  }
-
-
   return (
     <svg
+      ref={svgRef}
       viewBox={`0 0 ${width} ${height}`}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onDragStart={()=>false}
+      draggable={false}
+      style={{userSelect:"none"}}
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1"/>
