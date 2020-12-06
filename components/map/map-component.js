@@ -1,6 +1,7 @@
 import React from 'react'
 import {PanZoom} from './pan-zoom'
 import {loadMap} from './map-load'
+import {useMapController} from './map-controller'
 
 function computeBbox(data) {
   return data.reduce(
@@ -69,9 +70,12 @@ export function Map(props) {
     const controller = new PanZoom(svgRef.current,{
       onPan: delta=>{offset.x=offset.x+2*delta.x; offset.y=offset.y+2*delta.y; setRedraw(Date.now())}
     })
-    console.log(controller)
+
     return ()=>controller.close()
   },[svgRef?.current])
+
+
+  if (!props.controller) return <p>[ (!) Map without controller]</p>
 
   const width = props.width  || 1024;
   const height= props.height ||  512;
@@ -86,29 +90,13 @@ export function Map(props) {
     )
   }
 
-  const bbox = computeBbox(data)
+  const center   = mercatorLatLon(props.controller.center)
+  const scaleMap = Math.pow(2,props.controller.zoomLevel)/180
+  const countries = props.countries.split(' ').filter(a=>a.length>0)
+  const stroke   = props.stroke || 0.5
 
-  const llmin= props.minCoord || {lng:bbox.xMin,lat:bbox.yMin}
-  const llmax= props.maxCoord || {lng:bbox.xMax,lat:bbox.yMax}
-  const stroke = props.stroke || 0.5
-
-  const min = mercatorLatLon(llmin);
-  const max = mercatorLatLon(llmax);
-
-  const center = {
-    x: (max.x+min.x)/2,
-    y: (max.y+min.y)/2
-  };
-
-  const range = {
-    x: (max.x-min.x)/2,
-    y: (max.y-min.y)/2
-  };
-
-  const scaleMap=Math.min(2/range.x,2*aspect/range.y);
   const strokeWidth = stroke/scaleMap/scaleScreen
 
-  const countries = props.countries.split(' ').filter(a=>a.length>0)
 
   return (
     <svg
@@ -118,7 +106,8 @@ export function Map(props) {
       style={{userSelect:"none"}}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1"/>
+      <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1" onClick={props.onClick && (()=>props.onClick(null))}/>
+
       <g transform={`translate(${width/2+offset.x} ${height/2+offset.y}) scale(${scaleScreen})`} >
         <g transform={`scale(${scaleMap},${-scaleMap}) translate(${-center.x} ${-center.y})`} stroke="#000" strokeWidth={strokeWidth} fill="none">
           { data.map(part=> (
@@ -136,3 +125,5 @@ export function Map(props) {
     </svg>
   );
 }
+
+Map.useMapController = useMapController
