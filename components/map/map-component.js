@@ -50,7 +50,9 @@ function TransformPart(props) {
 
 export function Map(props) {
   const svgRef = React.useRef(null)
-  const [data,setData] = React.useState([])
+  const [data110,setData110] = React.useState(null)
+  const [data50,setData50] = React.useState(null)
+  const [data10,setData10] = React.useState(null)
   const colors = {
     water: "#f6f6f6", //"#cceeff",
     land:  "#ffffff", //"#f8f8f8",
@@ -61,8 +63,12 @@ export function Map(props) {
   const [redraw,setRedraw] = React.useState(Date.now())
 
   React.useEffect(()=>{
-    loadMap('countries-50m.json',mercator)
-    .then( data=>setData(data))
+    loadMap('countries-110m.json',mercator)
+    .then( a=>setData110(a))
+    .then(()=>loadMap('countries-50m.json',mercator))
+    .then( a=>setData50(a))
+    .then(()=>loadMap('countries-10m.json',mercator))
+    .then( a=>setData10(a))
   },[])
 
   React.useEffect(()=>{
@@ -82,21 +88,27 @@ export function Map(props) {
   const aspect=height/width;
   const scaleScreen=Math.min(width,height)/2;
 
-  if (!data.length) {
+  const center   = mercatorLatLon(props.controller.center)
+  const zoomLevel= props.controller.zoomLevel
+  const scaleMap = Math.pow(2,zoomLevel)/180
+  const countries = props.countries.split(' ').filter(a=>a.length>0)
+  const stroke   = props.stroke || 0.5
+
+  const strokeWidth = stroke/scaleMap/scaleScreen
+
+  const data = (
+    (!!data10 && zoomLevel>=4.5) ?  data10
+   :(!!data50 && zoomLevel>=2.0) ?  data50
+   :                                data110
+  )
+
+  if (!data) {
     return (
       <svg viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
         <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1"/>
       </svg>
     )
   }
-
-  const center   = mercatorLatLon(props.controller.center)
-  const scaleMap = Math.pow(2,props.controller.zoomLevel)/180
-  const countries = props.countries.split(' ').filter(a=>a.length>0)
-  const stroke   = props.stroke || 0.5
-
-  const strokeWidth = stroke/scaleMap/scaleScreen
-
 
   return (
     <svg

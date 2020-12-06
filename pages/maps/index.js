@@ -78,7 +78,7 @@ function Home(props) {
 
       <FormLine>
         <FormLabel>Zoom level: </FormLabel>
-        <input type="range" min={0} max={600} value={mapCtrl.zoomLevel*100} id="zoom-slider" onChange={onChangeSlider}/> {mapCtrl.zoomLevel.toFixed(2)}
+        <input type="range" min={0} max={800} value={mapCtrl.zoomLevel*100} id="zoom-slider" onChange={onChangeSlider}/> {mapCtrl.zoomLevel.toFixed(2)}
       </FormLine>
 
       <AreaInfo data={current} onToggle={onToggle}/>
