@@ -146,7 +146,7 @@ export function Map(props) {
       ref={svgRef}
       viewBox={`0 0 ${width} ${height}`}
       draggable={false}
-      style={{userSelect:"none"}}
+      style={{userSelect:"none",touchAction:"none"}}
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1" onClick={props.onClick && (()=>props.onClick(null))}/>

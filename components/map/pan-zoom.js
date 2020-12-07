@@ -87,10 +87,7 @@ export class PanZoom {
     if (this.touchInProgress) {console.log("shouldn't happen"); return}
 
     const pos = this.getMouseSvgPos(e)
-    const {x,y} = this.lastPos
-    const delta = {x:pos.x-x, y:pos.y-y}
-    this.lastPos = pos
-    if (this.opt.onPan) this.opt.onPan(delta)
+    this.processPan(pos)
   }
 
   onMouseUp(e) {
@@ -111,13 +108,17 @@ export class PanZoom {
     e.preventDefault();
 
     const pos = this.getMouseSvgPos(e)
-    const {x,y} = this.lastPos
-    const delta = {x:pos.x-x, y:-(pos.y-y)}
-    this.lastPos = pos
-    if (this.opt.onPan) this.opt.onPan(delta)
+    this.processPan(pos)
   }
 
   onTouchEnd(e) {
     this.releaseTouches()
+  }
+
+  processPan(pos) {
+    const {x,y} = this.lastPos
+    const delta = {x:pos.x-x, y:pos.y-y}
+    this.lastPos = pos
+    if (this.opt.onPan) this.opt.onPan(delta)
   }
 }
