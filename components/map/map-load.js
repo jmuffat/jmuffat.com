@@ -7,7 +7,7 @@ export async function loadMap(filename, projectionProc) {
     const svgPath = (
       part.geometry.points
       .map(A=>{
-        const proj = projectionProc(A)
+        const proj = projectionProc({lng:A.x,lat:A.y})
         return `${A.t} ${proj.x.toFixed(6)},${proj.y.toFixed(6)} `
       })
       .join('')

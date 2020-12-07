@@ -5,17 +5,29 @@ const defaults = {
   zoomLevel:0
 }
 
-export function useMapController(initialValues) {
-  const A = initialValues || defaults
+class MapController {
+  constructor(initialValues,setDummy) {
+    const A = initialValues || defaults
 
-  const [center,setCenter] = React.useState(A.center)
-  const [zoomLevel,setZoomLevel] = React.useState(A.zoomLevel)
-
-  return {
-    center,
-    zoomLevel,
-
-    setCenter,
-    setZoomLevel
+    this.center = A.center
+    this.zoomLevel = A.zoomLevel
+    this.redraw = ()=>setDummy(Date.now())
   }
+
+  setZoomLevel(k) {
+    this.zoomLevel = k
+    this.redraw()
+  }
+
+  setCenter(M) {
+    this.center = M
+    this.redraw()
+  }
+}
+
+export function useMapController(initialValues) {
+  const [dummy,setDummy] = React.useState(Date.now())
+  const [controller] = React.useState( new MapController(initialValues,setDummy))
+
+  return controller
 }

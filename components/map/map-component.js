@@ -3,6 +3,10 @@ import {PanZoom} from './pan-zoom'
 import {loadMap} from './map-load'
 import {useMapController} from './map-controller'
 
+const defaultWidth = 1024
+const defaultHeight=  512
+
+
 function computeBbox(data) {
   return data.reduce(
     (cur,a)=>{
@@ -22,15 +26,21 @@ const D2R=Math.PI/180;
 const R2D=180/Math.PI;
 
 function mercator(A){
-  const lng=A.x;
-  const lat=Math.max(-85,Math.min(85,A.y));
+  const lng = A.lng;
+  const lat = Math.max(-85,Math.min(85,A.lat));
   return {
     x: lng,
     y: Math.log(Math.tan( (45+lat/2)*D2R) ) *R2D
   }
 }
 
-const mercatorLatLon = M=>mercator({x:M.lng,y:M.lat});
+function invMercator(A){
+  return {
+    lng: A.x,
+    lat: 2*Math.atan( Math.exp(A.y/R2D) )/D2R - 90
+  }
+}
+
 
 function TransformPart(props) {
   const {part, colors, onClick, onDoubleClick} = props
@@ -59,8 +69,25 @@ export function Map(props) {
     sel:   "#c00"
   }
 
-  const [offset] = React.useState({x:0,y:0})
-  const [redraw,setRedraw] = React.useState(Date.now())
+  function onPan(delta) {
+    const C = props.controller
+    if (!C) return
+
+    const width = props.width  || defaultWidth
+    const height= props.height || defaultHeight
+    const scaleScreen = Math.min(width,height)/2
+    const center = mercator(C.center)
+    const scaleMap = Math.pow(2,C.zoomLevel)/180
+    const scl = scaleMap*scaleScreen
+
+    const offsetCenter = {
+      x: center.x-delta.x/scl,
+      y: center.y+delta.y/scl
+    }
+
+    C.center = invMercator(offsetCenter)
+    C.redraw()
+  }
 
   React.useEffect(()=>{
     loadMap('countries-110m.json',mercator)
@@ -73,33 +100,37 @@ export function Map(props) {
 
   React.useEffect(()=>{
     if (!svgRef.current) return
-    const controller = new PanZoom(svgRef.current,{
-      onPan: delta=>{offset.x=offset.x+2*delta.x; offset.y=offset.y+2*delta.y; setRedraw(Date.now())}
-    })
+    const controller = new PanZoom(svgRef.current,{onPan})
 
     return ()=>controller.close()
   },[svgRef?.current])
 
 
-  if (!props.controller) return <p>[ (!) Map without controller]</p>
+  const C = props.controller
+  if (!C) return <p>[ (!) Map without controller]</p>
 
-  const width = props.width  || 1024;
-  const height= props.height ||  512;
-  const aspect=height/width;
-  const scaleScreen=Math.min(width,height)/2;
 
-  const center   = mercatorLatLon(props.controller.center)
-  const zoomLevel= props.controller.zoomLevel
-  const scaleMap = Math.pow(2,zoomLevel)/180
+  const width = props.width  || defaultWidth
+  const height= props.height || defaultHeight
+  const scaleScreen = Math.min(width,height)/2;
+
+  const center = mercator(C.center)
+  const scaleMap = Math.pow(2,C.zoomLevel)/180
   const countries = props.countries.split(' ').filter(a=>a.length>0)
-  const stroke   = props.stroke || 0.5
 
+  const stroke   = props.stroke || 0.5
   const strokeWidth = stroke/scaleMap/scaleScreen
 
+  const scl = scaleMap*scaleScreen
+  const trn = {
+    x:   width/2/scl - center.x,
+    y: -height/2/scl - center.y
+  }
+
   const data = (
-    (!!data10 && zoomLevel>=4.5) ?  data10
-   :(!!data50 && zoomLevel>=2.0) ?  data50
-   :                                data110
+    (!!data10 && C.zoomLevel>=4.5) ?  data10
+   :(!!data50 && C.zoomLevel>=2.0) ?  data50
+   :                                  data110
   )
 
   if (!data) {
@@ -120,19 +151,21 @@ export function Map(props) {
     >
       <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1" onClick={props.onClick && (()=>props.onClick(null))}/>
 
-      <g transform={`translate(${width/2+offset.x} ${height/2+offset.y}) scale(${scaleScreen})`} >
-        <g transform={`scale(${scaleMap},${-scaleMap}) translate(${-center.x} ${-center.y})`} stroke="#000" strokeWidth={strokeWidth} fill="none">
-          { data.map(part=> (
-            <TransformPart
-              key={part.name}
-              part={part}
-              colors={colors}
-              countries={countries}
-              onClick={props.onClick && (()=>props.onClick(part))}
-              onDoubleClick={props.onDoubleClick && (()=>props.onDoubleClick(part))}
-            />
-          )) }
-        </g>
+      <g
+        transform={`scale(${scl} ${-scl}) translate(${trn.x} ${trn.y})`}
+        stroke="#000" strokeWidth={strokeWidth} fill="none" >
+
+        { data.map(part=> (
+          <TransformPart
+            key={part.name}
+            part={part}
+            colors={colors}
+            countries={countries}
+            onClick={props.onClick && (()=>props.onClick(part))}
+            onDoubleClick={props.onDoubleClick && (()=>props.onDoubleClick(part))}
+          />
+        )) }
+
       </g>
     </svg>
   );

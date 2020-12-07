@@ -65,6 +65,16 @@ export class PanZoom {
     this.touchInProgress = false;
   }
 
+  getMouseSvgPos(e) {
+    const ofs = this.element.getBoundingClientRect()
+
+    var pt = this.element.createSVGPoint();
+    pt.x = e.pageX - ofs.left;
+    pt.y = e.pageY - ofs.top;
+
+    return pt.matrixTransform( this.element.getScreenCTM().inverse() )
+  }
+
   onMouseDown(e){
     if (this.touchInProgress) {
       // if we're already handling this as touch, ignore mouse events
@@ -73,14 +83,14 @@ export class PanZoom {
     }
 
     this.captureDocumentMouse()
-    this.lastPos = {x:e.pageX,y:e.pageY}
+    this.lastPos = this.getMouseSvgPos(e)
     return false
   }
 
   onMouseMove(e){
     if (this.touchInProgress) {console.log("shouldn't happen"); return}
 
-    const pos = {x:e.pageX,y:e.pageY}
+    const pos = this.getMouseSvgPos(e)
     const {x,y} = this.lastPos
     const delta = {x:pos.x-x, y:pos.y-y}
     this.lastPos = pos
