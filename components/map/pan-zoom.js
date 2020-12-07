@@ -112,7 +112,7 @@ export class PanZoom {
 
     const pos = this.getMouseSvgPos(e)
     const {x,y} = this.lastPos
-    const delta = {x:pos.x-x, y:pos.y-y}
+    const delta = {x:pos.x-x, y:-(pos.y-y)}
     this.lastPos = pos
     if (this.opt.onPan) this.opt.onPan(delta)
   }
