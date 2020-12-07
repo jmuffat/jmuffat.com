@@ -9,9 +9,9 @@ export class PanZoom {
     this.mouseMoveHandler = e=>this.onMouseMove(e)
     this.mouseUpHandler   = e=>this.onMouseUp(e)
 
-    this.touchStartHandler = e=>this.onTouch(e)
-    this.touchMoveHandler  = e=>this.onTouchMove(e)
-    this.touchEndHandler   = e=>this.onTouchEnd(e)
+    // this.touchStartHandler = e=>this.onTouch(e)
+    // this.touchMoveHandler  = e=>this.onTouchMove(e)
+    // this.touchEndHandler   = e=>this.onTouchEnd(e)
     this.touchInProgress   = false
 
     this.captureEvents()
@@ -24,14 +24,15 @@ export class PanZoom {
 
   captureEvents() {
     this.element.addEventListener('mousedown',  this.mouseDownHandler,  optNotPassive)
-    this.element.addEventListener('touchstart', this.touchStartHandler, optNotPassive)
+    //this.element.addEventListener('touchstart', this.touchStartHandler, optNotPassive)
   }
 
   releaseEvents() {
     this.element.removeEventListener('mousedown',  this.mouseDownHandler,  optNotPassive)
-    this.element.removeEventListener('touchstart', this.touchStartHandler, optNotPassive)
     this.releaseDocumentMouse();
-    this.releaseTouches();
+
+    // this.element.removeEventListener('touchstart', this.touchStartHandler, optNotPassive)
+    // this.releaseTouches();
   }
 
   captureDocumentMouse() {
@@ -47,23 +48,23 @@ export class PanZoom {
     // panstartFired = false;
   }
 
-  captureTouches() {
-    if (this.touchInProgress) return;
-
-    this.touchInProgress = true;
-    document.addEventListener('touchmove',  this.touchMoveHandler);
-    document.addEventListener('touchend',   this.touchEndHandler);
-    document.addEventListener('touchcancel',this.touchEndHandler);
-  }
-
-  releaseTouches() {
-    document.removeEventListener('touchmove',   this.touchMoveHandler);
-    document.removeEventListener('touchend',    this.touchEndHandler);
-    document.removeEventListener('touchcancel', this.touchEndHandler);
-    // panstartFired = false;
-    // multiTouch = false;
-    this.touchInProgress = false;
-  }
+  // captureTouches() {
+  //   if (this.touchInProgress) return;
+  //
+  //   this.touchInProgress = true;
+  //   document.addEventListener('touchmove',  this.touchMoveHandler);
+  //   document.addEventListener('touchend',   this.touchEndHandler);
+  //   document.addEventListener('touchcancel',this.touchEndHandler);
+  // }
+  //
+  // releaseTouches() {
+  //   document.removeEventListener('touchmove',   this.touchMoveHandler);
+  //   document.removeEventListener('touchend',    this.touchEndHandler);
+  //   document.removeEventListener('touchcancel', this.touchEndHandler);
+  //   // panstartFired = false;
+  //   // multiTouch = false;
+  //   this.touchInProgress = false;
+  // }
 
   getMouseSvgPos(e) {
     const ofs = this.element.getBoundingClientRect()
@@ -102,19 +103,19 @@ export class PanZoom {
     this.releaseDocumentMouse()
   }
 
-  onTouch(e){
-    e.stopPropagation();
-    e.preventDefault();
-    this.captureTouches()
-  }
-
-  onTouchMove(e){
-    e.stopPropagation();
-    e.preventDefault();
-    console.log(e)
-  }
-
-  onTouchEnd(e) {
-    this.releaseTouches()
-  }
+  // onTouch(e){
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  //   this.captureTouches()
+  // }
+  //
+  // onTouchMove(e){
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  //   console.log(e)
+  // }
+  //
+  // onTouchEnd(e) {
+  //   this.releaseTouches()
+  // }
 }
