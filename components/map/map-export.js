@@ -8,30 +8,31 @@ function exportPart(P,part) {
     || bbox.yMax < P.bbox.yMin
   ) return
 
-  return `<path d="${part.geometry.svgPath}" fill="${fill}" />`
+  return {fill,path:part.geometry.svgPath}
 }
 
-export const generateSvg = P=>(
-  `<svg
-    viewBox="0 0 ${P.width} ${P.height}"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg">
+export const generateSvg = P=>{
+  const parts = P.dataCountries.map( part=>exportPart(P,part) )
 
-    <clipPath id="clip">
-      <rect x="0" y="0" width="${P.width-2}" height="${P.height-2}" />
-    </clipPath>
+  const groups = parts.reduce((cur,a)=>{
+    if (a) {
+      cur[a.fill] = cur[a.fill]? cur[a.fill]+a.path : a.path
+    }
 
+    return cur
+  },{})
+
+  const paths = Object.keys(groups).map(fill=>`<path d="${groups[fill]}" fill="${fill}" />`)
+
+  return (
+  `<svg viewBox="0 0 ${P.width} ${P.height}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <clipPath id="clip"> <rect x="0" y="0" width="${P.width-2}" height="${P.height-2}" /> </clipPath>
     <rect fill="${P.colors.water}" id="background" width="${P.width+2}" height="${P.height+2}" y="-1" x="-1" />
     <g clip-path="url(#clip)">
-      <g
-        transform="scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})"
-        stroke="#000" stroke-width="${P.strokeWidth}" fill="none" >
-
-        ${ P.dataCountries
-           .map(part=>exportPart(P,part))
-           .filter(a=>!!a)
-           .join('\n') }
+      <g transform="scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})"
+         stroke="#000" stroke-width="${P.strokeWidth}" fill="none" >
+        ${paths.join('\n')}
       </g>
     </g>
-  </svg>`
-)
+  </svg>`)
+}

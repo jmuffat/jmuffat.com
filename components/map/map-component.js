@@ -164,7 +164,6 @@ export class Map extends React.Component {
         <g
           transform={`scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})`}
           stroke="#000" strokeWidth={P.strokeWidth} fill="none" >
-
           {this.renderCountries(P.dataCountries, P.countries)}
         </g>
 
@@ -175,9 +174,9 @@ export class Map extends React.Component {
   renderCountries(data, countries) {
     if (!data) return null
 
-    return data.map( part=>(
+    return data.map( (part,i)=>(
       <TransformPart
-        key={part.name}
+        key={i}
         part={part}
         colors={this.colors}
         countries={countries}
