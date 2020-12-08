@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import FileSaver from 'file-saver'
 
 import BasePage from '~/components/base-page'
@@ -79,8 +80,29 @@ function Home(props) {
   const onChangeSlider = e=>mapCtrl.setZoomLevel(e.currentTarget.value/100)
 
   return (
-    <BasePage>
+    <BasePage title="SVG Maps Generator">
+
+    <Head>
+      <meta property="og:type" content="article" />
+      <meta property="article:author" content="https://www.facebook.com/jmuffat" />
+      <meta property="og:title" content="SVG Maps Generator" />
+      <link rel="canonical" href="https://jmuffat.com/maps" />
+      <meta property="og:url" content="https://jmuffat.com/maps" />
+
+      <meta property="og:image" content="https://jmuffat.com/img/map-page.png" />
+      <meta property="og:image:secure_url" content="https://jmuffat.com/img/map-page.png" />
+      {/*<meta property="og:image:width" content="1024" />
+      <meta property="og:image:height" content="768" />*/}
+    </Head>
+
       <h1>Maps</h1>
+
+      <p>I needed simple maps to illustrate a friend's web pages and
+      realized it wasn't as easy to find as I would have expected. So I made
+      this page, as I'm sure it can be useful to others too. Drag the map to
+      position it, zoom using the slider (avoids confusion between zoom and
+      scroll). Double clicking a country adds it to the selection (or removes
+      it). Don't hesitate to provide feedback ! </p>
 
       <FormLine label="Dimensions">
         <IntField form={form} field="width"  label="w"/>
