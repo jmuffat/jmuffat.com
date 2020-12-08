@@ -1,8 +1,7 @@
 import React from 'react'
 
 export function TextField(props) {
-  const {form, field, filter} = props
-  const label = props.label || field
+  const {form, field, label, filter, className} = props
 
   const onChange = (
     filter?
@@ -16,8 +15,8 @@ export function TextField(props) {
 
   return (
     <>
-      <label htmlFor={field}>{label}</label>
-      <input type="text" field={field} value={form.data[field]} onChange={onChange} />
+      {label && <label htmlFor={field}>{label}</label>}
+      <input type="text" field={field} value={form.data[field]} className={className} onChange={onChange} />
     </>
   )
 }

@@ -19,7 +19,7 @@ export function FloatField(props) {
 
   return (
     <>
-      <label htmlFor={field}>{label}: </label>
+      {label && <label htmlFor={field}>{label}</label>}
       <input type="text" field={field} value={text} onChange={onChange} />
     </>
   )
@@ -44,7 +44,7 @@ export function IntField(props) {
 
   return (
     <>
-      <label htmlFor={field}>{label}: </label>
+      {label && <label htmlFor={field}>{label}</label>}
       <input type="text" field={field} value={text} onChange={onChange} />
     </>
   )

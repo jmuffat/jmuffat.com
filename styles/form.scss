@@ -1,0 +1,43 @@
+.form-line {
+  display: flex;
+  flex-direction: row;
+  height: 2rem;
+
+  .form-line-label {
+    flex: 1
+  }
+
+  .form-line-content {
+    flex: 4;
+
+    label {
+      margin-right: 0.25em
+    }
+
+    input {
+      margin-right: 1em
+    }
+
+    .wide {
+      width:100%
+    }
+  }
+}
+
+.form-range {
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  height:3rem;
+
+  .range-slider{
+    flex:5;
+    input {width:100%}
+  }
+
+  .range-value {
+    flex:1;
+    padding-left: 1em
+  }
+
+}

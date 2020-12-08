@@ -7,7 +7,6 @@ import {
   TextField,
   FloatField,
   IntField,
-  FormLabel,
   FormLine
 } from '~/components/form'
 import Map from '~/components/map'
@@ -42,11 +41,11 @@ function toggleCountry(countries, iso) {
 function AreaInfo(props) {
   const {data} = props
 
-  if (!data) return <div>none</div>
+  if (!data) return <div className="area-info">none</div>
 
   return (
-    <div>
-      {data.iso_a2} : {data.name}
+    <div className="area-info">
+      <strong>{data.iso_a2}</strong> - {data.name}
     </div>
   )
 }
@@ -61,8 +60,8 @@ function Home(props) {
     countries:"",
     center: mapCtrl.center,
     zoomLevel: mapCtrl.zoomLevel,
-    width: 1280,
-    height: 1024
+    width: 1024,
+    height: 512
   })
 
   const [current,setCurrent] = React.useState(null)
@@ -83,19 +82,20 @@ function Home(props) {
     <BasePage>
       <h1>Maps</h1>
 
-      <FormLine>
-        <FormLabel>Dimensions</FormLabel>
-        <FloatField form={form} field="width"  label="w"/>
-        <FloatField form={form} field="height" label="h"/>
+      <FormLine label="Dimensions">
+        <IntField form={form} field="width"  label="w"/>
+        <IntField form={form} field="height" label="h"/>
       </FormLine>
 
-      <FormLine>
-        <TextField form={form} field="countries" filter={a=>a.toUpperCase()} />
+      <FormLine label="Countries">
+        <TextField form={form} field="countries" filter={a=>a.toUpperCase()} className="wide" />
       </FormLine>
 
-      <FormLine>
-        <FormLabel>Zoom level: </FormLabel>
-        <input type="range" min={0} max={800} value={mapCtrl.zoomLevel*100} id="zoom-slider" onChange={onChangeSlider}/> {mapCtrl.zoomLevel.toFixed(2)}
+      <FormLine label="Zoom level">
+        <div className="form-range">
+          <div className="range-slider"> <input type="range" min={0} max={800} value={mapCtrl.zoomLevel*100} id="zoom-slider" onChange={onChangeSlider}/> </div>
+          <div className="range-value"> {mapCtrl.zoomLevel.toFixed(2)}</div>
+        </div>
       </FormLine>
 
       <AreaInfo data={current} onToggle={onToggle}/>

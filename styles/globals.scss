@@ -63,7 +63,7 @@ body {
 }
 
 html {
-  background-color: $color5;  
+  background-color: $color5;
 }
 
 
@@ -127,5 +127,7 @@ blockquote {
 @import "./embed.scss";
 @import "./post.scss";
 @import "./big-logo.scss";
+@import "./form.scss";
+@import "./maps.scss";
 /* @import "/fa/css/all.css";
 @import "./form.scss"; */

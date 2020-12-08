@@ -17,7 +17,16 @@ function Home(props) {
 
       <br/>
       <br/>
+
       <CVDownload/>
+
+      <div className="frontpage-icon">
+        <Link href="/maps"><a>
+          <img src="/img/map.svg" height="48"/><br/>
+          maps
+        </a></Link>
+      </div>
+
     </BasePage>
   );
 }
