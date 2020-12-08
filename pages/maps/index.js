@@ -6,6 +6,7 @@ import {
   useForm, useSubForm,
   TextField,
   FloatField,
+  IntField,
   FormLabel,
   FormLine
 } from '~/components/form'
@@ -59,7 +60,9 @@ function Home(props) {
   const form = useForm({
     countries:"",
     center: mapCtrl.center,
-    zoomLevel: mapCtrl.zoomLevel
+    zoomLevel: mapCtrl.zoomLevel,
+    width: 1280,
+    height: 1024
   })
 
   const [current,setCurrent] = React.useState(null)
@@ -81,6 +84,12 @@ function Home(props) {
       <h1>Maps</h1>
 
       <FormLine>
+        <FormLabel>Dimensions</FormLabel>
+        <FloatField form={form} field="width"  label="w"/>
+        <FloatField form={form} field="height" label="h"/>
+      </FormLine>
+
+      <FormLine>
         <TextField form={form} field="countries" filter={a=>a.toUpperCase()} />
       </FormLine>
 
@@ -93,6 +102,8 @@ function Home(props) {
       <button onClick={onExport}>Export...</button>
       <Map
         controller={mapCtrl}
+        width= {Math.max(32,form.data.width)}
+        height={Math.max(32,form.data.height)}
         countries={form.data.countries}
         onClick={country=>setCurrent(country)}
         onDoubleClick={country=>onToggle(country)}
