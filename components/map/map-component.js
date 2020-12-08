@@ -111,20 +111,14 @@ export class Map extends React.Component {
     const scaleMap = Math.pow(2,C.zoomLevel)/180
     const countries = this.props.countries.split(' ').filter(a=>a.length>0)
 
-    const stroke   = this.props.stroke || 0.5
-    const strokeWidth = stroke/scaleMap/scaleScreen
-
     const scl = scaleMap*scaleScreen
     const trn = {
       x:   width/2/scl - center.x,
       y: -height/2/scl - center.y
     }
 
-    const dataCountries = (
-      (!!this.data10 && C.zoomLevel>=4.5) ?   this.data10
-     :(!!this.data50 && C.zoomLevel>=2.0) ?   this.data50
-     :                                        this.data110
-    )
+    const stroke   = this.props.stroke || 0.5
+    const strokeWidth = stroke/scl
 
     const minLatLon = invMercator({x:    0/scl-trn.x, y:-height/scl-trn.y})
     const maxLatLon = invMercator({x:width/scl-trn.x, y:      0/scl-trn.y})
@@ -134,6 +128,17 @@ export class Map extends React.Component {
       xMax: maxLatLon.lng,
       yMax: maxLatLon.lat,
     }
+
+    const dlngPerPix = (maxLatLon.lng-minLatLon.lng)/width
+    // console.log({dlngPerPix})
+
+    const dataCountries = (
+      (!!this.data10 && dlngPerPix<=0.03) ?   this.data10
+     :(!!this.data50 && dlngPerPix<=0.18) ?   this.data50
+     :                                        this.data110
+    )
+
+
 
     return {
       dataCountries,
