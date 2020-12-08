@@ -1,4 +1,5 @@
 import React from 'react';
+import FileSaver from 'file-saver'
 
 import BasePage from '~/components/base-page'
 import {
@@ -8,7 +9,7 @@ import {
   FormLabel,
   FormLine
 } from '~/components/form'
-import Map, {useMapController} from '~/components/map'
+import Map from '~/components/map'
 
 function FieldLatLon(props) {
   const form = useSubForm(props.form,props.field)
@@ -54,6 +55,7 @@ function Home(props) {
     center: {lng:7.0698281,lat:43.5823383},
     zoomLevel: 0
   })
+
   const form = useForm({
     countries:"",
     center: mapCtrl.center,
@@ -64,6 +66,12 @@ function Home(props) {
 
   const onToggle = country=>{
     form.updateData({countries: toggleCountry(form.data.countries, country.iso_a2)})
+  }
+
+  const onExport = ()=>{
+    const svgText = mapCtrl.generateSvg()
+    const blob = new Blob([svgText], {type:'image/svg+xml;charset=utf-8'});
+    FileSaver.saveAs(blob, 'map.svg');
   }
 
   const onChangeSlider = e=>mapCtrl.setZoomLevel(e.currentTarget.value/100)
@@ -82,6 +90,7 @@ function Home(props) {
       </FormLine>
 
       <AreaInfo data={current} onToggle={onToggle}/>
+      <button onClick={onExport}>Export...</button>
       <Map
         controller={mapCtrl}
         countries={form.data.countries}

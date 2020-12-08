@@ -23,6 +23,11 @@ class MapController {
     this.center = M
     this.redraw()
   }
+
+  generateSvg() {
+    if (!this.component) return
+    return this.component.generateSvg()
+  }
 }
 
 export function useMapController(initialValues) {

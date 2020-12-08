@@ -2,10 +2,10 @@ import React from 'react'
 import {PanZoom} from './pan-zoom'
 import {loadMap} from './map-load'
 import {useMapController} from './map-controller'
+import {generateSvg} from './map-export'
 
 const defaultWidth = 1024
 const defaultHeight=  512
-
 
 function computeBbox(data) {
   return data.reduce(
@@ -58,23 +58,139 @@ function TransformPart(props) {
   )
 }
 
-export function Map(props) {
-  const svgRef = React.useRef(null)
-  const [data110,setData110] = React.useState(null)
-  const [data50,setData50] = React.useState(null)
-  const [data10,setData10] = React.useState(null)
-  const colors = {
-    water: "#f6f6f6", //"#cceeff",
-    land:  "#ffffff", //"#f8f8f8",
-    sel:   "#c00"
+export class Map extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    this.colors = {
+      water: "#f6f6f6", //"#cceeff",
+      land:  "#ffffff", //"#f8f8f8",
+      sel:   "#c00"
+    }
+
+    this.data110  = null
+    this.data50   = null
+    this.data10   = null
+
+    this.svgRef  = React.createRef()
+    this.panZoom = null
+
+    const C = this.props.controller
+    if (!C) throw new Error('map must have controller')
+
+    C.component = this
   }
 
-  function onPan(delta) {
-    const C = props.controller
-    if (!C) return
+  componentDidMount() {
+    this.panZoom = new PanZoom(this.svgRef.current, this)
 
-    const width = props.width  || defaultWidth
-    const height= props.height || defaultHeight
+    loadMap('countries-110m.json',mercator)
+    .then( a=>{this.data110=a;this.forceUpdate()})
+    .then(()=>loadMap('countries-50m.json',mercator))
+    .then( a=>{this.data50=a;this.forceUpdate()})
+    .then(()=>loadMap('countries-10m.json',mercator))
+    .then( a=>{this.data10=a;this.forceUpdate()})
+  }
+
+  componentWillUnmount(){
+    if (this.panZoom) {
+      this.panZoom.close()
+      this.panZoom = null
+    }
+  }
+
+  computerRenderParameters() {
+    const C = this.props.controller
+
+    const width = this.props.width  || defaultWidth
+    const height= this.props.height || defaultHeight
+    const scaleScreen = Math.min(width,height)/2;
+
+    const center = mercator(C.center)
+    const scaleMap = Math.pow(2,C.zoomLevel)/180
+    const countries = this.props.countries.split(' ').filter(a=>a.length>0)
+
+    const stroke   = this.props.stroke || 0.5
+    const strokeWidth = stroke/scaleMap/scaleScreen
+
+    const scl = scaleMap*scaleScreen
+    const trn = {
+      x:   width/2/scl - center.x,
+      y: -height/2/scl - center.y
+    }
+
+    const dataCountries = (
+      (!!this.data10 && C.zoomLevel>=4.5) ?   this.data10
+     :(!!this.data50 && C.zoomLevel>=2.0) ?   this.data50
+     :                                        this.data110
+    )
+
+    const minLatLon = invMercator({x:    0/scl-trn.x, y:-height/scl-trn.y})
+    const maxLatLon = invMercator({x:width/scl-trn.x, y:      0/scl-trn.y})
+    const bbox = {
+      xMin: minLatLon.lng,
+      yMin: minLatLon.lat,
+      xMax: maxLatLon.lng,
+      yMax: maxLatLon.lat,
+    }
+
+    return {
+      dataCountries,
+      width,height, bbox,
+      scl,trn,
+      strokeWidth,
+      colors:this.colors,
+      countries
+    }
+  }
+
+  render() {
+    const C = this.props.controller
+    if (!C) return <p>[ (!) Map without controller]</p>
+
+    const P = this.computerRenderParameters()
+
+    return (
+      <svg
+        ref={this.svgRef}
+        viewBox={`0 0 ${P.width} ${P.height}`}
+        draggable={false}
+        style={{userSelect:"none",touchAction:"none"}}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect fill={P.colors.water} id="background" width={P.width+2} height={P.height+2} y="-1" x="-1" onClick={this.props.onClick && (()=>this.props.onClick(null))}/>
+
+        <g
+          transform={`scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})`}
+          stroke="#000" strokeWidth={P.strokeWidth} fill="none" >
+
+          {this.renderCountries(P.dataCountries, P.countries)}
+        </g>
+
+      </svg>
+    );
+  }
+
+  renderCountries(data, countries) {
+    if (!data) return null
+
+    return data.map( part=>(
+      <TransformPart
+        key={part.name}
+        part={part}
+        colors={this.colors}
+        countries={countries}
+        onClick={this.props.onClick && (()=>this.props.onClick(part))}
+        onDoubleClick={this.props.onDoubleClick && (()=>this.props.onDoubleClick(part))}
+      />
+    ))
+  }
+
+  onPan(delta) {
+    const C = this.props.controller
+    const width = this.props.width  || defaultWidth
+    const height= this.props.height || defaultHeight
     const scaleScreen = Math.min(width,height)/2
     const center = mercator(C.center)
     const scaleMap = Math.pow(2,C.zoomLevel)/180
@@ -86,89 +202,13 @@ export function Map(props) {
     }
 
     C.center = invMercator(offsetCenter)
-    C.redraw()
+    this.forceUpdate()
   }
 
-  React.useEffect(()=>{
-    loadMap('countries-110m.json',mercator)
-    .then( a=>setData110(a))
-    .then(()=>loadMap('countries-50m.json',mercator))
-    .then( a=>setData50(a))
-    .then(()=>loadMap('countries-10m.json',mercator))
-    .then( a=>setData10(a))
-  },[])
-
-  React.useEffect(()=>{
-    if (!svgRef.current) return
-    const controller = new PanZoom(svgRef.current,{onPan})
-
-    return ()=>controller.close()
-  },[svgRef?.current])
-
-
-  const C = props.controller
-  if (!C) return <p>[ (!) Map without controller]</p>
-
-
-  const width = props.width  || defaultWidth
-  const height= props.height || defaultHeight
-  const scaleScreen = Math.min(width,height)/2;
-
-  const center = mercator(C.center)
-  const scaleMap = Math.pow(2,C.zoomLevel)/180
-  const countries = props.countries.split(' ').filter(a=>a.length>0)
-
-  const stroke   = props.stroke || 0.5
-  const strokeWidth = stroke/scaleMap/scaleScreen
-
-  const scl = scaleMap*scaleScreen
-  const trn = {
-    x:   width/2/scl - center.x,
-    y: -height/2/scl - center.y
+  generateSvg() {
+    const P = this.computerRenderParameters()
+    return generateSvg(P)
   }
 
-  const data = (
-    (!!data10 && C.zoomLevel>=4.5) ?  data10
-   :(!!data50 && C.zoomLevel>=2.0) ?  data50
-   :                                  data110
-  )
-
-  if (!data) {
-    return (
-      <svg viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
-        <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1"/>
-      </svg>
-    )
-  }
-
-  return (
-    <svg
-      ref={svgRef}
-      viewBox={`0 0 ${width} ${height}`}
-      draggable={false}
-      style={{userSelect:"none",touchAction:"none"}}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect fill={colors.water} id="background" width={width+2} height={height+2} y="-1" x="-1" onClick={props.onClick && (()=>props.onClick(null))}/>
-
-      <g
-        transform={`scale(${scl} ${-scl}) translate(${trn.x} ${trn.y})`}
-        stroke="#000" strokeWidth={strokeWidth} fill="none" >
-
-        { data.map(part=> (
-          <TransformPart
-            key={part.name}
-            part={part}
-            colors={colors}
-            countries={countries}
-            onClick={props.onClick && (()=>props.onClick(part))}
-            onDoubleClick={props.onDoubleClick && (()=>props.onDoubleClick(part))}
-          />
-        )) }
-
-      </g>
-    </svg>
-  );
+  static useMapController(a) {return useMapController(a)}
 }
-
-Map.useMapController = useMapController
