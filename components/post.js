@@ -160,8 +160,8 @@ function PostPage(props) {
         {post.excerpt && <meta property="og:description" content={post.excerpt} />}
         {coverImage && <meta property="og:image" content={coverImage} />}
         {coverImage && <meta property="og:image:secure_url" content={coverImage} />}
-        {/*<meta property="og:image:width" content="1024" />
-        <meta property="og:image:height" content="768" />*/}
+        {props.coverSize && <meta property="og:image:width"  content={props.coverSize.w} />}
+        {props.coverSize && <meta property="og:image:height" content={props.coverSize.h} />}
       </Head>
 
       <CoverImage post={post} coverSize={props.coverSize}/>

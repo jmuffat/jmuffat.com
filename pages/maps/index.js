@@ -91,8 +91,8 @@ function Home(props) {
 
       <meta property="og:image" content="https://jmuffat.com/img/map-page.png" />
       <meta property="og:image:secure_url" content="https://jmuffat.com/img/map-page.png" />
-      {/*<meta property="og:image:width" content="1024" />
-      <meta property="og:image:height" content="768" />*/}
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="627" />
     </Head>
 
       <h1>Maps</h1>
