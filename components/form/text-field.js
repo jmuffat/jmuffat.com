@@ -16,7 +16,7 @@ export function TextField(props) {
   return (
     <>
       {label && <label htmlFor={field}>{label}</label>}
-      <input type="text" field={field} value={form.data[field]} className={className} onChange={onChange} />
+      <input type="text" field={field} value={form.data[field]} placeholder={props.placeholder} className={className} onChange={onChange} />
     </>
   )
 }

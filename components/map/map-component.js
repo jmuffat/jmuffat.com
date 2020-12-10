@@ -4,6 +4,8 @@ import {loadMap} from './map-load'
 import {useMapController} from './map-controller'
 import {generateSvg} from './map-export'
 
+import countryCodes from '~/data/countries.json'
+
 const defaultWidth = 1024
 const defaultHeight=  512
 
@@ -42,22 +44,6 @@ function invMercator(A){
 }
 
 
-function TransformPart(props) {
-  const {part, colors, onClick, onDoubleClick} = props
-  const fill = props.countries.includes(part.iso_a2)? colors.sel : colors.land
-
-  return (
-    <g id={part.name}>
-      <path
-        d={part.geometry.svgPath}
-        fill={fill}
-        onClick={onClick}
-        onDoubleClick={onDoubleClick}
-      />
-    </g>
-  )
-}
-
 export class Map extends React.Component {
 
   constructor(props) {
@@ -66,12 +52,15 @@ export class Map extends React.Component {
     this.colors = {
       water: "#f6f6f6", //"#cceeff",
       land:  "#ffffff", //"#f8f8f8",
-      sel:   "#c00"
+      sel:   "#c00",
+      countryBorder: "#000",
+      provinceBorder: "#aaa"
     }
 
     this.data110  = null
     this.data50   = null
     this.data10   = null
+    this.detailedData = null
 
     this.svgRef  = React.createRef()
     this.panZoom = null
@@ -138,8 +127,6 @@ export class Map extends React.Component {
      :                                        this.data110
     )
 
-
-
     return {
       dataCountries,
       width,height, bbox,
@@ -169,6 +156,7 @@ export class Map extends React.Component {
         <g
           transform={`scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})`}
           stroke="#000" strokeWidth={P.strokeWidth} fill="none" >
+          {this.renderDetailed()}
           {this.renderCountries(P.dataCountries, P.countries)}
         </g>
 
@@ -176,17 +164,53 @@ export class Map extends React.Component {
     );
   }
 
+  detailedReady(detailed) {
+    if ( !detailed
+      || detailed!=this.detailedDataId
+      || !countryCodes.find(a=>a===detailed) ) {
+
+      return null
+    }
+
+    return detailed
+  }
+
   renderCountries(data, countries) {
     if (!data) return null
 
+    const detailed = this.detailedReady(this.props.detailed)
+
+    const computeFill = part => {
+      if (part.iso_a2===detailed) return null
+      return this.props.countries.includes(part.iso_a2)? this.colors.sel : this.colors.land
+    }
+
     return data.map( (part,i)=>(
-      <TransformPart
+      <path
         key={i}
-        part={part}
-        colors={this.colors}
-        countries={countries}
-        onClick={this.props.onClick && (()=>this.props.onClick(part))}
-        onDoubleClick={this.props.onDoubleClick && (()=>this.props.onDoubleClick(part))}
+        d={part.geometry.svgPath}
+        fill={computeFill(part)}
+        stroke={this.colors.countryBorder}
+        onClick={this.props.onClickCountry && (()=>this.props.onClickCountry(part))}
+        onDoubleClick={this.props.onDoubleClickCountry && (()=>this.props.onDoubleClickCountry(part))}
+      />
+    ))
+  }
+
+  renderDetailed(){
+    if (!this.detailedData) return null
+    if (this.detailedDataId!==this.props.detailed) return null
+
+    const computeFill = part => this.props.provinces.includes(part.iso_3166_2)? this.colors.sel : this.colors.land
+
+    return this.detailedData.map( (part,i)=>(
+      <path
+        key={i}
+        d={part.geometry.svgPath}
+        fill={computeFill(part)}
+        stroke={this.colors.provinceBorder}
+        onClick={this.props.onClickProvince && (()=>this.props.onClickProvince(part))}
+        onDoubleClick={this.props.onDoubleClickProvince && (()=>this.props.onDoubleClickProvince(part))}
       />
     ))
   }
@@ -207,6 +231,23 @@ export class Map extends React.Component {
 
     C.center = invMercator(offsetCenter)
     this.forceUpdate()
+  }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.detailed !== this.props.detailed) this.changeDetailedCountry()
+  }
+
+  changeDetailedCountry(){
+    const iso = this.props.detailed.trim()
+    if (countryCodes.findIndex(a=>a===iso)<0) return
+
+    loadMap(`provinces-${iso}-10m.json`,mercator)
+    .then(a=>{console.log(`provinces-${iso}-10m.json`);return a})
+    .then( a=>{
+      this.detailedData=a;
+      this.detailedDataId=iso;
+      this.forceUpdate()
+    })
   }
 
   generateSvg() {

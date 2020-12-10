@@ -40,13 +40,11 @@ function toggleCountry(countries, iso) {
 }
 
 function AreaInfo(props) {
-  const {data} = props
-
-  if (!data) return <div className="area-info">none</div>
+  if (!props.data) return <div className="area-info">none</div>
 
   return (
     <div className="area-info">
-      <strong>{data.iso_a2}</strong> - {data.name}
+      {props.data}
     </div>
   )
 }
@@ -59,6 +57,8 @@ function Home(props) {
 
   const form = useForm({
     countries:"",
+    detailed:"",
+    provinces:"",
     center: mapCtrl.center,
     zoomLevel: mapCtrl.zoomLevel,
     width: 1024,
@@ -67,8 +67,12 @@ function Home(props) {
 
   const [current,setCurrent] = React.useState(null)
 
-  const onToggle = country=>{
+  const onToggleCountry = country=>{
     form.updateData({countries: toggleCountry(form.data.countries, country.iso_a2)})
+  }
+
+  const onToggleProvince = province=>{
+    form.updateData({provinces: toggleCountry(form.data.provinces, province.iso_3166_2)})
   }
 
   const onExport = ()=>{
@@ -110,7 +114,12 @@ function Home(props) {
       </FormLine>
 
       <FormLine label="Countries">
-        <TextField form={form} field="countries" filter={a=>a.toUpperCase()} className="wide" />
+        <TextField form={form} field="countries" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
+      </FormLine>
+
+      <FormLine label="Detailed">
+        <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} />
+        <TextField form={form} field="provinces" filter={a=>a.toUpperCase()} placeholder="ISO-3166 codes" className="wide" />
       </FormLine>
 
       <FormLine label="Zoom level">
@@ -120,15 +129,22 @@ function Home(props) {
         </div>
       </FormLine>
 
-      <AreaInfo data={current} onToggle={onToggle}/>
+      <AreaInfo data={current}/>
+
       <button onClick={onExport}>Export...</button>
       <Map
         controller={mapCtrl}
         width= {Math.max(32,form.data.width)}
         height={Math.max(32,form.data.height)}
         countries={form.data.countries}
-        onClick={country=>setCurrent(country)}
-        onDoubleClick={country=>onToggle(country)}
+        detailed={form.data.detailed}
+        provinces={form.data.provinces}
+
+        onClickCountry={a=>setCurrent( <span><strong>{a.iso_a2}</strong> - {a.name}</span> )}
+        onDoubleClickCountry={country=>onToggleCountry(country)}
+
+        onClickProvince={a=>setCurrent( <span><strong>{a.iso_3166_2}</strong> - {a.name}</span> )}
+        onDoubleClickProvince={province=>onToggleProvince(province)}
       />
     </BasePage>
   );
