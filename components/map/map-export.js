@@ -8,6 +8,7 @@ function clipped(bboxA,bboxB) {
 }
 
 function generatePaths(P,data,borderColor,fillProc) {
+  if (!data) return ""
   const parts = data.map( part=>{
     if (clipped(part.geometry.bbox, P.bbox)) return
     return {
