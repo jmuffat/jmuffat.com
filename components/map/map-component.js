@@ -112,6 +112,7 @@ export class Map extends React.Component {
     const center = mercator(C.center)
     const scaleMap = Math.pow(2,C.zoomLevel)/180
     const countries = this.props.countries.split(' ').filter(a=>a.length>0)
+    const provinces = this.props.provinces.split(' ').filter(a=>a.length>0)
 
     const scl = scaleMap*scaleScreen
     const trn = {
@@ -151,7 +152,16 @@ export class Map extends React.Component {
       scl,trn,
       strokeWidth,
       colors:this.colors,
-      countries
+      countries,
+      provinces,
+
+      getCountryFill: part => {
+        if (part.iso_a2===detailed) return null
+        return countries.includes(part.iso_a2)? this.colors.sel : this.colors.land
+      },
+      getProvinceFill: part => {
+        return provinces.includes(part.iso_3166_2)? this.colors.sel : this.colors.land
+      }
     }
   }
 
@@ -186,16 +196,11 @@ export class Map extends React.Component {
     const data = P.dataCountries
     if (!data) return null
 
-    const computeFill = part => {
-      if (part.iso_a2===P.detailed) return null
-      return this.props.countries.includes(part.iso_a2)? this.colors.sel : this.colors.land
-    }
-
     return data.map( (part,i)=>(
       <path
         key={i}
         d={part.geometry.svgPath}
-        fill={computeFill(part)}
+        fill={P.getCountryFill(part)}
         stroke={this.colors.countryBorder}
         onClick={this.props.onClickCountry && (()=>this.props.onClickCountry(part))}
         onDoubleClick={this.props.onDoubleClickCountry && (()=>this.props.onDoubleClickCountry(part))}
@@ -206,13 +211,11 @@ export class Map extends React.Component {
   renderDetailed(P){
     if (!P.dataDetailed) return null
 
-    const computeFill = part => this.props.provinces.includes(part.iso_3166_2)? this.colors.sel : this.colors.land
-
     return P.dataDetailed.map( (part,i)=>(
       <path
         key={i}
         d={part.geometry.svgPath}
-        fill={computeFill(part)}
+        fill={P.getProvinceFill(part)}
         stroke={this.colors.provinceBorder}
         onClick={this.props.onClickProvince && (()=>this.props.onClickProvince(part))}
         onDoubleClick={this.props.onDoubleClickProvince && (()=>this.props.onDoubleClickProvince(part))}
