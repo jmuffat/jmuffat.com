@@ -60,7 +60,7 @@ export class Map extends React.Component {
     this.data110  = null
     this.data50   = null
     this.data10   = null
-    this.detailedData = null
+    this.dataDetailed = null
 
     this.svgRef  = React.createRef()
     this.panZoom = null
@@ -87,6 +87,19 @@ export class Map extends React.Component {
       this.panZoom.close()
       this.panZoom = null
     }
+  }
+
+  checkedDetailedData() {
+    const {detailed} = this.props
+
+    if ( !detailed
+      || detailed!=this.dataDetailedId
+      || !countryCodes.find(a=>a===detailed) ) {
+
+      return null
+    }
+
+    return detailed
   }
 
   computerRenderParameters() {
@@ -127,8 +140,13 @@ export class Map extends React.Component {
      :                                        this.data110
     )
 
+    const detailed = this.checkedDetailedData()
+
+
     return {
       dataCountries,
+      dataDetailed : detailed? this.dataDetailed : null,
+      detailed,
       width,height, bbox,
       scl,trn,
       strokeWidth,
@@ -156,32 +174,20 @@ export class Map extends React.Component {
         <g
           transform={`scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})`}
           stroke="#000" strokeWidth={P.strokeWidth} fill="none" >
-          {this.renderDetailed()}
-          {this.renderCountries(P.dataCountries, P.countries)}
+          {this.renderDetailed(P)}
+          {this.renderCountries(P)}
         </g>
 
       </svg>
     );
   }
 
-  detailedReady(detailed) {
-    if ( !detailed
-      || detailed!=this.detailedDataId
-      || !countryCodes.find(a=>a===detailed) ) {
-
-      return null
-    }
-
-    return detailed
-  }
-
-  renderCountries(data, countries) {
+  renderCountries(P) {
+    const data = P.dataCountries
     if (!data) return null
 
-    const detailed = this.detailedReady(this.props.detailed)
-
     const computeFill = part => {
-      if (part.iso_a2===detailed) return null
+      if (part.iso_a2===P.detailed) return null
       return this.props.countries.includes(part.iso_a2)? this.colors.sel : this.colors.land
     }
 
@@ -197,13 +203,12 @@ export class Map extends React.Component {
     ))
   }
 
-  renderDetailed(){
-    if (!this.detailedData) return null
-    if (this.detailedDataId!==this.props.detailed) return null
+  renderDetailed(P){
+    if (!P.dataDetailed) return null
 
     const computeFill = part => this.props.provinces.includes(part.iso_3166_2)? this.colors.sel : this.colors.land
 
-    return this.detailedData.map( (part,i)=>(
+    return P.dataDetailed.map( (part,i)=>(
       <path
         key={i}
         d={part.geometry.svgPath}
@@ -244,8 +249,8 @@ export class Map extends React.Component {
     loadMap(`provinces-${iso}-10m.json`,mercator)
     .then(a=>{console.log(`provinces-${iso}-10m.json`);return a})
     .then( a=>{
-      this.detailedData=a;
-      this.detailedDataId=iso;
+      this.dataDetailed=a;
+      this.dataDetailedId=iso;
       this.forceUpdate()
     })
   }

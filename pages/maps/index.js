@@ -119,7 +119,7 @@ function Home(props) {
 
       <FormLine label="Detailed">
         <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} />
-        <TextField form={form} field="provinces" filter={a=>a.toUpperCase()} placeholder="ISO-3166 codes" className="wide" />
+        <TextField form={form} field="provinces" filter={a=>a.toUpperCase()} placeholder="ISO-3166-2 codes" className="wide" />
       </FormLine>
 
       <FormLine label="Zoom level">
