@@ -22,7 +22,7 @@ export async function loadMap(filename, projectionProc) {
           sub = {
             ...part,
             geometry: {
-              svgPath:`M ${proj.x.toFixed(6)},${proj.y.toFixed(6)} `,
+              svgPath:`M${proj.x.toFixed(6)},${proj.y.toFixed(6)}`,
               bbox: {
                 xMin:A.x, yMin:A.y,
                 xMax:A.x, yMax:A.y
@@ -32,7 +32,7 @@ export async function loadMap(filename, projectionProc) {
           break;
 
         default:
-          sub.geometry.svgPath = sub.geometry.svgPath + `L ${proj.x.toFixed(6)},${proj.y.toFixed(6)} `
+          sub.geometry.svgPath = sub.geometry.svgPath + `L${proj.x.toFixed(6)},${proj.y.toFixed(6)}`
           updateBbox(sub.geometry.bbox, A)
       }
     })
