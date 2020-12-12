@@ -1,12 +1,9 @@
-const fetch = require('node-fetch')
 const parseDBF = require('parsedbf')
 
-function githubPath(path){
-  const owner = 'nvkelso'
-  const repo  = 'natural-earth-vector'
+const {githubFetchBuffer} = require('./github')
 
-  return `https://raw.githubusercontent.com/${owner}/${repo}/master/${path}`
-}
+const gitOwner = 'nvkelso'
+const gitRepo  = 'natural-earth-vector'
 
 function readDouble(buffer,index) {
   return parseFloat( buffer.readDoubleLE(index).toFixed(6) )
@@ -92,17 +89,10 @@ function loadPolyLine(buffer){
   return polyline;
 }
 
-async function githubFetchBuffer(path){
-  const url = githubPath(path)
-  const res = await fetch(url)
-  const buf = await res.buffer()
-  return buf
-}
-
 async function loadShapes(dataset,keys,fixup=a=>a){
   const [shpData,dbfData] = await Promise.all([
-    githubFetchBuffer(dataset+'.shp'),
-    githubFetchBuffer(dataset+'.dbf')
+    githubFetchBuffer(gitOwner, gitRepo, dataset+'.shp'),
+    githubFetchBuffer(gitOwner, gitRepo, dataset+'.dbf')
   ])
 
   const dbf = parseDBF(dbfData);
@@ -139,6 +129,5 @@ async function loadShapes(dataset,keys,fixup=a=>a){
 
 
 module.exports = {
-  loadShapes,
-  githubPath
+  loadShapes
 }

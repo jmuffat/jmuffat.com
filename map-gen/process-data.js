@@ -85,7 +85,6 @@ async function loadDB(dstFolder,scale,directory) {
     if (iso==="-1") continue;
     const data = provinceByCountry[iso]
     addProvincesToDir(directory,iso,scale)
-    console.log(`  - ${iso}: ${data[0].admin}`)
     work.push(
       fs.promises.writeFile( path.join(dstFolder,`provinces-${iso}-${scale}m.json`), JSON.stringify(data))
     )
