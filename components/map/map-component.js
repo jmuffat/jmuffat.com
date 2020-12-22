@@ -163,21 +163,31 @@ export class Map extends React.Component {
 
     const P = this.computerRenderParameters()
 
+    const style = {
+      userSelect:"none",
+      touchAction:"none",
+      maxWidth:"100%",
+      maxHeight:"66vh"
+    }
+
     return (
       <svg
         ref={this.svgRef}
         viewBox={`0 0 ${P.width} ${P.height}`}
+        preserveAspectRatio
         draggable={false}
-        style={{userSelect:"none",touchAction:"none"}}
+        style={style}
         xmlns="http://www.w3.org/2000/svg"
       >
-        <rect fill={P.colors.water} id="background" width={P.width+2} height={P.height+2} y="-1" x="-1" onClick={this.props.onClick && (()=>this.props.onClick(null))}/>
-
-        <g
-          transform={`scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})`}
-          stroke="#000" strokeWidth={P.strokeWidth} fill="none" >
-          {this.renderDetailed(P)}
-          {this.renderCountries(P)}
+        <clipPath id="clip"> <rect x="0" y="0" width={P.width} height={P.height}/> </clipPath>
+        <g clip-path="url(#clip)">
+          <rect fill={P.colors.water} id="background" width={P.width+2} height={P.height+2} y="-1" x="-1" onClick={this.props.onClick && (()=>this.props.onClick(null))}/>
+          <g
+            transform={`scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})`}
+            stroke="#000" strokeWidth={P.strokeWidth} fill="none" >
+            {this.renderDetailed(P)}
+            {this.renderCountries(P)}
+          </g>
         </g>
 
       </svg>

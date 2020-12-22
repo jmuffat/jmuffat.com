@@ -35,9 +35,10 @@ export const generateSvg = P=>{
 
   return (
   `<svg viewBox="0 0 ${P.width} ${P.height}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <!-- made with Jérôme Muffat-Méridol's SVG map generator at https://jmuffat.com/maps -->
     <clipPath id="clip"> <rect x="0" y="0" width="${P.width}" height="${P.height}" /> </clipPath>
-    <rect fill="${P.colors.water}" id="background" width="${P.width+2}" height="${P.height+2}" y="-1" x="-1" />
-    <g xclip-path="url(#clip)">
+    <g clip-path="url(#clip)">
+      <rect fill="${P.colors.water}" id="background" width="${P.width+2}" height="${P.height+2}" y="-1" x="-1" />
       <g transform="scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})"
          stroke-width="${P.strokeWidth}" fill="none" >
         ${regionPaths}
