@@ -65,7 +65,8 @@ function Home(props) {
     zoomLevel: 0
   })
 
-  const form = useForm({
+  const defaultData = {
+    name:'map',
     countries:'',
     detailed: '',
     provinces:'',
@@ -75,13 +76,15 @@ function Home(props) {
     height: 512,
 
     colors: {
-      water: "#f6f6f6", //"#cceeff",
+      water: "#f0f0f0", //"#cceeff",
       land:  "#ffffff", //"#f8f8f8",
       sel:   "#cc0000",
       countryBorder: "#000000",
       provinceBorder: "#aaaaaa"
     }
-  })
+  }
+
+  const form = useForm(defaultData)
 
   const [current,setCurrent] = React.useState(null)
 
@@ -93,10 +96,41 @@ function Home(props) {
     form.updateData({provinces: toggleCountry(form.data.provinces, province.iso_3166_2)})
   }
 
+  const onSave = ()=>{
+    const data = {
+      ...form.data,
+      center: mapCtrl.center,
+      zoomLevel: mapCtrl.zoomLevel
+    }
+    const text = JSON.stringify(data)
+    const blob = new Blob([text], {type:'application/json;charset=utf-8'});
+    FileSaver.saveAs(blob, `${form.data.name}-parm.json`);
+  }
+
+  const onLoad = async e=>{
+    const f = e.target.files[0]
+    if (!f) return
+
+    const url = window.URL.createObjectURL(f)
+    const res = await fetch(url)
+    const data = await res.json()
+
+    const upgraded = {
+      ...defaultData,
+      ...data
+    }
+
+    form.setData(upgraded)
+    mapCtrl.setCenter(data.center)
+    mapCtrl.setZoomLevel(data.zoomLevel)
+
+    window.URL.revokeObjectURL(url)
+  }
+
   const onExport = ()=>{
     const svgText = mapCtrl.generateSvg()
     const blob = new Blob([svgText], {type:'image/svg+xml;charset=utf-8'});
-    FileSaver.saveAs(blob, 'map.svg');
+    FileSaver.saveAs(blob, `${form.data.name}.svg`);
   }
 
   const onChangeSlider = e=>mapCtrl.setZoomLevel(e.currentTarget.value/100)
@@ -126,6 +160,10 @@ function Home(props) {
       scroll). Double clicking a country adds it to the selection (or removes
       it). Don't hesitate to provide feedback ! </p>
 
+      <FormLine label="Name">
+        <TextField form={form} field="name" placeholder="used when saving/exporting" className="wide" />
+      </FormLine>
+
       <FormLine label="Dimensions">
         <IntField form={form} field="width"  label="w"/>
         <IntField form={form} field="height" label="h"/>
@@ -149,7 +187,12 @@ function Home(props) {
 
       <AreaInfo data={current}/>
 
-      <button onClick={onExport}>Export...</button>
+      <button onClick={onExport} className="map-button">Generate SVG</button>
+      <button onClick={onSave}   className="map-button">Save</button>
+
+      <label htmlFor="file-upload" className="map-button-load">Load</label>
+      <input id="file-upload" type="file" style={{display:"none"}} onChange={onLoad}/>
+
       <Map
         controller={mapCtrl}
         width= {Math.max(32,form.data.width)}

@@ -1,17 +1,14 @@
 import React from 'react'
 
 export function TextField(props) {
-  const {form, field, label, filter, className} = props
+  const {form, field, label, className} = props
+  const filter = props.filter || (a=>a)
 
-  const onChange = (
-    filter?
-      e=>{
-        form.updateData({
-          [field]: filter(e.currentTarget.value)
-        })
-      }
-    : form.onChange
-  )
+  const onChange = e=>{
+    form.updateData({
+      [field]: filter(e.currentTarget.value)
+    })
+  }
 
   return (
     <>
