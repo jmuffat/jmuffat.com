@@ -1,0 +1,57 @@
+.form-colors {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 0.25em;
+  margin-top: 1em;
+
+  .form-colors-list {
+    flex: 2 1 0;
+    background-color: #f0f0f0;
+
+    .form-colors-line, .form-colors-line-sel {
+      padding: 4px;
+      cursor: pointer;
+    }
+
+    .form-colors-line-sel {
+      background-color: #fff;
+    }
+  }
+
+  .form-colors-editor {
+    flex: 1 1 auto;
+    padding: 8px
+  }
+}
+
+.color-picker {
+  display: flex;
+  flex-direction: column;
+
+  .slider-outer {
+    padding: 16px 16px 0px 0px;
+    width: 90%
+  }
+
+  .slider-inner {
+    position: relative;
+    width: 100%;
+    height:100%
+  }
+}
+
+.colorswatch-outer {
+  width: 14px;
+  height: 14px;
+  margin: auto 0 auto 4px;
+  display: inline-block
+}
+
+.colorswatch-inner {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  outline: none;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset
+}

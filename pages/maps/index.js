@@ -8,6 +8,7 @@ import {
   TextField,
   FloatField,
   IntField,
+  FormColors,
   FormLine
 } from '~/components/form'
 import Map from '~/components/map'
@@ -49,6 +50,15 @@ function AreaInfo(props) {
   )
 }
 
+const colorLabels = {
+  water: "Water",
+  land:  "Land",
+  sel:   "Selection",
+  countryBorder: "Country borders",
+  provinceBorder: "Province borders"
+}
+
+
 function Home(props) {
   const mapCtrl = Map.useMapController({
     center: {lng:7.0698281,lat:43.5823383},
@@ -56,13 +66,21 @@ function Home(props) {
   })
 
   const form = useForm({
-    countries:"",
-    detailed:"",
-    provinces:"",
+    countries:'',
+    detailed: '',
+    provinces:'',
     center: mapCtrl.center,
     zoomLevel: mapCtrl.zoomLevel,
     width: 1024,
-    height: 512
+    height: 512,
+
+    colors: {
+      water: "#f6f6f6", //"#cceeff",
+      land:  "#ffffff", //"#f8f8f8",
+      sel:   "#cc0000",
+      countryBorder: "#000000",
+      provinceBorder: "#aaaaaa"
+    }
   })
 
   const [current,setCurrent] = React.useState(null)
@@ -136,6 +154,7 @@ function Home(props) {
         controller={mapCtrl}
         width= {Math.max(32,form.data.width)}
         height={Math.max(32,form.data.height)}
+        colors={form.data.colors}
         countries={form.data.countries}
         detailed={form.data.detailed}
         provinces={form.data.provinces}
@@ -146,6 +165,8 @@ function Home(props) {
         onClickProvince={a=>setCurrent( <span><strong>{a.iso_3166_2}</strong> - {a.name}</span> )}
         onDoubleClickProvince={province=>onToggleProvince(province)}
       />
+
+      <FormColors form={form} field="colors" colors={form.data.colors} labels={colorLabels} />
     </BasePage>
   );
 }

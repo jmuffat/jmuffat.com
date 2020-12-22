@@ -49,14 +49,6 @@ export class Map extends React.Component {
   constructor(props) {
     super(props)
 
-    this.colors = {
-      water: "#f6f6f6", //"#cceeff",
-      land:  "#ffffff", //"#f8f8f8",
-      sel:   "#c00",
-      countryBorder: "#000",
-      provinceBorder: "#aaa"
-    }
-
     this.data110  = null
     this.data50   = null
     this.data10   = null
@@ -142,7 +134,7 @@ export class Map extends React.Component {
     )
 
     const detailed = this.checkedDetailedData()
-
+    const colors = this.props.colors
 
     return {
       dataCountries,
@@ -151,16 +143,16 @@ export class Map extends React.Component {
       width,height, bbox,
       scl,trn,
       strokeWidth,
-      colors:this.colors,
+      colors,
       countries,
       provinces,
 
       getCountryFill: part => {
         if (part.iso_a2===detailed) return null
-        return countries.includes(part.iso_a2)? this.colors.sel : this.colors.land
+        return countries.includes(part.iso_a2)? colors.sel : colors.land
       },
       getProvinceFill: part => {
-        return provinces.includes(part.iso_3166_2)? this.colors.sel : this.colors.land
+        return provinces.includes(part.iso_3166_2)? colors.sel : colors.land
       }
     }
   }
@@ -201,7 +193,7 @@ export class Map extends React.Component {
         key={i}
         d={part.geometry.svgPath}
         fill={P.getCountryFill(part)}
-        stroke={this.colors.countryBorder}
+        stroke={P.colors.countryBorder}
         onClick={this.props.onClickCountry && (()=>this.props.onClickCountry(part))}
         onDoubleClick={this.props.onDoubleClickCountry && (()=>this.props.onDoubleClickCountry(part))}
       />
@@ -216,7 +208,7 @@ export class Map extends React.Component {
         key={i}
         d={part.geometry.svgPath}
         fill={P.getProvinceFill(part)}
-        stroke={this.colors.provinceBorder}
+        stroke={P.colors.provinceBorder}
         onClick={this.props.onClickProvince && (()=>this.props.onClickProvince(part))}
         onDoubleClick={this.props.onDoubleClickProvince && (()=>this.props.onDoubleClickProvince(part))}
       />
