@@ -180,7 +180,7 @@ export class Map extends React.Component {
         xmlns="http://www.w3.org/2000/svg"
       >
         <clipPath id="clip"> <rect x="0" y="0" width={P.width} height={P.height}/> </clipPath>
-        <g clip-path="url(#clip)">
+        <g clipPath="url(#clip)">
           <rect fill={P.colors.water} id="background" width={P.width+2} height={P.height+2} y="-1" x="-1" onClick={this.props.onClick && (()=>this.props.onClick(null))}/>
           <g
             transform={`scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})`}

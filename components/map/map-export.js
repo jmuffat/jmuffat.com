@@ -1,3 +1,5 @@
+import * as martinez from 'martinez-polygon-clipping';
+
 function clipped(bboxA,bboxB) {
   return (
        bboxA.xMin > bboxB.xMax
@@ -7,13 +9,54 @@ function clipped(bboxA,bboxB) {
   )
 }
 
+function processPath(P, s) {
+  const geom = []
+
+  const clipRect = [[
+    [      0,       0],
+    [P.width,       0],
+    [P.width,P.height],
+    [      0,P.height]
+  ]]
+
+  for (var i=1 /* skip 'M'*/; i<s.length; ) {
+    const jj = s.indexOf('L',i)
+    const j = jj>0? jj : s.length
+    const strCoords = s.substring(i,j)
+    const v = strCoords.split(',')
+    const x = P.scl*(parseFloat(v[0]) + P.trn.x)
+    const y =-P.scl*(parseFloat(v[1]) + P.trn.y)
+
+    geom.push( [x,y] )
+
+    i=j+1 /* skip 'L' */
+  }
+
+  const clipped = martinez.intersection(clipRect,[geom])
+  if (!clipped) return
+
+  const processed = clipped[0].reduce((cur,part)=>{
+    const processedPart = part.reduce((cur,a)=>(
+      cur?
+        `${cur}L${a[0].toFixed(1)},${a[1].toFixed(1)}`
+      :       `M${a[0].toFixed(1)},${a[1].toFixed(1)}`
+    ),null)
+
+    return cur+processedPart
+  },'')
+
+  return processed
+}
+
 function generatePaths(P,data,borderColor,fillProc) {
   if (!data) return ""
   const parts = data.map( part=>{
     if (clipped(part.geometry.bbox, P.bbox)) return
+    const path = processPath(P, part.geometry.svgPath)
+    if (!path) return
     return {
       fill: fillProc(part),
-      path: part.geometry.svgPath
+      path
     }
   })
 
@@ -36,14 +79,11 @@ export const generateSvg = P=>{
   return (
   `<svg viewBox="0 0 ${P.width} ${P.height}" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <!-- made with Jérôme Muffat-Méridol's SVG map generator at https://jmuffat.com/maps -->
-    <clipPath id="clip"> <rect x="0" y="0" width="${P.width}" height="${P.height}" /> </clipPath>
-    <g clip-path="url(#clip)">
-      <rect fill="${P.colors.water}" id="background" width="${P.width+2}" height="${P.height+2}" y="-1" x="-1" />
-      <g transform="scale(${P.scl} ${-P.scl}) translate(${P.trn.x} ${P.trn.y})"
-         stroke-width="${P.strokeWidth}" fill="none" >
-        ${regionPaths}
-        ${countryPaths}
-      </g>
+
+    <rect fill="${P.colors.water}" id="background" width="${P.width+2}" height="${P.height+2}" y="-1" x="-1" />
+    <g stroke-width="${P.strokeWidth*P.scl}" fill="none">
+      ${regionPaths}
+      ${countryPaths}
     </g>
   </svg>`)
 }
