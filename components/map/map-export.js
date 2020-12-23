@@ -16,8 +16,10 @@ function processPath(P, s) {
     [      0,       0],
     [P.width,       0],
     [P.width,P.height],
-    [      0,P.height]
+    [      0,P.height],
+    [      0,       0]
   ]]
+
 
   for (var i=1 /* skip 'M'*/; i<s.length; ) {
     const jj = s.indexOf('L',i)
@@ -32,20 +34,22 @@ function processPath(P, s) {
     i=j+1 /* skip 'L' */
   }
 
-  const clipped = martinez.intersection(clipRect,[geom])
-  if (!clipped) return
+  const clipped = martinez.intersection([geom],clipRect)
+  if (!clipped || !clipped.length) return
 
-  const processed = clipped[0].reduce((cur,part)=>{
-    const processedPart = part.reduce((cur,a)=>(
-      cur?
-        `${cur}L${a[0].toFixed(1)},${a[1].toFixed(1)}`
-      :       `M${a[0].toFixed(1)},${a[1].toFixed(1)}`
-    ),null)
+  const processed = clipped.map(
+    geom=>geom.reduce((processedCur,part)=>{
+      const processedPart = part.reduce((cur,a)=>(
+        cur?
+          `${cur}L${a[0].toFixed(1)},${a[1].toFixed(1)}`
+        :       `M${a[0].toFixed(1)},${a[1].toFixed(1)}`
+      ),null)
 
-    return cur+processedPart
-  },'')
+      return processedCur+processedPart
+    },'')
+  )
 
-  return processed
+  return processed.join()
 }
 
 function generatePaths(P,data,borderColor,fillProc) {
@@ -54,6 +58,7 @@ function generatePaths(P,data,borderColor,fillProc) {
     if (clipped(part.geometry.bbox, P.bbox)) return
     const path = processPath(P, part.geometry.svgPath)
     if (!path) return
+
     return {
       fill: fillProc(part),
       path
