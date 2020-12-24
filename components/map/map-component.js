@@ -244,12 +244,14 @@ export class Map extends React.Component {
   }
 
   componentDidUpdate(oldProps) {
-    if (oldProps.detailed !== this.props.detailed) this.changeDetailedCountry()
+    this.changeDetailedCountry()
   }
 
   changeDetailedCountry(){
     const iso = this.props.detailed.trim()
     if (countryCodes.findIndex(a=>a===iso)<0) return
+
+    if (iso===this.dataDetailedId && this.dataDetailed) return;
 
     loadMap(`provinces-${iso}-10m.json`,mercator)
     .then(a=>{console.log(`provinces-${iso}-10m.json`);return a})
