@@ -53,8 +53,10 @@ function AreaInfo(props) {
 const colorLabels = {
   water: "Water",
   land:  "Land",
-  sel:   "Selection",
+  sel:   "Selected countries",
   countryBorder: "Country borders",
+  provinceLand:  "Provinces",
+  provinceSel:   "Selected provinces",
   provinceBorder: "Province borders"
 }
 
@@ -77,9 +79,11 @@ function Home(props) {
 
     colors: {
       water: "#f0f0f0", //"#cceeff",
-      land:  "#ffffff", //"#f8f8f8",
+      land:  "#eae0aa", //"#f8f8f8",
       sel:   "#cc0000",
       countryBorder: "#000000",
+      provinceLand:  "#ffffff", //"#f8f8f8",
+      provinceSel:   "#cc0000",
       provinceBorder: "#aaaaaa"
     }
   }

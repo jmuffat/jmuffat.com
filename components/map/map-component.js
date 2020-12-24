@@ -152,7 +152,7 @@ export class Map extends React.Component {
         return countries.includes(part.iso_a2)? colors.sel : colors.land
       },
       getProvinceFill: part => {
-        return provinces.includes(part.iso_3166_2)? colors.sel : colors.land
+        return provinces.includes(part.iso_3166_2)? colors.provinceSel : colors.provinceLand
       }
     }
   }
