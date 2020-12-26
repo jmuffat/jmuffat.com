@@ -105,6 +105,7 @@ export class Map extends React.Component {
     const scaleMap = Math.pow(2,C.zoomLevel)/180
     const countries = this.props.countries.split(' ').filter(a=>a.length>0)
     const provinces = this.props.provinces.split(' ').filter(a=>a.length>0)
+    const onlySelected = this.props.onlySelected
 
     const scl = scaleMap*scaleScreen
     const trn = {
@@ -146,6 +147,7 @@ export class Map extends React.Component {
       colors,
       countries,
       provinces,
+      onlySelected,
 
       getCountryFill: part => {
         if (part.iso_a2===detailed) return null
@@ -198,7 +200,9 @@ export class Map extends React.Component {
     const data = P.dataCountries
     if (!data) return null
 
-    return data.map( (part,i)=>(
+    const selection = P.onlySelected? data.filter(part=>P.countries.includes(part.iso_a2)) : data
+
+    return selection.map( (part,i)=>(
       <path
         key={i}
         d={part.geometry.svgPath}
@@ -212,6 +216,8 @@ export class Map extends React.Component {
 
   renderDetailed(P){
     if (!P.dataDetailed) return null
+
+
 
     return P.dataDetailed.map( (part,i)=>(
       <path

@@ -71,6 +71,7 @@ function Home(props) {
     name:'map',
     countries:'',
     detailed: '',
+    onlySelected:false,
     provinces:'',
     center: mapCtrl.center,
     zoomLevel: mapCtrl.zoomLevel,
@@ -78,8 +79,8 @@ function Home(props) {
     height: 512,
 
     colors: {
-      water: "#f0f0f0", //"#cceeff",
-      land:  "#eae0aa", //"#f8f8f8",
+      water: "#e0e0e0", // "#cceeff",
+      land:  "#f0f0f0", // "#eae0aa",
       sel:   "#cc0000",
       countryBorder: "#000000",
       provinceLand:  "#ffffff", //"#f8f8f8",
@@ -138,6 +139,7 @@ function Home(props) {
   }
 
   const onChangeSlider = e=>mapCtrl.setZoomLevel(e.currentTarget.value/100)
+  const soloDisabled = form.data.countries.length<1
 
   return (
     <BasePage title="SVG Maps Generator">
@@ -175,6 +177,13 @@ function Home(props) {
 
       <FormLine label="Countries">
         <TextField form={form} field="countries" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
+        <input id="cb-solo"
+          type="checkbox"
+          disabled={soloDisabled}
+          checked={form.data.onlySelected}
+          onClick={()=>form.updateData({onlySelected:!form.data.onlySelected})}
+        />
+        <label htmlFor="cb-solo" disabled={soloDisabled}>only</label>
       </FormLine>
 
       <FormLine label="Detailed">
@@ -203,6 +212,7 @@ function Home(props) {
         height={Math.max(32,form.data.height)}
         colors={form.data.colors}
         countries={form.data.countries}
+        onlySelected={form.data.onlySelected}
         detailed={form.data.detailed}
         provinces={form.data.provinces}
 

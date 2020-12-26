@@ -78,7 +78,9 @@ function generatePaths(P,data,borderColor,fillProc) {
 }
 
 export const generateSvg = P=>{
-  const countryPaths = generatePaths(P, P.dataCountries, P.colors.countryBorder,  part=>P.getCountryFill(part))
+  const countries = P.onlySelected? P.dataCountries.filter(part=>P.countries.includes(part.iso_a2)) : P.dataCountries
+
+  const countryPaths = generatePaths(P, countries,       P.colors.countryBorder,  part=>P.getCountryFill(part))
   const regionPaths  = generatePaths(P, P.dataDetailed,  P.colors.provinceBorder, part=>P.getProvinceFill(part))
 
   return (
