@@ -8,6 +8,7 @@ import {
   TextField,
   FloatField,
   IntField,
+  CheckboxField,
   FormColors,
   FormLine
 } from '~/components/form'
@@ -177,13 +178,7 @@ function Home(props) {
 
       <FormLine label="Countries">
         <TextField form={form} field="countries" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
-        <input id="cb-solo"
-          type="checkbox"
-          disabled={soloDisabled}
-          checked={form.data.onlySelected}
-          onClick={()=>form.updateData({onlySelected:!form.data.onlySelected})}
-        />
-        <label htmlFor="cb-solo" disabled={soloDisabled}>only</label>
+        <CheckboxField form={form} field="onlySelected" disabled={soloDisabled}/>
       </FormLine>
 
       <FormLine label="Detailed">
