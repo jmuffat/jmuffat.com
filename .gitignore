@@ -37,3 +37,4 @@ yarn-error.log*
 # specific
 data/wp-export
 map-gen/dst
+map-gen/iso3166-wikipedia-import/cache

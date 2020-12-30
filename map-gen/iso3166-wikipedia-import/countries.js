@@ -22,7 +22,6 @@ async function processCountries(url) {
   const tables = $('table.wikitable')
   if (!tables) throw(new Error(`can't find countries table`))
 
-
   const table = tables[0]
   const rows = []
   $(table).find('tbody > tr').each( (i,a)=>processCountry(rows,$,a) )
