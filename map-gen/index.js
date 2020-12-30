@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp')
@@ -20,7 +22,7 @@ async function run() {
   await loadDB(dstPath,110,directory)
   await loadDB(dstPath, 50,directory)
   await loadDB(dstPath, 10,directory)
-  fs.promises.writeFile( path.join(dstPath,'directory.json'), JSON.stringify(directory))
+  await fs.promises.writeFile( path.join(dstPath,'directory.json'), JSON.stringify(directory))
 }
 
 run()

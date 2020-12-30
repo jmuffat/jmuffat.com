@@ -1,3 +1,5 @@
+const fs = require('fs')
+const path = require('path')
 const parseDBF = require('parsedbf')
 
 const {githubFetchBuffer} = require('./github')
@@ -89,10 +91,19 @@ function loadPolyLine(buffer){
   return polyline;
 }
 
+async function loadBuffer(relPath) {
+  const filepath = path.join(process.env.NATURAL_EARTH_PATH,relPath)
+  return fs.promises.readFile(filepath)
+}
+
 async function loadShapes(dataset,keys,fixup=a=>a){
+  const basePath = process.env.NATURAL_EARTH_PATH;
+
   const [shpData,dbfData] = await Promise.all([
-    githubFetchBuffer(gitOwner, gitRepo, dataset+'.shp'),
-    githubFetchBuffer(gitOwner, gitRepo, dataset+'.dbf')
+    // githubFetchBuffer(gitOwner, gitRepo, dataset+'.shp'),
+    // githubFetchBuffer(gitOwner, gitRepo, dataset+'.dbf')
+    loadBuffer(dataset+'.shp'),
+    loadBuffer(dataset+'.dbf'),
   ])
 
   const dbf = parseDBF(dbfData);
