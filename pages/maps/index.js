@@ -51,11 +51,49 @@ function AreaInfo(props) {
   )
 }
 
+async function wikipediaPageURL(lang,wikipediaPage) {
+  if (lang!=='en') {
+    const api = `https://en.wikipedia.org/w/api.php?action=query&titles=${wikipediaPage}&prop=langlinks&lllang=${lang}&format=json&origin=*`
+    const res = await fetch(api)
+    if (res.status==200) {
+      const data = await res.json()
+      const pages = data?.query?.pages
+      const ids = Object.keys(pages)
+      if (ids.length) {
+        const page = pages[ids[0]]
+        if (page.langlinks && page.langlinks.length>0) {
+          const link = page.langlinks[0]
+          return `https://${link.lang}.wikipedia.org/wiki/${link['*']}`
+        }
+      }
+    }
+  }
+
+  return `https://en.wikipedia.org/wiki/${wikipediaPage}`
+}
+
+async function openWikipedia(wikipediaPage) {
+  const _language = navigator.language || "en"
+  const language = _language.replace(/\-.*/,'')
+
+  const url = await wikipediaPageURL(language,wikipediaPage)
+
+  // console.log({language,url})
+  const win = window.open(url, '_blank');
+  win.focus();
+}
+
 function AreaData(props) {
   const a = props.data
 
   if (a.wikipediaPage) {
-    return <span><a href={`https://en.wikipedia.org/wiki/${a.wikipediaPage}`} target="_blank"><strong>{a[props.id]}</strong> - {a.name}</a></span>
+    return (
+      <span>
+        <a href="#" onClick={()=>openWikipedia(a.wikipediaPage)}>
+          <strong>{a[props.id]}</strong> - {a.name}
+        </a>
+      </span>
+    )
   }
   else {
     return <span><strong>{a.iso_a2}</strong> - {a.name}</span>
