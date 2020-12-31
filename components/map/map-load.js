@@ -5,8 +5,14 @@ function updateBbox(bbox, A) {
   bbox.yMax = Math.max(A.y,bbox.yMax)
 }
 
+function getDataURL(filename) {
+  if (process.env.NEXT_PUBLIC_LOCALDATA>0) return `/api/map-data/${filename}`
+
+  return `https://s3.eu-west-3.amazonaws.com/jmuffat.com/map-data/${filename}`
+}
+
 export async function loadMap(filename, projectionProc) {
-  const url  = `https://s3.eu-west-3.amazonaws.com/jmuffat.com/map-data/${filename}`
+  const url  = getDataURL(filename)
   const res  = await fetch(url)
   const data = await res.json()
 
