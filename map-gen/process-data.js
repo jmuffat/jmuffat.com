@@ -32,6 +32,11 @@ function addProvincesToDir(D,iso,scale) {
   D[iso].subdivisions.push(scale)
 }
 
+function wikipediaPageTitle(a) {
+  if (!a) return
+  return a.replace(/^\/wiki\//,'')
+}
+
 async function loadDB(dstFolder,scale,directory,iso3166) {
 
   console.log(`processing countries at ${scale}`)
@@ -59,7 +64,7 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
     return {
       ...a,
       wikipediaName: iso.name,
-      wikipediaPage: `https://en.wikipedia.org${iso.link}`
+      wikipediaPage: wikipediaPageTitle(iso.link)
     }
   })
 
@@ -103,7 +108,7 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
       return {
         ...a,
         wikipediaName: iso.name,
-        wikipediaPage: `https://en.wikipedia.org${iso.link}`
+        wikipediaPage: wikipediaPageTitle(iso.link)
       }
     })
 

@@ -55,7 +55,7 @@ function AreaData(props) {
   const a = props.data
 
   if (a.wikipediaPage) {
-    return <span><a href={a.wikipediaPage} target="_blank"><strong>{a[props.id]}</strong> - {a.name}</a></span>
+    return <span><a href={`https://en.wikipedia.org/wiki/${a.wikipediaPage}`} target="_blank"><strong>{a[props.id]}</strong> - {a.name}</a></span>
   }
   else {
     return <span><strong>{a.iso_a2}</strong> - {a.name}</span>
