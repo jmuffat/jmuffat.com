@@ -32,10 +32,10 @@ function addProvincesToDir(D,iso,scale) {
   D[iso].subdivisions.push(scale)
 }
 
-async function loadDB(dstFolder,scale,directory) {
+async function loadDB(dstFolder,scale,directory,iso3166) {
 
   console.log(`processing countries at ${scale}`)
-  const countryData = await loadShapes(
+  const countryBaseData = await loadShapes(
     `${scale}m_cultural/ne_${scale}m_admin_0_countries`,
     [
       'NAME',
@@ -51,6 +51,17 @@ async function loadDB(dstFolder,scale,directory) {
       return a
     }
   )
+
+  const countryData = countryBaseData.map(a=>{
+    const iso = iso3166.find(x=>x.id===a.iso_a2)
+    if (!iso) {return a}
+
+    return {
+      ...a,
+      wikipediaName: iso.name,
+      wikipediaPage: `https://en.wikipedia.org${iso.link}`
+    }
+  })
 
   countryData.forEach( a=>addCountryToDir(directory,a,scale) )
 
@@ -83,7 +94,19 @@ async function loadDB(dstFolder,scale,directory) {
 
   for(var iso in provinceByCountry) {
     if (iso==="-1") continue;
-    const data = provinceByCountry[iso]
+
+    const baseData = provinceByCountry[iso]
+    const data = baseData.map(a=>{
+      const iso = iso3166.find(x=>x.id===a.iso_3166_2)
+      if (!iso) {return a}
+
+      return {
+        ...a,
+        wikipediaName: iso.name,
+        wikipediaPage: `https://en.wikipedia.org${iso.link}`
+      }
+    })
+
     addProvincesToDir(directory,iso,scale)
     work.push(
       fs.promises.writeFile( path.join(dstFolder,`provinces-${iso}-${scale}m.json`), JSON.stringify(data))
