@@ -51,6 +51,17 @@ function AreaInfo(props) {
   )
 }
 
+function AreaData(props) {
+  const a = props.data
+
+  if (a.wikipediaPage) {
+    return <span><a href={a.wikipediaPage} target="_blank"><strong>{a[props.id]}</strong> - {a.name}</a></span>
+  }
+  else {
+    return <span><strong>{a.iso_a2}</strong> - {a.name}</span>
+  }
+}
+
 const colorLabels = {
   water: "Water",
   land:  "Land",
@@ -60,7 +71,6 @@ const colorLabels = {
   provinceSel:   "Selected provinces",
   provinceBorder: "Province borders"
 }
-
 
 function Home(props) {
   const mapCtrl = Map.useMapController({
@@ -211,10 +221,10 @@ function Home(props) {
         detailed={form.data.detailed}
         provinces={form.data.provinces}
 
-        onClickCountry={a=>setCurrent( <span><strong>{a.iso_a2}</strong> - {a.name}</span> )}
+        onClickCountry={a=>setCurrent( <AreaData id="iso_a2" data={a}/> )}
         onDoubleClickCountry={country=>onToggleCountry(country)}
 
-        onClickProvince={a=>setCurrent( <span><strong>{a.iso_3166_2}</strong> - {a.name}</span> )}
+        onClickProvince={a=>setCurrent( <AreaData id="iso_3166_2" data={a}/> )}
         onDoubleClickProvince={province=>onToggleProvince(province)}
       />
 

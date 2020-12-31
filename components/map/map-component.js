@@ -176,7 +176,6 @@ export class Map extends React.Component {
       <svg
         ref={this.svgRef}
         viewBox={`0 0 ${P.width} ${P.height}`}
-        preserveAspectRatio
         draggable={false}
         style={style}
         xmlns="http://www.w3.org/2000/svg"
@@ -216,8 +215,6 @@ export class Map extends React.Component {
 
   renderDetailed(P){
     if (!P.dataDetailed) return null
-
-
 
     return P.dataDetailed.map( (part,i)=>(
       <path
