@@ -56,7 +56,6 @@ async function processProvinces(id, wikiPage) {
 
   const url = 'https://en.wikipedia.org'+wikiPage
   const $ = await fetchPage(url)
-  console.log(`--- ${url} ---`)
 
   $('h2').each( (i,el)=>{
     const self=$(el)

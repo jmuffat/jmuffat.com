@@ -253,14 +253,17 @@ export class Map extends React.Component {
   changeDetailedCountry(){
     const iso = this.props.detailed.trim()
     if (countryCodes.findIndex(a=>a===iso)<0) return
+    const detail = this.props.subdivision? 'subdivisions' : 'divisions'
+    const prefix = `${detail}-${iso}`
 
-    if (iso===this.dataDetailedId && this.dataDetailed) return;
+    if (prefix===this.dataDetailedPrefix && this.dataDetailed) return;
 
-    loadMap(`provinces-${iso}-10m.json`,mercator)
-    .then(a=>{console.log(`provinces-${iso}-10m.json`);return a})
+    loadMap(`${prefix}-10m.json`,mercator)
+    .then(a=>{console.log(`${prefix}-10m.json`);return a})
     .then( a=>{
-      this.dataDetailed=a;
-      this.dataDetailedId=iso;
+      this.dataDetailed       = a;
+      this.dataDetailedId     = iso
+      this.dataDetailedPrefix = prefix;
       this.forceUpdate()
     })
   }

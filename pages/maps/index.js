@@ -89,7 +89,7 @@ function AreaData(props) {
   if (a.wikipediaPage) {
     return (
       <span>
-        <a href="#" onClick={()=>openWikipedia(a.wikipediaPage)}>
+        <a href="#" onClick={e=>{e.preventDefault();openWikipedia(a.wikipediaPage)}}>
           <strong>{a[props.id]}</strong> - {a.name}
         </a>
       </span>
@@ -120,6 +120,7 @@ function Home(props) {
     name:'map',
     countries:'',
     detailed: '',
+    subdivision:false,
     onlySelected:false,
     provinces:'',
     center: mapCtrl.center,
@@ -226,11 +227,12 @@ function Home(props) {
 
       <FormLine label="Countries">
         <TextField form={form} field="countries" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
-        <CheckboxField form={form} field="onlySelected" disabled={soloDisabled}/>
+        <CheckboxField form={form} field="onlySelected" label="only" disabled={soloDisabled}/>
       </FormLine>
 
       <FormLine label="Detailed">
         <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} />
+        <CheckboxField form={form} field="subdivision" label="sub" disabled={false}/>
         <TextField form={form} field="provinces" filter={a=>a.toUpperCase()} placeholder="ISO-3166-2 codes" className="wide" />
       </FormLine>
 
@@ -257,6 +259,7 @@ function Home(props) {
         countries={form.data.countries}
         onlySelected={form.data.onlySelected}
         detailed={form.data.detailed}
+        subdivision={form.data.subdivision}
         provinces={form.data.provinces}
 
         onClickCountry={a=>setCurrent( <AreaData id="iso_a2" data={a}/> )}

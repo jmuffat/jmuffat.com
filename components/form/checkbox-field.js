@@ -11,7 +11,7 @@ export function CheckboxField(props) {
         type="checkbox"
         disabled={props.disabled}
         checked={form.data[field]}
-        onClick={()=>form.updateData({[field]:!form.data[field]})}
+        onChange={()=>form.updateData({[field]:!form.data[field]})}
       />
       <label htmlFor={props.id} disabled={props.disabled}>{label}</label>
     </div>

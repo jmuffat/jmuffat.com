@@ -1,7 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const parseDBF = require('parsedbf')
+
 const {loadShapes} = require('./shpfile')
+const {mergeGeometry} = require('./merge-geometry')
 
 const countryDataset  = 'ne_10m_admin_0_countries'
 const provinceDataset = 'ne_10m_admin_1_states_provinces'
@@ -21,15 +23,17 @@ function addCountryToDir(D,country,scale) {
   const iso = country.iso_a2
   if (iso==="-99") return
 
-  if (!D[iso]) D[iso]={scales:[],subdivisions:[]}
+  if (!D[iso]) D[iso]={scales:[],divisions:[]}
   D[iso].scales.push(scale)
 }
 
-function addProvincesToDir(D,iso,scale) {
-  if (iso="-99") return
-  if (!D[iso]) D[iso]={scales:[],subdivisions:[]}
+function addProvincesToDir(D,opt) {
+  const {iso,scale,subdivisions} = opt
+  if (iso==="-99") return
+  if (!D[iso]) D[iso]={scales:[],divisions:[]}
 
-  D[iso].subdivisions.push(scale)
+  D[iso].divisions.push(scale)
+  D[iso].subdivisions = subdivisions
 }
 
 function wikipediaPageTitle(a) {
@@ -101,6 +105,7 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
     if (iso==="-1") continue;
 
     const baseData = provinceByCountry[iso]
+
     const data = baseData.map(a=>{
       const iso = iso3166.find(x=>x.id===a.iso_3166_2)
       if (!iso) {return a}
@@ -108,14 +113,58 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
       return {
         ...a,
         wikipediaName: iso.name,
-        wikipediaPage: wikipediaPageTitle(iso.link)
+        wikipediaPage: wikipediaPageTitle(iso.link),
+        parent:iso.parent
       }
     })
 
-    addProvincesToDir(directory,iso,scale)
-    work.push(
-      fs.promises.writeFile( path.join(dstFolder,`provinces-${iso}-${scale}m.json`), JSON.stringify(data))
+    const _divisions = data.reduce(
+      (cur,a)=>{
+        if (a.parent && a.parent!==iso) {
+          if (!cur[a.parent]) {
+            const isoDiv = iso3166.find(x=>x.id===a.parent)
+            if (isoDiv) {
+              cur[a.parent] = {
+                 name: isoDiv.name,
+                 // "admin": "Andorra",
+                 iso_a2: iso,
+                 iso_3166_2: a.parent,
+                 // "ne_id": 1159315979,
+                 // "wikidataid": "Q24272",
+                 // "woe_id": 20070556,
+                 geometry: a.geometry,
+                 wikipediaName: isoDiv.name,
+                 wikipediaPage: wikipediaPageTitle(isoDiv.link),
+               }
+            }
+            else console.log(`can't find code ${a.parent}`)
+          }
+          else {
+            cur[a.parent].geometry = mergeGeometry(cur[a.parent].geometry, a.geometry)
+          }
+        }
+
+        return cur
+      },
+      {}
     )
+
+    const divisions = Object.keys(_divisions).map(a=>_divisions[a])
+    if (divisions.length) {
+      work.push(
+        fs.promises.writeFile( path.join(dstFolder,`divisions-${iso}-${scale}m.json`), JSON.stringify(divisions))
+      )
+      work.push(
+        fs.promises.writeFile( path.join(dstFolder,`subdivisions-${iso}-${scale}m.json`), JSON.stringify(data))
+      )
+      addProvincesToDir(directory,{iso,scale,subdivisions:true})
+    }
+    else {
+      work.push(
+        fs.promises.writeFile( path.join(dstFolder,`divisions-${iso}-${scale}m.json`), JSON.stringify(data))
+      )
+      addProvincesToDir(directory,{iso,scale,subdivisions:false})
+    }
   }
 
   await Promise.all(work)
