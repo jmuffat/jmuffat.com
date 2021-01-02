@@ -5,7 +5,7 @@ export function CheckboxField(props) {
   const label = props.label || field
 
   return (
-    <div>
+    <div className="form-checkbox">
       <input
         id={props.id}
         type="checkbox"

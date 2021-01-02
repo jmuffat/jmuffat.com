@@ -230,9 +230,9 @@ function Home(props) {
         <CheckboxField form={form} field="onlySelected" label="only" disabled={soloDisabled}/>
       </FormLine>
 
-      <FormLine label="Detailed">
+      <FormLine label="Divisions">
         <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} />
-        <CheckboxField form={form} field="subdivision" label="sub" disabled={false}/>
+        <CheckboxField form={form} field="subdivision" label="subdivions" disabled={false}/>
         <TextField form={form} field="provinces" filter={a=>a.toUpperCase()} placeholder="ISO-3166-2 codes" className="wide" />
       </FormLine>
 

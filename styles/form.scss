@@ -25,6 +25,15 @@
       flex-grow: 100
     }
   }
+
+  .form-checkbox {
+    input {
+      margin-right: 4px
+    }
+    label {
+      margin-right: 1em
+    }
+  }
 }
 
 .form-range {
@@ -42,5 +51,4 @@
     flex:1;
     padding-left: 1em
   }
-
 }
