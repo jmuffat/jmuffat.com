@@ -1,6 +1,6 @@
 import React from 'react'
 import {PanZoom} from './pan-zoom'
-import {loadMap} from './map-load'
+import {loadMapDirectory,loadMap} from './map-load'
 import {useMapController} from './map-controller'
 import {generateSvg} from './map-export'
 
@@ -49,6 +49,7 @@ export class Map extends React.Component {
   constructor(props) {
     super(props)
 
+    this.directory= null
     this.data110  = null
     this.data50   = null
     this.data10   = null
@@ -66,7 +67,9 @@ export class Map extends React.Component {
   componentDidMount() {
     this.panZoom = new PanZoom(this.svgRef.current, this)
 
-    loadMap('countries-110m.json',mercator)
+    loadMapDirectory()
+    .then( a=>{this.directory=a})
+    .then(()=>loadMap('countries-110m.json',mercator))
     .then( a=>{this.data110=a;this.forceUpdate()})
     .then(()=>loadMap('countries-50m.json',mercator))
     .then( a=>{this.data50=a;this.forceUpdate()})
@@ -86,7 +89,7 @@ export class Map extends React.Component {
 
     if ( !detailed
       || detailed!=this.dataDetailedId
-      || !countryCodes.find(a=>a===detailed) ) {
+      || !this.directory[detailed]) {
 
       return null
     }
@@ -252,8 +255,10 @@ export class Map extends React.Component {
 
   changeDetailedCountry(){
     const iso = this.props.detailed.trim()
-    if (countryCodes.findIndex(a=>a===iso)<0) return
-    const detail = this.props.subdivision? 'subdivisions' : 'divisions'
+    const country = this.directory[iso]
+    if (!country) return
+
+    const detail = (country.subdivisions&&this.props.subdivision)? 'subdivisions' : 'divisions'
     const prefix = `${detail}-${iso}`
 
     if (prefix===this.dataDetailedPrefix && this.dataDetailed) return;

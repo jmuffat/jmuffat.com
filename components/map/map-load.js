@@ -11,6 +11,12 @@ function getDataURL(filename) {
   return `https://s3.eu-west-3.amazonaws.com/jmuffat.com/map-data/${filename}`
 }
 
+export async function loadMapDirectory() {
+  const url = getDataURL('directory.json')
+  const res  = await fetch(url)
+  return res.json()
+}
+
 export async function loadMap(filename, projectionProc) {
   const url  = getDataURL(filename)
   const res  = await fetch(url)
