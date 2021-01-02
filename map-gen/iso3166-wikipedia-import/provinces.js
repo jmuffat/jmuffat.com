@@ -66,6 +66,10 @@ async function processProvinces(id, wikiPage) {
     processContent(data,id,$,contents)
   } )
 
+  if (id==='IT') {
+    data.push({id:"IT-AO",name:"Aoste",link:"/wiki/Aosta_Valley",parent:"IT-23"})
+  }
+
   return data
 }
 

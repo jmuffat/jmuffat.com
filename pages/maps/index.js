@@ -96,7 +96,7 @@ function AreaData(props) {
     )
   }
   else {
-    return <span><strong>{a.iso_a2}</strong> - {a.name}</span>
+    return <span><strong>{a[props.id]}</strong> - {a.name}</span>
   }
 }
 

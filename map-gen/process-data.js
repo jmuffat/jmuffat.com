@@ -41,7 +41,18 @@ function wikipediaPageTitle(a) {
   return a.replace(/^\/wiki\//,'')
 }
 
+async function loadIsoRemap() {
+  const txt = await fs.promises.readFile( path.join(__dirname,'iso-remap.json'), {encoding: 'utf8'})
+  return JSON.parse(txt)
+}
+
+async function saveIsoRemap(data) {
+  const txt = JSON.stringify(data)
+  await fs.promises.writeFile( path.join(__dirname,'iso-remap.json'), txt)
+}
+
 async function loadDB(dstFolder,scale,directory,iso3166) {
+  var isoRemap = await loadIsoRemap()
 
   console.log(`processing countries at ${scale}`)
   const countryBaseData = await loadShapes(
@@ -107,20 +118,25 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
     const baseData = provinceByCountry[iso]
 
     const data = baseData.map(a=>{
-      const iso = iso3166.find(x=>x.id===a.iso_3166_2)
-      if (!iso) {return a}
+      const iso_3166_2 = isoRemap[a.iso_3166_2] || a.iso_3166_2
+      const iso = iso3166.find(x=>x.id===iso_3166_2)
+      if (!iso) {isoRemap[a.iso_3166_2]=null;return a}
 
       return {
         ...a,
+        iso_3166_2,
         wikipediaName: iso.name,
         wikipediaPage: wikipediaPageTitle(iso.link),
         parent:iso.parent
       }
     })
 
-    const _divisions = data.reduce(
+    // check if any province has a parent that isn't the country
+    const hasSubdivisions = !!data.find(a => a.parent && a.parent!==iso)
+
+    const _divisions = !hasSubdivisions? [] : data.reduce(
       (cur,a)=>{
-        if (a.parent && a.parent!==iso) {
+        if (a.parent) {
           if (!cur[a.parent]) {
             const isoDiv = iso3166.find(x=>x.id===a.parent)
             if (isoDiv) {
@@ -150,7 +166,8 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
     )
 
     const divisions = Object.keys(_divisions).map(a=>_divisions[a])
-    if (divisions.length) {
+
+    if (hasSubdivisions) {
       work.push(
         fs.promises.writeFile( path.join(dstFolder,`divisions-${iso}-${scale}m.json`), JSON.stringify(divisions))
       )
@@ -166,6 +183,8 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
       addProvincesToDir(directory,{iso,scale,subdivisions:false})
     }
   }
+
+  saveIsoRemap(isoRemap)
 
   await Promise.all(work)
 }
