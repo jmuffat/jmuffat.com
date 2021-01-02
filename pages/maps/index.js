@@ -209,7 +209,7 @@ function Home(props) {
 
       <h1>Maps</h1>
 
-      <p>I needed simple maps to illustrate a friend's web pages and
+      <p>I needed simple maps to illustrate a friend's <a href="https://dlicacy.com/filotea/" target="_blank">web site</a> and
       realized it wasn't as easy to find as I would have expected. So I made
       this page, as I'm sure it can be useful to others too. Drag the map to
       position it, zoom using the slider (avoids confusion between zoom and
