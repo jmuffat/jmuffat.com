@@ -10,10 +10,21 @@ export function TextField(props) {
     })
   }
 
+  const style = {
+    width: props.width
+  }
+
   return (
     <>
       {label && <label htmlFor={field}>{label}</label>}
-      <input type="text" field={field} value={form.data[field]} placeholder={props.placeholder} className={className} onChange={onChange} />
+      <input
+        type="text"
+        field={field}
+        value={form.data[field]}
+        placeholder={props.placeholder}
+        className={className}
+        style={style}
+        onChange={onChange} />
     </>
   )
 }

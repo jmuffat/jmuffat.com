@@ -231,8 +231,8 @@ function Home(props) {
       </FormLine>
 
       <FormLine label="Divisions">
-        <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} />
-        <CheckboxField form={form} field="subdivision" label="subdivions" disabled={false}/>
+        <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} width="2em" />
+        <CheckboxField form={form} field="subdivision" label="subdivisions" disabled={false}/>
         <TextField form={form} field="provinces" filter={a=>a.toUpperCase()} placeholder="ISO-3166-2 codes" className="wide" />
       </FormLine>
 
