@@ -41,28 +41,14 @@ function mergeBbox(a,b) {
 }
 
 function mergeGeometry(a,b) {
-  console.log({
-    a:a.points.length,
-    b:b.points.length
-  })
-
   const gA = toGeojson(a)
   const gB = toGeojson(b)
   const gC = martinez.union(gA,gB)
 
-  const res = {
+  return {
     bbox:   mergeBbox(a,b),
     points: fromGeojson(gC)
   }
-
-  console.log({
-    a:a.points.length,
-    b:b.points.length,
-    c:res.points.length
-  })
-
-  // throw new Error('debug')
-  return res
 }
 
 module.exports = {
