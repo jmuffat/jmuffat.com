@@ -1,8 +1,8 @@
 function updateBbox(bbox, A) {
-  bbox.xMin = Math.min(A.x,bbox.xMin)
-  bbox.xMax = Math.max(A.x,bbox.xMax)
-  bbox.yMin = Math.min(A.y,bbox.yMin)
-  bbox.yMax = Math.max(A.y,bbox.yMax)
+  bbox.xMin = Math.min(A[0],bbox.xMin)
+  bbox.xMax = Math.max(A[0],bbox.xMax)
+  bbox.yMin = Math.min(A[1],bbox.yMin)
+  bbox.yMax = Math.max(A[1],bbox.yMax)
 }
 
 function getDataURL(filename) {
@@ -17,39 +17,47 @@ export async function loadMapDirectory() {
   return res.json()
 }
 
+function loadShape(part, A, projectionProc) {
+  const border = A[0]
+  var bbox = null
+
+  const svgPath = border.reduce(
+    (cur,a,i) => {
+      const proj = projectionProc({lng:a[0],lat:a[1]})
+      if (i) {
+        updateBbox(bbox, a)
+        return `${cur}L${proj.x.toFixed(6)},${proj.y.toFixed(6)}`
+      }
+      else {
+        bbox = {
+          xMin:a[0], yMin:a[1],
+          xMax:a[0], yMax:a[1]
+        }
+        return `M${proj.x.toFixed(6)},${proj.y.toFixed(6)}`
+      }
+    },
+    null
+  )
+
+  if (!svgPath) return
+
+  return {
+    ...part,
+    geometry: {
+      svgPath,
+      bbox
+    }
+  }
+}
+
 export async function loadMap(filename, projectionProc) {
   const url  = getDataURL(filename)
   const res  = await fetch(url)
   const data = await res.json()
 
   const subParts = data.reduce((cur,part)=>{
-    var sub = null
-
-    part.geometry.points.forEach(A=>{
-      const proj = projectionProc({lng:A.x,lat:A.y})
-      switch (A.t) {
-        case 'M':
-          if (sub) cur.push(sub)
-
-          sub = {
-            ...part,
-            geometry: {
-              svgPath:`M${proj.x.toFixed(6)},${proj.y.toFixed(6)}`,
-              bbox: {
-                xMin:A.x, yMin:A.y,
-                xMax:A.x, yMax:A.y
-              }
-            }
-          }
-          break;
-
-        default:
-          sub.geometry.svgPath = sub.geometry.svgPath + `L${proj.x.toFixed(6)},${proj.y.toFixed(6)}`
-          updateBbox(sub.geometry.bbox, A)
-      }
-    })
-
-    if (sub) cur.push(sub)
+    const sub = part.geometry.shape.map( A=>loadShape(part, A, projectionProc))
+    if (sub.length) return cur.concat(sub)
     return cur
   }, [])
 

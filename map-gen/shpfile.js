@@ -65,7 +65,7 @@ function loadPolyLine(buffer){
       xMax: readDouble(buffer,20),
       yMax: readDouble(buffer,28),
     },
-    points:[]
+    shape:[]
   };
   const numParts = buffer.readInt32LE(36);
   const numPoints = buffer.readInt32LE(40);
@@ -74,18 +74,20 @@ function loadPolyLine(buffer){
   const bufferParts  = buffer.slice(44, startPoints);
   const bufferPoints = buffer.slice(startPoints, startPoints+numPoints*16);
 
-  for(var i=0; i<numPoints; i++){
-    const a = {
-      x: readDouble(bufferPoints, i*16),
-      y: readDouble(bufferPoints, i*16+8),
-      t:'L'
-    };
-    polyline.points[i]=a;
-  }
+  for(var iPart=0; iPart<numParts; iPart++) {
+    const start = bufferParts.readInt32LE((iPart  )*4);
+    const end   = iPart+1<numParts? bufferParts.readInt32LE((iPart+1)*4) : numPoints;
 
-  for(var i=0; i<numParts; i++){
-    const pt = bufferParts.readInt32LE(i*4);
-    polyline.points[pt].t='M';
+    const border = []
+    for(var i=start; i<end; i++) {
+      const point = [
+        readDouble(bufferPoints, i*16),
+        readDouble(bufferPoints, i*16+8)
+      ]
+      border.push(point)
+    }
+
+    polyline.shape.push( [border] ) // GeoJson shape = [border,hole1,hole2...]
   }
 
   return polyline;
