@@ -129,8 +129,8 @@ function Home(props) {
     height: 512,
 
     colors: {
-      water: "#e0e0e0", // "#cceeff",
-      land:  "#f0f0f0", // "#eae0aa",
+      water: "#cceeff", // "#e0e0e0",
+      land:  "#f0e8d8", // "#f0f0f0"
       sel:   "#cc0000",
       countryBorder: "#000000",
       provinceLand:  "#ffffff", //"#f8f8f8",
