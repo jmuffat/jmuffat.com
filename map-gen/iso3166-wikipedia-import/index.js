@@ -5,11 +5,19 @@ const {processCountries} = require('./countries')
 async function importIso3166() {
   const dstPath = path.join(__dirname,'..','dst')
 
-  const countries = await processCountries('https://en.wikipedia.org/wiki/ISO_3166-2')
-  // console.log(countries)
-  await fs.promises.writeFile( path.join(dstPath,'iso3166-wikipedia.json'), JSON.stringify(countries))
+  const items = await processCountries('https://en.wikipedia.org/wiki/ISO_3166-2')
+  const data = items.reduce(
+    (cur,a)=>{
+      const {id,...info} = a
+      cur[a.id] = info
+      return cur
+    },
+    {}
+  )
 
-  return countries
+  await fs.promises.writeFile( path.join(dstPath,'iso3166-wikipedia.json'), JSON.stringify(data))
+
+  return data
 }
 
 

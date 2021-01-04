@@ -73,7 +73,7 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
   )
 
   const countryData = countryBaseData.map(a=>{
-    const iso = iso3166.find(x=>x.id===a.iso_a2)
+    const iso = iso3166[a.iso_a2]
     if (!iso) {return a}
 
     return {
@@ -119,7 +119,7 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
 
     const data = baseData.map(a=>{
       const iso_3166_2 = isoRemap[a.iso_3166_2] || a.iso_3166_2
-      const iso = iso3166.find(x=>x.id===iso_3166_2)
+      const iso = iso3166[iso_3166_2]
       if (!iso) {isoRemap[a.iso_3166_2]=null;return a}
 
       return {
@@ -138,7 +138,7 @@ async function loadDB(dstFolder,scale,directory,iso3166) {
       (cur,a)=>{
         if (a.parent) {
           if (!cur[a.parent]) {
-            const isoDiv = iso3166.find(x=>x.id===a.parent)
+            const isoDiv = iso3166[a.parent]
             if (isoDiv) {
               cur[a.parent] = {
                  name: isoDiv.name,
