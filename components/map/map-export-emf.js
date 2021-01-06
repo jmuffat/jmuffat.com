@@ -1,6 +1,13 @@
 import * as martinez from 'martinez-polygon-clipping';
 import {EmfBuilder} from '~/lib/emf'
 
+function convertColor(s /* #RRGGBB */ ) {
+  const r = s.slice(1,3)
+  const g = s.slice(3,5)
+  const b = s.slice(5,7)
+
+  return parseInt(`0x00${b}${g}${r}`)
+}
 
 function clipped(bboxA,bboxB) {
   return (
@@ -43,7 +50,7 @@ function processPath(P, s) {
 }
 
 function writePaths(emf, P,data,borderColor,fillProc) {
-  if (!data) return ""
+  if (!data) return
 
   const parts = data.map( part=>{
     if (clipped(part.geometry.bbox, P.bbox)) return
@@ -58,8 +65,12 @@ function writePaths(emf, P,data,borderColor,fillProc) {
 
   parts.forEach(part=>{
     if (!part) return
+
+    const hBrush = part.fill && emf.createBrushIndirect(0, convertColor(part.fill), 0x06)
+    if (hBrush) emf.selectObject(hBrush)
+    else        emf.selectObject(emf.stock.NULL_BRUSH)
+
     emf.selectObject(emf.stock.BLACK_PEN)
-    emf.selectObject(emf.stock.NULL_BRUSH)
 
     part.path.forEach(shape=>{
       const border = shape[0]
@@ -71,6 +82,9 @@ function writePaths(emf, P,data,borderColor,fillProc) {
       })
       emf.endPath()
       emf.strokeAndFillPath(0,0,-1,-1)
+
+      emf.selectObject(emf.stock.NULL_BRUSH)
+      if (hBrush) emf.deleteObject(hBrush)
     })
   })
 }
@@ -87,9 +101,7 @@ function writeClipPath(emf,P) {
 }
 
 function writeBackground(emf,P) {
-  const txtColor = `0x${P.colors.water.slice(1)}`
-
-  const hBrush = emf.createBrushIndirect(0, parseInt(txtColor), 0x06)
+  const hBrush = emf.createBrushIndirect(0, convertColor(P.colors.water), 0x06)
   emf.selectObject(hBrush)
 
   emf.beginPath()
@@ -108,11 +120,6 @@ function writeBackground(emf,P) {
 
 export const generateEmf = P=>{
   const emf = new EmfBuilder({
-    w: P.width,
-    h: P.height
-  })
-
-  console.log({
     w: P.width,
     h: P.height
   })
@@ -136,7 +143,7 @@ export const generateEmf = P=>{
   const countries = P.onlySelected? P.dataCountries.filter(part=>P.countries.includes(part.iso_a2)) : P.dataCountries
 
   writePaths(emf, P, countries,       P.colors.countryBorder,  part=>P.getCountryFill(part))
-  // writePaths(emf, P, P.dataDetailed,  P.colors.provinceBorder, part=>P.getProvinceFill(part))
+  writePaths(emf, P, P.dataDetailed,  P.colors.provinceBorder, part=>P.getProvinceFill(part))
 
   emf.restoreDC()
   emf.writeEOF()
