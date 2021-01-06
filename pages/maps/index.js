@@ -188,6 +188,13 @@ function Home(props) {
     FileSaver.saveAs(blob, `${form.data.name}.svg`);
   }
 
+  const onExportEmf = ()=>{
+    const bufEMF = mapCtrl.generateEmf()
+    const data = [new Uint8Array(bufEMF, 0, bufEMF.byteLength)]
+    const blob = new Blob(data, {type:'image/x-emf'});
+    FileSaver.saveAs(blob, `${form.data.name}.emf`);
+  }
+
   const onChangeSlider = e=>mapCtrl.setZoomLevel(e.currentTarget.value/100)
   const soloDisabled = form.data.countries.length<1
 
@@ -245,7 +252,8 @@ function Home(props) {
 
       <AreaInfo data={current}/>
 
-      <button onClick={onExport} className="map-button">Generate SVG</button>
+      <button onClick={onExport} className="map-button">Export SVG</button>
+      <button onClick={onExportEmf} className="map-button">Export EMF</button>
       <button onClick={onSave}   className="map-button">Save</button>
 
       <label htmlFor="file-upload" className="map-button-load">Load</label>

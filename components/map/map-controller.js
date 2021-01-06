@@ -28,6 +28,11 @@ class MapController {
     if (!this.component) return
     return this.component.generateSvg()
   }
+
+  generateEmf() {
+    if (!this.component) return
+    return this.component.generateEmf()
+  }
 }
 
 export function useMapController(initialValues) {

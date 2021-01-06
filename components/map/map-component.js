@@ -3,6 +3,7 @@ import {PanZoom} from './pan-zoom'
 import {loadMapDirectory,loadMap} from './map-load'
 import {useMapController} from './map-controller'
 import {generateSvg} from './map-export'
+import {generateEmf} from './map-export-emf'
 
 import countryCodes from '~/data/countries.json'
 
@@ -276,6 +277,11 @@ export class Map extends React.Component {
   generateSvg() {
     const P = this.computerRenderParameters()
     return generateSvg(P)
+  }
+
+  generateEmf() {
+    const P = this.computerRenderParameters()
+    return generateEmf(P)
   }
 
   static useMapController(a) {return useMapController(a)}
