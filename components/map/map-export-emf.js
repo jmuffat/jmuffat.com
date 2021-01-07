@@ -63,14 +63,21 @@ function writePaths(emf, P,data,borderColor,fillProc) {
     }
   })
 
+  const hPen = emf.extCreatePen(
+    0x00012200, /* PS_GEOMETRIC|PS_JOIN_MITER|PS_ENDCAP_FLAT */
+    1,
+    /* BS_SOLID */ 0,
+    convertColor(borderColor),
+    0
+  )
+  emf.selectObject(hPen)
+
   parts.forEach(part=>{
     if (!part) return
 
     const hBrush = part.fill && emf.createBrushIndirect(0, convertColor(part.fill), 0x06)
     if (hBrush) emf.selectObject(hBrush)
     else        emf.selectObject(emf.stock.NULL_BRUSH)
-
-    emf.selectObject(emf.stock.BLACK_PEN)
 
     part.path.forEach(shape=>{
       const border = shape[0]
@@ -87,6 +94,9 @@ function writePaths(emf, P,data,borderColor,fillProc) {
       if (hBrush) emf.deleteObject(hBrush)
     })
   })
+
+  emf.selectObject(emf.stock.NULL_PEN)
+  emf.deleteObject(hPen)
 }
 
 function writeClipPath(emf,P) {
