@@ -110,6 +110,11 @@ const colorLabels = {
   provinceBorder: "Province borders"
 }
 
+function googleMapURL(P) {
+  // return `https://www.google.com/maps/@?api=1&map_action=map&parameters`
+  return `https://www.google.com/maps/@${P.center.lat},${P.center.lng},${2+P.zoomLevel}z`
+}
+
 function Home(props) {
   const mapCtrl = Map.useMapController({
     center: {lng:7.0698281,lat:43.5823383},
@@ -258,6 +263,8 @@ function Home(props) {
 
       <label htmlFor="file-upload" className="map-button-load">Load</label>
       <input id="file-upload" type="file" style={{display:"none"}} onChange={onLoad}/>
+
+      <a href={googleMapURL(mapCtrl)} target="_blank">Google Maps</a>
 
       <Map
         controller={mapCtrl}
