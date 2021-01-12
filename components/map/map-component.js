@@ -204,7 +204,7 @@ export class Map extends React.Component {
     const data = P.dataCountries
     if (!data) return null
 
-    const selection = P.onlySelected? data.filter(part=>P.countries.includes(part.iso_a2)) : data
+    const selection = P.onlySelected? data.filter(part=>P.selection.includes(part.iso_a2)) : data
 
     const onClick = (e,part)=>{
       if (!this.panZoom.clicked) return;
