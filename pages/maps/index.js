@@ -225,7 +225,7 @@ function Home(props) {
     window.URL.revokeObjectURL(url)
   }
 
-  const onExport = ()=>{
+  const onExportSvg = ()=>{
     const svgText = mapCtrl.generateSvg()
     const blob = new Blob([svgText], {type:'image/svg+xml;charset=utf-8'});
     FileSaver.saveAs(blob, `${form.data.name}.svg`);
@@ -295,14 +295,16 @@ function Home(props) {
 
       <AreaInfo data={current}/>
 
-      <button onClick={onExport} className="map-button">Export SVG</button>
-      <button onClick={onExportEmf} className="map-button">Export EMF</button>
+      {/*<button onClick={onExportSvg} className="map-button">{form.data.name}.svg</button>
+      <button onClick={onExportEmf} className="map-button">{form.data.name}.emf</button>*/}
       <button onClick={onSave}   className="map-button">Save</button>
 
       <label htmlFor="file-upload" className="map-button-load">Load</label>
       <input id="file-upload" type="file" style={{display:"none"}} onChange={onLoad}/>
 
-      <a href={googleMapURL(mapCtrl)} target="_blank">Google Maps</a>
+      {form.data.name && <a href='#' className="mr-1" onClick={onExportSvg}>{form.data.name}.svg</a>}
+      {form.data.name && <a href='#' className="mr-1" onClick={onExportEmf}>{form.data.name}.emf</a>}
+      <a href={googleMapURL(mapCtrl)} className="mr-1" target="_blank">Google Maps</a>
 
       <Map
         controller={mapCtrl}
