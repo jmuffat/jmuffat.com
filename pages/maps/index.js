@@ -9,10 +9,18 @@ import {
   FloatField,
   IntField,
   CheckboxField,
+  RadioField,
   FormColors,
   FormLine
 } from '~/components/form'
 import Map from '~/components/map'
+
+
+const subdivisionOptions = [
+  {label:"Country", value:0},
+  {label:"Divisions", value:1},
+  {label:"Subdivisions", value:2}
+]
 
 function FieldLatLon(props) {
   const form = useSubForm(props.form,props.field)
@@ -124,14 +132,16 @@ function Home(props) {
   const defaultData = {
     name:'map',
     countries:'',
-    detailed: '',
-    subdivision:false,
+    detailed: '', // country of interest
+    subdivisionLevel:0,
     onlySelected:false,
     provinces:'',
     center: mapCtrl.center,
     zoomLevel: mapCtrl.zoomLevel,
     width: 1024,
     height: 512,
+
+    // subdivision:false, // obsolete, use subdivisionLevel
 
     colors: {
       water: "#cceeff", // "#e0e0e0",
@@ -144,9 +154,30 @@ function Home(props) {
     }
   }
 
+  function upgradeParameters(data){
+    var a = {
+      ...defaultData,
+      ...data
+    }
+
+    if (a.hasOwnProperty('subdivision')) {
+      console.log('upgrading "subdivision"')
+      a.subdivisionLevel = a.subdivision? 2 : 1
+      delete a.subdivision
+    }
+
+    console.log(a)
+    return a
+  }
+
   const form = useForm(defaultData)
 
   const [current,setCurrent] = React.useState(null)
+
+  const onClickCountry = country=>{
+    form.updateData({detailed: country.iso_a2})
+    setCurrent( <AreaData id="iso_a2" data={country}/> )
+  }
 
   const onToggleCountry = country=>{
     form.updateData({countries: toggleCountry(form.data.countries, country.iso_a2)})
@@ -154,6 +185,10 @@ function Home(props) {
 
   const onToggleProvince = province=>{
     form.updateData({provinces: toggleCountry(form.data.provinces, province.iso_3166_2)})
+  }
+
+  const onChangeDetail = e=>{
+    form.updateData({subdivisionLevel: e.currentTarget.value})
   }
 
   const onSave = ()=>{
@@ -175,10 +210,7 @@ function Home(props) {
     const res = await fetch(url)
     const data = await res.json()
 
-    const upgraded = {
-      ...defaultData,
-      ...data
-    }
+    const upgraded = upgradeParameters(data)
 
     form.setData(upgraded)
     mapCtrl.setCenter(data.center)
@@ -201,7 +233,7 @@ function Home(props) {
   }
 
   const onChangeSlider = e=>mapCtrl.setZoomLevel(e.currentTarget.value/100)
-  const soloDisabled = form.data.countries.length<1
+  const soloDisabled = !form.data.detailed
 
   return (
     <BasePage title="SVG Maps Generator">
@@ -237,15 +269,15 @@ function Home(props) {
         <IntField form={form} field="height" label="h"/>
       </FormLine>
 
-      <FormLine label="Countries">
-        <TextField form={form} field="countries" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
+      <FormLine label="Country">
+        <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} width="2em" />
         <CheckboxField form={form} field="onlySelected" label="only" disabled={soloDisabled}/>
+        <label>Detail level:</label>
+        <RadioField form={form} field="subdivisionLevel" options={subdivisionOptions}/>
       </FormLine>
 
-      <FormLine label="Divisions">
-        <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} width="2em" />
-        <CheckboxField form={form} field="subdivision" label="subdivisions" disabled={false}/>
-        <TextField form={form} field="provinces" filter={a=>a.toUpperCase()} placeholder="ISO-3166-2 codes" className="wide" />
+      <FormLine label="Selection">
+        <TextField form={form} field="selection" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
       </FormLine>
 
       <FormLine label="Zoom level">
@@ -274,10 +306,10 @@ function Home(props) {
         countries={form.data.countries}
         onlySelected={form.data.onlySelected}
         detailed={form.data.detailed}
-        subdivision={form.data.subdivision}
+        subdivisionLevel={form.data.subdivisionLevel}
         provinces={form.data.provinces}
 
-        onClickCountry={a=>setCurrent( <AreaData id="iso_a2" data={a}/> )}
+        onClickCountry={onClickCountry}
         onDoubleClickCountry={country=>onToggleCountry(country)}
 
         onClickProvince={a=>setCurrent( <AreaData id="iso_3166_2" data={a}/> )}

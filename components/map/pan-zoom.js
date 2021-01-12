@@ -80,6 +80,7 @@ export class PanZoom {
 
     this.captureDocumentMouse()
     this.lastPos = this.getMouseSvgPos(e)
+    this.startPos = {x:e.clientX,y:e.clientY}
     return false
   }
 
@@ -92,6 +93,9 @@ export class PanZoom {
 
   onMouseUp(e) {
     if (this.touchInProgress) return
+    const pos = {x:e.clientX,y:e.clientY}
+    const delta = Math.max( Math.abs(this.startPos.x-pos.x), Math.abs(this.startPos.y-pos.y) )
+    this.clicked =  delta < 5
     this.releaseDocumentMouse()
   }
 
@@ -120,5 +124,9 @@ export class PanZoom {
     const delta = {x:pos.x-x, y:pos.y-y}
     this.lastPos = pos
     if (this.opt.onPan) this.opt.onPan(delta)
+  }
+
+  filterClick(proc) {
+    return e=>{if (this.clicked) proc(e)}
   }
 }

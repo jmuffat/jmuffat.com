@@ -154,7 +154,10 @@ export class Map extends React.Component {
       onlySelected,
 
       getCountryFill: part => {
-        if (part.iso_a2===detailed) return null
+        if (part.iso_a2===this.props.detailed) {
+          if (this.props.subdivisionLevel==0) return colors.provinceLand
+          return null
+        }
         return countries.includes(part.iso_a2)? colors.sel : colors.land
       },
       getProvinceFill: part => {
@@ -205,13 +208,20 @@ export class Map extends React.Component {
 
     const selection = P.onlySelected? data.filter(part=>P.countries.includes(part.iso_a2)) : data
 
+    const onClick = (e,part)=>{
+      if (!this.panZoom.clicked) return;
+      if (!this.props.onClickCountry) return
+      console.log(e)
+      this.props.onClickCountry(part)
+    }
+
     return selection.map( (part,i)=>(
       <path
         key={i}
         d={part.geometry.svgPath}
         fill={P.getCountryFill(part)}
         stroke={P.colors.countryBorder}
-        onClick={this.props.onClickCountry && (()=>this.props.onClickCountry(part))}
+        onClick      ={this.props.onClickCountry       && this.panZoom.filterClick(()=>this.props.onClickCountry(part)     )}
         onDoubleClick={this.props.onDoubleClickCountry && (()=>this.props.onDoubleClickCountry(part))}
       />
     ))
@@ -226,7 +236,7 @@ export class Map extends React.Component {
         d={part.geometry.svgPath}
         fill={P.getProvinceFill(part)}
         stroke={P.colors.provinceBorder}
-        onClick={this.props.onClickProvince && (()=>this.props.onClickProvince(part))}
+        onClick       ={this.props.onClickProvince      && this.panZoom.filterClick(()=>this.props.onClickProvince(part))}
         onDoubleClick={this.props.onDoubleClickProvince && (()=>this.props.onDoubleClickProvince(part))}
       />
     ))
@@ -255,11 +265,13 @@ export class Map extends React.Component {
   }
 
   changeDetailedCountry(){
+    if (this.props.subdivisionLevel==0) return // detail=None
+
     const iso = this.props.detailed.trim()
     const country = this.directory[iso]
     if (!country) return
 
-    const detail = (country.subdivisions&&this.props.subdivision)? 'subdivisions' : 'divisions'
+    const detail = (country.subdivisions&&this.props.subdivisionLevel==2)? 'subdivisions' : 'divisions'
     const prefix = `${detail}-${iso}`
 
     if (prefix===this.dataDetailedPrefix && this.dataDetailed) return;
