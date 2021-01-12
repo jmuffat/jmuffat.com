@@ -107,8 +107,7 @@ export class Map extends React.Component {
 
     const center = mercator(C.center)
     const scaleMap = Math.pow(2,C.zoomLevel)/180
-    const countries = this.props.countries.split(' ').filter(a=>a.length>0)
-    const provinces = this.props.provinces.split(' ').filter(a=>a.length>0)
+    const selection = this.props.selection.split(' ').filter(a=>a.length>0)
     const onlySelected = this.props.onlySelected
 
     const scl = scaleMap*scaleScreen
@@ -149,8 +148,7 @@ export class Map extends React.Component {
       scl,trn,
       strokeWidth,
       colors,
-      countries,
-      provinces,
+      selection,
       onlySelected,
 
       getCountryFill: part => {
@@ -158,10 +156,10 @@ export class Map extends React.Component {
           if (this.props.subdivisionLevel==0) return colors.provinceLand
           return null
         }
-        return countries.includes(part.iso_a2)? colors.sel : colors.land
+        return selection.includes(part.iso_a2)? colors.sel : colors.land
       },
       getProvinceFill: part => {
-        return provinces.includes(part.iso_3166_2)? colors.provinceSel : colors.provinceLand
+        return selection.includes(part.iso_3166_2)? colors.provinceSel : colors.provinceLand
       }
     }
   }

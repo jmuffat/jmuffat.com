@@ -37,8 +37,8 @@ function FieldLatLon(props) {
   )
 }
 
-function toggleCountry(countries, iso) {
-  const list = countries.split(' ').filter(a=>a.length>0)
+function toggleSelection(selection, iso) {
+  const list = selection.split(' ').filter(a=>a.length>0)
   const i = list.findIndex(a=>a===iso)
 
   if (i<0) list.push(iso)
@@ -135,7 +135,7 @@ function Home(props) {
     detailed: '', // country of interest
     subdivisionLevel:0,
     onlySelected:false,
-    provinces:'',
+    selection:'',
     center: mapCtrl.center,
     zoomLevel: mapCtrl.zoomLevel,
     width: 1024,
@@ -166,6 +166,12 @@ function Home(props) {
       delete a.subdivision
     }
 
+    if (a.hasOwnProperty('provinces')) {
+      console.log('upgrading "provinces"')
+      a.selection = a.provinces
+      delete a.provinces
+    }
+
     console.log(a)
     return a
   }
@@ -179,12 +185,12 @@ function Home(props) {
     setCurrent( <AreaData id="iso_a2" data={country}/> )
   }
 
-  const onToggleCountry = country=>{
-    form.updateData({countries: toggleCountry(form.data.countries, country.iso_a2)})
+  const onToggleSeletion = country=>{
+    form.updateData({selection: toggleSelection(form.data.selection, country.iso_a2)})
   }
 
   const onToggleProvince = province=>{
-    form.updateData({provinces: toggleCountry(form.data.provinces, province.iso_3166_2)})
+    form.updateData({selection: toggleSelection(form.data.selection, province.iso_3166_2)})
   }
 
   const onChangeDetail = e=>{
@@ -307,7 +313,7 @@ function Home(props) {
         onlySelected={form.data.onlySelected}
         detailed={form.data.detailed}
         subdivisionLevel={form.data.subdivisionLevel}
-        provinces={form.data.provinces}
+        selection={form.data.selection}
 
         onClickCountry={onClickCountry}
         onDoubleClickCountry={country=>onToggleCountry(country)}
