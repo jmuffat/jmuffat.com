@@ -27,6 +27,7 @@
     "mkdirp": "^1.0.4",
     "node-fetch": "^2.6.1",
     "parsedbf": "^1.1.1",
-    "raw-loader": "^4.0.2"
+    "raw-loader": "^4.0.2",
+    "worker-plugin": "^5.0.0"
   }
 }

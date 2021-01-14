@@ -1,4 +1,5 @@
 const path = require('path');
+const WorkerPlugin = require('worker-plugin');
 
 const pagesFolder = path.resolve(__dirname,'pages')
 
@@ -52,6 +53,8 @@ module.exports = {
         {loader:path.resolve('lib/post-loader.js'), options:{}}
       ]
     })
+
+    config.plugins.push( new WorkerPlugin() )
 
     return config
   },
