@@ -54,7 +54,9 @@ module.exports = {
       ]
     })
 
-    config.plugins.push( new WorkerPlugin() )
+    config.plugins.push( new WorkerPlugin({
+      globalObject: 'self' // makes Hot Module Reloading work properly
+    }) )
 
     return config
   },
