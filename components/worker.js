@@ -44,7 +44,7 @@ export function useWorker(createWorker) {
       const w = createWorker()
       const asyncWorker = new AsyncWorker(w)
       setWorker(asyncWorker)
-      return ()=>w.close()
+      return ()=>asyncWorker.close()
     },
     []
   )
