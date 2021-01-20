@@ -71,9 +71,9 @@ function loadPolyLine(buffer){
   return polyline;
 }
 
-function loadData(url, abortController){
+function loadData(url){
   return (
-    window.fetch(url, abortController)
+    window.fetch(url)
     .then(response=>response.arrayBuffer())
     .then(data=>{
       const res=[];
@@ -136,10 +136,10 @@ function convert3D(data){
 }
 
 var loadCoastlines3DPromise = {};
-export function loadCoastlines3D(url, abortController) {
+export function loadCoastlines3D(url) {
   if (!loadCoastlines3DPromise[url]) {
     loadCoastlines3DPromise[url] = (
-      loadData(url, abortController)
+      loadData(url)
       .then(data=>convert3D(data))
     );
   }
@@ -152,12 +152,14 @@ export function useGeoshape(url) {
   const [data,setData] = state;
 
   React.useEffect(()=>{
-    const abortController = new AbortController();
+    const a = {loading:true}
 
     loadCoastlines(url,abortController)
-    .then(data=>setData(data));
+    .then(data=>{
+      if (a.loading) setData(data)
+    })
 
-    return ()=>abortController.abort();
+    return ()=>{a.loading=false}
   },[]);
 
   return state;
@@ -168,12 +170,14 @@ export function useGeoshape3D(url) {
   const [data,setData] = state;
 
   React.useEffect(()=>{
-    const abortController = new AbortController();
+    const a = {loading:true}
 
-    loadCoastlines3D(url,abortController)
-    .then(data=>setData(data));
+    loadCoastlines3D(url)
+    .then(data=>{
+      if (a.loading) setData(data)
+    })
 
-    return ()=>abortController.abort();
+    return ()=>{a.loading=false}
   },[]);
 
   return state;
