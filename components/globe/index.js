@@ -41,9 +41,12 @@ function TransformPolyline(props){
   );
 }
 
+const urlS3 = fname => `https://s3.eu-west-3.amazonaws.com/jmuffat.com/globe/${fname}`
+
 function Globe(props){
-  const [data ] = useGeoshape3D('/data/ne_110m_coastline.shp');
-  const [dataR] = useGeoshape3D('/data/ne_110m_admin_0_boundary_lines_land.shp');
+  const [data ] = useGeoshape3D( urlS3('ne_110m_coastline.shp'))
+  const [dataR] = useGeoshape3D( urlS3('ne_110m_admin_0_boundary_lines_land.shp'))
+
   const [t,setT]=React.useState(0);
   const t0=new Date();
 
