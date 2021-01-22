@@ -1,6 +1,8 @@
 const path = require('path');
 const WorkerPlugin = require('worker-plugin');
 
+const i18nConfig = require('./i18n-config')
+
 const pagesFolder = path.resolve(__dirname,'pages')
 
 async function redirects() {
@@ -19,10 +21,7 @@ module.exports = {
     ROOT: path.resolve(process.cwd())
   },
 
-  i18n: {
-    locales: ['fr-FR', 'en-US'],
-    defaultLocale: 'fr-FR'
-  },
+  i18n: i18nConfig.nextjsConfig,
 
   pageExtensions: ['js', 'md'],
 

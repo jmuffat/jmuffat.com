@@ -1,0 +1,41 @@
+---
+title: S'ouvrir en open-source
+---
+
+Alors qu'on refaisait une fois de plus le Monde avec
+[François Piednoël](https://twitter.com/FPiednoel), on s'est rendu compte d'un
+truc tout bête: je cherche du travail, mais je n'ai aucun projet public sur ma
+page github ! Pas très malin pour un codeur...
+
+Ça m'a amené à une idée un peu folle : je vais déjà commencer par rendre publique
+le source de __ce site__ web. Il y a un tas de choses intéressantes à dire à propos
+de la manière dont il est construit et peut-être même quelques bouts de code qui
+pourraient servir à d'autres. Çà fait vraiment bizarre de dévoiler l'envers du
+décors mais, tout à la fois, c'est très motivant parce qu'il y a tant de choses
+que je vais pouvoir faire partager. En définitive, ça donne un véritable sens à
+ce site.
+
+Auparavant, j'avais commencé à utiliser Wordpress. Je cherchais un moyen de
+partager des idées comme sur Facebook, mais en évitant l'aspect "contenu
+jettable" de la plateforme. Je n'ai pas beaucoup persévéré, principalement à
+force de frustration, tout semblant nécessiter un plugin supplémentaire et des
+tas de cases à remplir ou cocher. En fin de compte, il ne s'est rien passé
+de spécialement intéressant sur ce site là qui n'était pour moi qu'une série
+d'étapes intermédiaires supplémentaires avant de juste poster sur Facebook. Ça
+n'accomplissait rien.  
+
+Un jour j'ai commencé à jouer avec [Next.js](https://nextjs.org/) et y ai
+trouvé beaucoup d'intérêt. Ça fait ce que je veux: je peux écrire mes pages
+en [React](https://reactjs.org/), ça génère des pages qui sont prêtes à être
+indexées par les moteurs de recherche et qui semblent se charger bien plus vite
+que ce j'écrivais auparavant avec [create-react-app](https://github.com/facebook/create-react-app).
+
+C'est comme cela que j'ai commencé à ré-écrire mon site personnel et j'en suis
+vraiment content. Ça reste simple là où ça doit l'être : écrire un article
+se résume à créer un nouveau fichier Markdown et le sauvegarder sur GitHub. En
+même temps, c'est performant là où j'en ai besoin: ajouter mon
+[générateur SVG de cartes](/maps)  n'a demandé aucune contorsion particulière.
+
+Retrouvez moi ici : [http://github.com/jmuffat](http://github.com/jmuffat) !
+
+Attachez vos ceintures, à partir du prochain article ça va causer technique !
