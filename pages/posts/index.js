@@ -76,8 +76,6 @@ function Page(props) {
     .map( a=>a.n )
   )
 
-  console.log(sortedThreads)
-
   return (
     <BasePage title="Posts" extraClass="post-toc">
       <h1>Posts</h1>
