@@ -40,6 +40,7 @@ function Author(props) {
           <div className="name">{author.name}</div>
           <div className="social">
             {author.email    && <SocialButton href={`mailto:${author.email}`} fa_id="fas fa-at"       color="#111111"/>}
+            {author.github   && <SocialButton href={author.github}            fa_id="fab fa-github"   color="#000000"/>}
             {author.facebook && <SocialButton href={author.facebook}          fa_id="fab fa-facebook" color="#1877f2"/>}
             {author.linkedin && <SocialButton href={author.linkedin}          fa_id="fab fa-linkedin" color="#2867B2"/>}
             {author.reddit   && <SocialButton href={author.reddit}            fa_id="fab fa-reddit"   color="#FF5700"/>}
