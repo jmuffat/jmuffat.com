@@ -130,7 +130,7 @@ function CoverImage(props) {
 }
 
 function PostPage(props) {
-
+  const router = useRouter()
   const { data, content } = matter(props.md)
 
   const post = {
@@ -141,7 +141,7 @@ function PostPage(props) {
 
   const date = new Date(post.date)
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
-  const strDate = date.toLocaleDateString('en-us',options)
+  const strDate = date.toLocaleDateString(router.locale,options)
 
   const coverImage = getCoverImage(post)
   const author = authors[post.author]

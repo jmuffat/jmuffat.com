@@ -10,7 +10,7 @@ function Post(props) {
 
   const date = new Date(post.date)
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
-  const strDate = date.toLocaleDateString('en-us',options)
+  const strDate = date.toLocaleDateString(props.locale,options)
 
   return (
     <>
@@ -34,7 +34,7 @@ function Thread(props) {
     <>
       <h2>{thread.title}</h2>
       <ul>
-      {sel.map(post=> <li key={post.slug}><Post post={post} folder={props.folder}/></li>)}
+      {sel.map(post=> <li key={post.slug}><Post post={post} folder={props.folder} locale={props.locale}/></li>)}
       </ul>
     </>
   )
@@ -88,14 +88,15 @@ function Page(props) {
 export default Page
 
 
-export async function getStaticProps( {params} ) {
+export async function getStaticProps( {params,locale} ) {
   const folder = 'posts'
   const posts = getAllPosts(folder,['slug', 'title', 'date', 'thread'])
 
   return {
     props: {
       folder,
-      posts
+      posts,
+      locale
     },
   }
 }

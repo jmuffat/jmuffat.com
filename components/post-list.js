@@ -1,12 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function Post(props){
+  const router = useRouter()
   const {post,folder} = props
 
   const date = new Date(post.date)
   const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
-  const strDate = date.toLocaleDateString('en-us',options)
+  const strDate = date.toLocaleDateString(router.locale,options)
 
   return (
     <p>
