@@ -67,10 +67,12 @@ function Page(props) {
     {}
   )
 
+  const sortProc = (a,b) => a.d<b.d? 1 : (a.d>b.d? -1 : 0);
+
   const sortedThreads = (
     Object.keys(dateThreads)
     .map(a=>( {n:a,d:dateThreads[a]} ))
-    .sort( (a,b)=>a.d>b.d )
+    .sort(sortProc)
     .map( a=>a.n )
   )
 
@@ -79,7 +81,7 @@ function Page(props) {
   return (
     <BasePage title="Posts" extraClass="post-toc">
       <h1>Posts</h1>
-      {sortedThreads.map(t=><Thread id={t} {...props}/>)}
+      {sortedThreads.map(t=><Thread key={t} id={t} {...props}/>)}
       <Uncategorized {...props}/>
     </BasePage>
   )
