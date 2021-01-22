@@ -55,10 +55,31 @@ function Uncategorized(props) {
 }
 
 function Page(props) {
+
+  const dateThreads = props.posts.reduce(
+    (cur,a)=>{
+      if (a.thread && !cur[a.thread]) {
+        // store first date found, as posts are sorted most recent first
+        cur[a.thread] = a.date
+      }
+      return cur
+    },
+    {}
+  )
+
+  const sortedThreads = (
+    Object.keys(dateThreads)
+    .map(a=>( {n:a,d:dateThreads[a]} ))
+    .sort( (a,b)=>a.d>b.d )
+    .map( a=>a.n )
+  )
+
+  console.log(sortedThreads)
+
   return (
     <BasePage title="Posts" extraClass="post-toc">
       <h1>Posts</h1>
-      {Object.keys(threads).map(t=><Thread id={t} {...props}/>)}
+      {sortedThreads.map(t=><Thread id={t} {...props}/>)}
       <Uncategorized {...props}/>
     </BasePage>
   )
