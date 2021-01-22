@@ -4,6 +4,7 @@ coverImage: /img/ip20.jpg
 date: '2020-03-09'
 author: jmm
 thread: jmm-story
+locale: 'en-US'
 historicMetadata:
   Year: 1986
   OS: MS-DOS

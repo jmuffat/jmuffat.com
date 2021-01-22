@@ -5,6 +5,7 @@ _coverImage: /pzview/photosynth.jpg
 excerpt: 'Still for context : 2007, one year after Jeff Han’s talk, this one drove the nail further. Zooming into data is clearly intuitive and powerful. I remember seeing that car ad and feeling totally validated about the project I was working on then.  Zooming lets you go from general to detail in an instant and back again just as easily if you realise you’re not looking in the right place, or if you simply changed your mind...'
 author: 'jmm'
 thread: pzview
+locale: 'en-US'
 ---
 
 Still for context : 2007, one year after Jeff Han’s talk, this one drove the nail further. Zooming into data is clearly intuitive and powerful. I remember seeing that car ad and feeling totally validated about the project I was working on then.  Zooming lets you go from general to detail in an instant and back again just as easily if you realise you’re not looking in the right place, or if you simply changed your mind...

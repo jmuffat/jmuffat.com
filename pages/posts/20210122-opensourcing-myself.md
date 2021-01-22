@@ -4,6 +4,7 @@ coverImage: /img/opensourcing-myself.jpg
 date: '2021-01-22'
 author: jmm
 thread: 'behind-scenes'
+locale: 'en-US'
 ---
 
 I was talking with [François Piednoël](https://twitter.com/FPiednoel) about crazy ideas

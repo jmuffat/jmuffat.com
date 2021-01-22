@@ -4,6 +4,7 @@ coverImage: /img/canon-ion.jpg
 date: '2020-05-03'
 author: jmm
 thread: jmm-story
+locale: 'en-US'
 ---
 
 Episode #6 of my story starting [here](/posts/20200304-my-first-paid-job).

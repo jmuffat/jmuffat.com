@@ -4,6 +4,7 @@ coverImage: '/webphotomag/webphotomag_0_big_fr.jpg'
 thumb: '/webphotomag/webphotomag_0.jpg'
 date: '2005-10-01'
 author: 'jmm'
+locale: 'fr-FR'
 ---
 
 En 2005, à force de traîner sur les forums photo et les sites de partage, je

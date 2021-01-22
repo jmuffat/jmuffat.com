@@ -4,6 +4,7 @@ coverImage: /img/sharp-pc-1211-m.jpg
 date: '2020-03-04'
 author: jmm
 thread: jmm-story
+locale: 'en-US'
 historicMetadata:
   Year: 1982
   OS: n/a

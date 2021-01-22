@@ -1,6 +1,7 @@
 ---
 title: baladovore
 coverImage: /baladovore/cover.jpg
+locale: 'fr-FR'
 ---
 
 En 2013, avec le chef [Nicolas Gautier](https://www.restaurant-nature.com/),

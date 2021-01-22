@@ -4,6 +4,7 @@ coverImage: /img/img_0738.jpg
 date: '2019-08-20'
 author: jmm
 thread: inception
+locale: 'fr-FR'
 ---
 
 La dernière fois, j'en venais à l'idée que les personnages soient [nés dans des réalités différentes](/posts/20190813-inception-la-realite-quelle-realite). Mal serait née dans la réalité où elle saute de la fenêtre, Cobb dans la réalité "du dessus" et elle serait le produit de son rêve. A force de retourner cette idée et en imaginer les suites, j'ai fini par me demander pourquoi ce serait lui le "plus réel". Outre le fait qu'il soit le protagoniste du film, le personnage auquel on s'identifie, ce qui m'a influencé c'est l'idée que Miles soit son père. Mais ça n'est jamais dit, dans le film : la seule chose qu'on sache c'est que les enfants sont ses petits-enfants... Miles est en fait le père de Mal.

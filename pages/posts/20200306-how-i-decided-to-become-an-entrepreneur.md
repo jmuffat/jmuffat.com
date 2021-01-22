@@ -4,6 +4,7 @@ coverImage: /img/hercules.jpg
 date: '2020-03-06'
 author: jmm
 thread: jmm-story
+locale: 'en-US'
 ---
 
 Episode #2 of my story starting [here](/posts/20200304-my-first-paid-job).

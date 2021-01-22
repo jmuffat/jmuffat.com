@@ -1,6 +1,7 @@
 ---
 title: pzView
 coverImage: /pzview/pzview.png
+locale: 'en-US'
 ---
 
 [@appstore](fr/app/pzview/id1504054466)

@@ -4,6 +4,7 @@ coverImage: '/webphotomag/webphotomag_2_big_fr.jpg'
 thumb: '/webphotomag/webphotomag_2.jpg'
 date: '2006-01-01'
 author: 'jmm'
+locale: 'fr-FR'
 ---
 
 

@@ -2,6 +2,7 @@
 title: Diamètres apparents des planètes
 date: '2019-07-08'
 author: jmm
+locale: 'fr-FR'
 ---
 
 ![diamètres des planètes](/img/diametre-apparent.svg)

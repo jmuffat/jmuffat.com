@@ -4,6 +4,7 @@ coverImage: /img/bluelib.jpg
 date: '2020-05-07'
 author: jmm
 thread: jmm-story
+locale: 'en-US'
 ---
 
 Episode #7 of my story starting [here](/posts/20200304-my-first-paid-job).

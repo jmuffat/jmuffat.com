@@ -5,6 +5,7 @@ date: '2020-11-26'
 author: jmm
 script: '~/components/blog/pots-et-bac/sim1'
 thread: pots
+locale: 'fr-FR'
 ---
 
 L'ami [Ludovic Bisot](https://www.toutunfromage.com/), fromager à la curiosité

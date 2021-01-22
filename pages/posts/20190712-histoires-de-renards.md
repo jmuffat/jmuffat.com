@@ -3,6 +3,7 @@ title: Histoires de Renards
 coverImage: /img/img_0612.png
 date: '2019-07-12'
 author: jmm
+locale: 'fr-FR'
 ---
 
 > Et, si l'un d'eux capturait un renard des sables encore jeune et qu'il pût nourrir de ses mains, il le nourrissait, ou des gazelles quelque-fois quand elles daignaient ne point mourrir, et le renard des sables chaque jour lui devenait plus précieux de s'enrichir de ses poils soyeux et de son espièglerie et surtout de ce besoin de nourriture qui exigeait si impérieusement la solicitude du guerrier. Et celui-là vivait de l'illusion vaine de faire passer de lui au petit animal quelque chose de soi comme si l'autre était nourri, formé et composé de son amour.

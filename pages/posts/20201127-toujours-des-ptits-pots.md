@@ -5,6 +5,7 @@ date: '2020-11-27'
 author: jmm
 script: '~/components/blog/pots-et-bac/sim2'
 thread: pots
+locale: 'fr-FR'
 ---
 
 Cette fois-ci, j'ai ajouté des méthodes qui tentent d'utiliser toute la surface

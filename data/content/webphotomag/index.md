@@ -1,6 +1,7 @@
 ---
 title: webphotomag
 coverImage: /webphotomag/webphotomag_2_big_fr.jpg
+locale: 'fr-FR'
 ---
 
 Je crois que la photographie est un processus de distillation. Le photographe

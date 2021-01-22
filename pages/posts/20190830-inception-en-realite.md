@@ -4,6 +4,7 @@ coverImage: /img/img_0753.jpg
 date: '2019-08-30'
 author: jmm
 thread: inception
+locale: 'fr-FR'
 ---
 
 >

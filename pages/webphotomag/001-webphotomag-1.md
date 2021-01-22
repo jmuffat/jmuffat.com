@@ -4,6 +4,7 @@ coverImage: '/webphotomag/webphotomag_1_big_fr.jpg'
 thumb: '/webphotomag/webphotomag_1.jpg'
 date: '2005-12-01'
 author: 'jmm'
+locale: 'fr-FR'
 ---
 
 > "ses photos persistaient dans ma mémoire"
