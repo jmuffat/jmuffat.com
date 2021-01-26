@@ -103,16 +103,6 @@ function AreaData(props) {
   }
 }
 
-const colorLabels = {
-  water: "Water",
-  land:  "Land",
-  sel:   "Selected countries",
-  countryBorder: "Country borders",
-  provinceLand:  "Provinces",
-  provinceSel:   "Selected provinces",
-  provinceBorder: "Province borders"
-}
-
 function googleMapURL(P) {
   // return `https://www.google.com/maps/@?api=1&map_action=map&parameters`
   return `https://www.google.com/maps/@${P.center.lat},${P.center.lng},${2+P.zoomLevel}z`
@@ -256,6 +246,17 @@ function Home(props) {
     {label:intl.formatMessage({description:"in maps page, subdiv options", defaultMessage:"Divisions"}), value:1},
     {label:intl.formatMessage({description:"in maps page, subdiv options", defaultMessage:"Subdivisions"}), value:2}
   ]
+
+  const colorLabels = {
+    water: intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Water"}),
+    land:  intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Land"}),
+    sel:   intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Selected countries"}),
+    countryBorder: intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Country borders"}),
+    provinceLand:  intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Provinces"}),
+    provinceSel:   intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Selected provinces"}),
+    provinceBorder: intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Province borders"})
+  }
+
 
 
   return (
