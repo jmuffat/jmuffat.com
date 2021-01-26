@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import {FormattedMessage,useIntl} from 'react-intl'
 import FileSaver from 'file-saver'
 
 import BasePage from '~/components/base-page'
@@ -15,12 +16,6 @@ import {
 } from '~/components/form'
 import Map from '~/components/map'
 
-
-const subdivisionOptions = [
-  {label:"Country", value:0},
-  {label:"Divisions", value:1},
-  {label:"Subdivisions", value:2}
-]
 
 function FieldLatLon(props) {
   const form = useSubForm(props.form,props.field)
@@ -124,6 +119,7 @@ function googleMapURL(P) {
 }
 
 function Home(props) {
+  const intl = useIntl()
   const mapCtrl = Map.useMapController({
     center: {lng:7.0698281,lat:43.5823383},
     zoomLevel: 0
@@ -241,8 +237,29 @@ function Home(props) {
   const onChangeSlider = e=>mapCtrl.setZoomLevel(e.currentTarget.value/100)
   const soloDisabled = !form.data.detailed
 
+  const msg = {
+    name: intl.formatMessage({description:"in maps page", defaultMessage:"Name"}),
+    namePlaceholder: intl.formatMessage({description:"in maps page, name placeholder", defaultMessage:"used when saving/exporting"}),
+    dimensions: intl.formatMessage({description:"in maps page", defaultMessage:"Dimensions"}),
+    widthLabel: intl.formatMessage({description:"in maps page, width label", defaultMessage:"w"}),
+    heightLabel: intl.formatMessage({description:"in maps page, height label", defaultMessage:"l"}),
+    country: intl.formatMessage({description:"in maps page", defaultMessage:"Country"}),
+    countryIso: intl.formatMessage({description:"in maps page, country ISO", defaultMessage:"ISO"}),
+    countryOnly: intl.formatMessage({description:"in maps page, country only", defaultMessage:"only"}),
+    selection: intl.formatMessage({description:"in maps page", defaultMessage:"Selection"}),
+    selectionPlaceholder: intl.formatMessage({description:"in maps page, selection placeholder", defaultMessage:"ISO codes"}),
+    zoom: intl.formatMessage({description:"in maps page", defaultMessage:"Zoom"}),
+  }
+
+  const subdivisionOptions = [
+    {label:intl.formatMessage({description:"in maps page, subdiv options", defaultMessage:"Country"}), value:0},
+    {label:intl.formatMessage({description:"in maps page, subdiv options", defaultMessage:"Divisions"}), value:1},
+    {label:intl.formatMessage({description:"in maps page, subdiv options", defaultMessage:"Subdivisions"}), value:2}
+  ]
+
+
   return (
-    <BasePage title="SVG Maps Generator"  locales={["en-US"]}>
+    <BasePage title="SVG Maps Generator"  locales={"*"}>
 
     <Head>
       <meta property="og:type" content="article" />
@@ -257,36 +274,40 @@ function Home(props) {
       <meta property="og:image:height" content="627" />
     </Head>
 
-      <h1>Maps</h1>
+      <h1><FormattedMessage
+        description="in maps page"
+        defaultMessage="SVG maps generator"
+      /></h1>
 
-      <p>I needed simple maps to illustrate a friend's <a href="https://dlicacy.com/filotea/" target="_blank">web site</a> and
-      realized it wasn't as easy to find as I would have expected. So I made
-      this page, as I'm sure it can be useful to others too. Drag the map to
-      position it, zoom using the slider (avoids confusion between zoom and
-      scroll). Double clicking a country adds it to the selection (or removes
-      it). Don't hesitate to provide feedback ! </p>
+      <p><FormattedMessage
+        description="maps page intro"
+        defaultMessage="Use this tool to generate static SVG images of maps that you can then include in your web pages and documents. Big thanks to {sampleLink}, who got me started on the idea."
+        values={{
+          sampleLink: <a href="https://dlicacy.com/filotea/" target="_blank">dlicacy.com</a>
+        }}
+      /></p>
 
-      <FormLine label="Name">
-        <TextField form={form} field="name" placeholder="used when saving/exporting" className="wide" />
+      <FormLine label={msg.name}>
+        <TextField form={form} field="name" placeholder={msg.namePlaceholder} className="wide" />
       </FormLine>
 
-      <FormLine label="Dimensions">
-        <IntField form={form} field="width"  label="w"/>
-        <IntField form={form} field="height" label="h"/>
+      <FormLine label={msg.dimensions}>
+        <IntField form={form} field="width"  label={msg.widthLabel}/>
+        <IntField form={form} field="height" label={msg.heightLabel}/>
       </FormLine>
 
-      <FormLine label="Country">
-        <TextField form={form} field="detailed" placeholder="ISO code" filter={a=>a.toUpperCase()} width="2em" />
-        <CheckboxField form={form} field="onlySelected" label="only" disabled={soloDisabled}/>
-        <label>Detail level:</label>
+      <FormLine label={msg.country}>
+        <TextField form={form} field="detailed" placeholder={msg.countryIso} filter={a=>a.toUpperCase()} width="2em" />
+        <CheckboxField form={form} field="onlySelected" label={msg.countryOnly} disabled={soloDisabled}/>
+        <label><FormattedMessage description="in maps page, country LoD" defaultMessage="Detail level:"/></label>
         <RadioField form={form} field="subdivisionLevel" options={subdivisionOptions}/>
       </FormLine>
 
-      <FormLine label="Selection">
-        <TextField form={form} field="selection" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
+      <FormLine label={msg.selection}>
+        <TextField form={form} field="selection" placeholder={msg.selectionPlaceholder} filter={a=>a.toUpperCase()} className="wide" />
       </FormLine>
 
-      <FormLine label="Zoom">
+      <FormLine label={msg.zoom}>
         <div className="form-range">
           <div className="range-slider"> <input type="range" min={0} max={800} value={mapCtrl.zoomLevel*100} id="zoom-slider" onChange={onChangeSlider}/> </div>
           <div className="range-value"> {mapCtrl.zoomLevel.toFixed(2)}</div>
@@ -297,9 +318,9 @@ function Home(props) {
 
       {/*<button onClick={onExportSvg} className="map-button">{form.data.name}.svg</button>
       <button onClick={onExportEmf} className="map-button">{form.data.name}.emf</button>*/}
-      <button onClick={onSave}   className="map-button">Save</button>
+      <button onClick={onSave}   className="map-button"><FormattedMessage description="in maps page" defaultMessage="Save"/></button>
 
-      <label htmlFor="file-upload" className="map-button-load">Load</label>
+      <label htmlFor="file-upload" className="map-button-load"><FormattedMessage description="in maps page" defaultMessage="Load"/></label>
       <input id="file-upload" type="file" style={{display:"none"}} onChange={onLoad}/>
 
       {form.data.name && <a href='#' className="mr-1" onClick={onExportSvg}>{form.data.name}.svg</a>}
