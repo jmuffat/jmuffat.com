@@ -242,7 +242,7 @@ function Home(props) {
   const soloDisabled = !form.data.detailed
 
   return (
-    <BasePage title="SVG Maps Generator">
+    <BasePage title="SVG Maps Generator"  locales={["en-US"]}>
 
     <Head>
       <meta property="og:type" content="article" />
@@ -286,7 +286,7 @@ function Home(props) {
         <TextField form={form} field="selection" placeholder="ISO codes" filter={a=>a.toUpperCase()} className="wide" />
       </FormLine>
 
-      <FormLine label="Zoom level">
+      <FormLine label="Zoom">
         <div className="form-range">
           <div className="range-slider"> <input type="range" min={0} max={800} value={mapCtrl.zoomLevel*100} id="zoom-slider" onChange={onChangeSlider}/> </div>
           <div className="range-value"> {mapCtrl.zoomLevel.toFixed(2)}</div>

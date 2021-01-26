@@ -9,7 +9,7 @@ import md from '~/data/content/pzview/index.md'
 
 function Page(props) {
   return (
-    <Post content={md} coverSize={props.coverSize}>
+    <Post content={md} coverSize={props.coverSize}  locales={["en-US"]}>
       <h2>News</h2>
       <PostList {...props}/>
     </Post>
