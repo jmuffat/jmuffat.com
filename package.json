@@ -8,7 +8,7 @@
     "start": "next start",
     "map-gen": "node map-gen/index.js",
     "iso3166": "node map-gen/iso3166-wikipedia-import/index.js",
-    "intl-extract": "formatjs extract \"pages/**/*.js\" \"components/**/*.js\" --id-interpolation-pattern [sha512:contenthash:base64:6] --out-file i18n/lang.json"
+    "todo-fr": "node i18n/todo-fr.js"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",

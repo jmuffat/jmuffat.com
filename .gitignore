@@ -38,4 +38,3 @@ yarn-error.log*
 data/wp-export
 map-gen/dst
 map-gen/iso3166-wikipedia-import/cache
-i18n/lang.json
