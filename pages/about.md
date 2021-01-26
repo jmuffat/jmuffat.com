@@ -7,14 +7,42 @@ xauthor: jmm
 ---
 
 
-Né dans la plus belle ville du Monde, [Antibes](https://www.antibesjuanlespins.com/), sous de Gaulle, mon adolescence a été gratifiée des inventions les plus incroyables : le Rubik's cube, la planche à voile, les bornes d'arcade, D&D, les calculettes programmables, le PC... Etre un geek n'était pas encore un statut social dont on se vante !
+Born in the most beautiful city in the World, [Antibes](https://www.antibesjuanlespins.com/), in the days of the General de Gaulle, my teenage years saw the most fantastic inventions: Rubik's cube, windsurfing, arcade games, D&D, programmable calculators, the PC... Being a geek wasn't a social status to boast about yet !
 
-J'ai eu la chance d'avoir un (véritable) [IBMpc](https://www.ibm.com/ibm/history/exhibits/pc25/pc25_PH02.html) très très tôt, car mon père travaillait pour IBM et a eu vite fait de remplacer le [ZX81](http://www.le-grenier-informatique.fr/pages/la-collextion/sinclair-zx81.html) gonflé aux hormones qui m'occupait jusque là. En définitive, je crois bien que je peux dire que je programme quotidiennement depuis que j'ai croisé le chemin d'une TI57, il y a bien bien longtemps... Je n'ai jamais cherché la facilité, dans les années 80 je dessinais des meubles en 3D sur carte Hercules, j'expérimentais la photo numérique avec les [Canon iON](http://www.collection-appareils.fr/x/html/appareil-10562-Canon_Ion%20RC%20250.html) ; dans les années 90, je quitte la Côte pour monter à "la Capitale" où je commence par me bagarrer avec la gestion des roulements pour la SNCF, entre autres joyeux casse-têtes.
+I have been the lucky owner of a (genuine) [IBMpc](https://www.ibm.com/ibm/history/exhibits/pc25/pc25_PH02.html)
+extremely early, as my father who was working for IBM swiftly replaced the turbocharged [ZX81](http://www.le-grenier-informatique.fr/pages/la-collextion/sinclair-zx81.html)
+I had been using until then. I guess I can claim I have been coding everyday ever since I crossed
+paths with a TI-57, quite a long time ago now. I was always looking for a challenge, in the 80's I was
+rendering furniture in 3D using an Hercules card, I experimented with digital photography
+on [Canon iON](http://www.collection-appareils.fr/x/html/appareil-10562-Canon_Ion%20RC%20250.html) ;
+in the 90's, I left the French Riviera for Paris where I found many interesting projects
+like writing a visual train circulation planning tool for the SNCF.
 
-Et puis, 1994, je rejoins la bande de falabraques de [HaïKu Studios](https://web.archive.org/web/19961225045749/http://www.haikustudios.com/)... Développer des jeux vidéo, c'est ce que j'ai fait de plus passionnant, tout ce que chacun sait faire dans l'équipe est "[turned up to 11](https://www.youtube.com/watch?v=DzLP2Z7JVZA)", que ça soit la technique, la créativité ou la motivation. J'y ai vécu les débuts du CD-ROM, les premières [cartes accélératrices 3D](http://vintage3d.org/3dlabs.php#sthash.L9aYUoky.dpbs). Quand HaïKu a fermé, j'ai suivi une bonne partie de l'équipe, dont mon frère, qui avait rejoint [Bits Studios](https://web.archive.org/web/20080331222327/http://www.bitsstudios.com/) à Londres, et on y a passé des années fabuleuses autour de la N64, de la XBox, la GameCube, la PS/2 et les balbutiements du jeu online.
+An then, 1994, I join the absolutely bonkers people at [HaïKu Studios](https://web.archive.org/web/19961225045749/http://www.haikustudios.com/)... Writing videogames is the most exciting thing I have done
+in my life, whatever anyone in the team does, it is "[turned up to 11](https://www.youtube.com/watch?v=DzLP2Z7JVZA)",
+whether it's about technic, creativity or motivation. It was a fascinating period
+of time that saw the appearance of the CD-ROM and the first [3D accelerators](http://vintage3d.org/3dlabs.php#sthash.L9aYUoky.dpbs). When HaïKu had to shut down, I followed the part of
+the team, including my brother, who had joined [Bits Studios](https://web.archive.org/web/20080331222327/http://www.bitsstudios.com/)
+in London, where we spent fabulously rich years with the N64, XBox, PS/2 and the
+infancy of online games.
 
-2005, retour en France, en parallèle d'autres contrats, j'avais commencé à revisiter le concept de photothèque mais en accélérant toutes les opérations comme si c'était un jeu, j'étais en train de travailler à un concept innovant de [pan+zoom](https://www.youtube.com/watch?v=G2uSv_inwcU) quand j'ai appris qu'Intel était enfin sur le point de lancer sa carte 3D, sur une architecture permettant d'utiliser les instructions x86... L'aventure Larrabee fut passionnante, même si elle fut de courte durée. J'ai pu ensuite continuer à faire avancer chez Intel ce projet de photothèque futuriste, comme un concept-car, tout en travaillant sur des problématiques d'évaluation des performances. Les technologies continuent d'évoluer et, encore et toujours, tout reste à inventer !
 
-Mais je ne suis pas qu'un geek, on me connait aussi épicurien, ayant un faible assez prononcé pour les bonnes tables, les pâtissiers, les épiceries et les cavistes ayant des histoire à partager, des produits à faire connaitre, des bons moments à vous faire passer. J'ai même eu l'occasion de marier tout cela, grâce à ma rencontre avec [Nicolas Gautier](https://www.restaurant-nature.com/), avec qui nous avons créé [Baladovore](http://www.baladovore.com/), une app pour référencer les producteurs chez qui trouver des produits vrais, bons et à taille humaine.
+2005, back to France, in parallel with contracting work, I started revisiting
+photo cataloguing, with the view of accelerating all operations as if they were
+part of a game. While in the process of putting together a concept around [pan+zoom](https://www.youtube.com/watch?v=G2uSv_inwcU),
+I heard that Intel was finally joining the GPU race, boldly architecting it
+on an x86 foundation. The Larrabee adventure was a fascinating one, even if it only
+lasted for a short time. I went back to my futuristic photo library concept,
+inside Intel this time, where it became a bit like a concept-car, letting us
+evaluate performances in a forward looking context. Technologies keep evolving
+and, over and again, everything is to be invented !
 
-Sinon, aussi, je peux avoir tendance à être un peu bavard...
+But I'm not just a geek, I've also been known as a keen epicurean, with a soft
+spot for restaurants, bakeries, delicatessen and winemongers, all these places
+with stories to share, secrets to reveal and good times to be had. I even had
+the opportunity to combine geek and foodie when I met [Nicolas Gautier](https://www.restaurant-nature.com/),
+with whom we created [Baladovore](http://www.baladovore.com/), and app that
+referenced the food producers who chef's get their supply from, so everybody
+can easily locate delicious+authentic products from human sized operations.
+
+Also, I can have a tendency to be a bit long winded...

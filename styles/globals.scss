@@ -90,6 +90,34 @@ h3 {font-size: 1.2em}
   min-height: 66vh
 };
 
+.locale-selector {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  list-style-type: none;
+  margin: 0.25em 0em;
+
+  li {
+    display:flex;
+    margin-left: 0.25em;
+    img {height: 1em};
+    padding: 3px;
+    border-radius: 3px;
+  }
+
+  .current {
+    border-color: black;
+    background-color: #ccc;
+    border: 1px solid #888
+  }
+
+  .unavailable {
+    img {filter:blur(.0667em);}
+  }
+
+}
+
 .md-preview {
   h1, h2, h3, h4 {
     font-family:Nunito

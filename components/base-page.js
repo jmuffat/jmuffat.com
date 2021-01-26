@@ -2,12 +2,46 @@ import React from 'react'
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
+import {FormattedMessage} from 'react-intl'
 
 import Nav from './nav';
+
+function LocaleSelector(props) {
+  const router = useRouter()
+  const {locales} = props
+
+  return (
+    <ul className="locale-selector">
+      {router.locales.map( locale=>{
+        const img = <img src={`/img/${locale}.svg`}/>
+        const current = locale===router.locale? 'current ': ''
+        const unavailable = locales.includes(locale)? '' : 'unavailable '
+        return (
+          <li key={locale} className={current+unavailable}>
+            <Link href={router.pathname} locale={locale}>
+              {img}
+            </Link>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+function getAvailableLocales(locales,router) {
+  if (!locales) return []
+  if (Array.isArray(locales)) return locales
+
+  // if (locales==='*') return router.locales
+  return router.locales
+}
 
 function BasePage(props){
   const router = useRouter()
   const sectionClassName = props.extraClass? 'page-content '+props.extraClass : 'page-content'
+
+  const locales = getAvailableLocales(props.locales,router)
+  console.log(locales)
 
   return (
     <div className="accept-youtube">
@@ -26,17 +60,26 @@ function BasePage(props){
         <link rel="apple-touch-icon" sizes="72x72"   href="/apple-icon-72x72.png"/>
 
         <meta property="og:site_name" content="jmuffat.com" />
+
+        {locales.map( locale =>{
+          if (locale===router.locale) return null;
+          const localeInUrl = locale===router.defaultLocale? '' : '/'+locale;
+
+          return <link key={locale} rel="alternate" hreflang={locale} href={`https://jmuffat.com${localeInUrl}${router.pathname}`}/>
+        })}
+
       </Head>
 
       <header><Nav/></header>
       <div className={props.className || "container"}>
+        <LocaleSelector locales={locales}/>
         <section className={sectionClassName}>
           {props.children}
         </section>
         <footer>
-          <small><Link href="/privacy-policy"><a>Privacy Policy</a></Link></small><br/>
-          <small><Link href="/attribution"><a>Attribution</a></Link></small><br/>
-          <small>site créé par Jérôme Muffat-Méridol, hébergé par <a href="https://vercel.com/" target="_blank">vercel.com</a></small><br/>
+          <small><Link href="/privacy-policy"><a><FormattedMessage description="in footer" defaultMessage="Privacy Policy"/></a></Link></small><br/>
+          <small><Link href="/attribution"><a><FormattedMessage description="in footer" defaultMessage="Attribution"/></a></Link></small><br/>
+          <small><FormattedMessage description="in footer" defaultMessage="site authored by Jérôme Muffat-Méridol and hosted by"/> <a href="https://vercel.com/" target="_blank">vercel.com</a></small><br/>
         </footer>
       </div>
     </div>

@@ -131,7 +131,7 @@ function CoverImage(props) {
 
 function PostPage(props) {
   const router = useRouter()
-  const { data, content } = matter(props.md)
+  const { data, content } = matter(props.content)
 
   const post = {
     ...data,
@@ -149,7 +149,7 @@ function PostPage(props) {
   const canonicalURL = `https://jmuffat.com${postPath}${post.slug}`
 
   return (
-    <BasePage title={post.title} className="post-container">
+    <BasePage title={post.title} className="post-container" locales={props.locales}>
 
       <Head>
         <meta property="og:type" content="article" />

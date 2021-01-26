@@ -9,7 +9,7 @@ import md from '~/data/content/webphotomag/index.md'
 
 function Page(props) {
   return (
-    <Post md={md} coverSize={props.coverSize}>
+    <Post content={md} coverSize={props.coverSize}>
       <h2>Les numéros</h2>
       <PostList {...props}/>
     </Post>
