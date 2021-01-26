@@ -8,7 +8,7 @@ xauthor: jmm
 ## Visitors
 
 Every effort is made to avoid collecting any information about you or your visit, as
-well as to avoid any third party doing so. 
+well as to avoid any third party doing so.
 
 ## Members
 

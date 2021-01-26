@@ -41,7 +41,6 @@ function BasePage(props){
   const sectionClassName = props.extraClass? 'page-content '+props.extraClass : 'page-content'
 
   const locales = getAvailableLocales(props.locales,router)
-  console.log(locales)
 
   return (
     <div className="accept-youtube">
@@ -65,7 +64,7 @@ function BasePage(props){
           if (locale===router.locale) return null;
           const localeInUrl = locale===router.defaultLocale? '' : '/'+locale;
 
-          return <link key={locale} rel="alternate" hreflang={locale} href={`https://jmuffat.com${localeInUrl}${router.pathname}`}/>
+          return <link key={locale} rel="alternate" hrefLang={locale} href={`https://jmuffat.com${localeInUrl}${router.pathname}`}/>
         })}
 
       </Head>
@@ -79,7 +78,14 @@ function BasePage(props){
         <footer>
           <small><Link href="/privacy-policy"><a><FormattedMessage description="in footer" defaultMessage="Privacy Policy"/></a></Link></small><br/>
           <small><Link href="/attribution"><a><FormattedMessage description="in footer" defaultMessage="Attribution"/></a></Link></small><br/>
-          <small><FormattedMessage description="in footer" defaultMessage="site authored by Jérôme Muffat-Méridol and hosted by"/> <a href="https://vercel.com/" target="_blank">vercel.com</a></small><br/>
+          <small><FormattedMessage
+            description="in footer"
+            defaultMessage="site authored by {jmm} and hosted by {vercel}"
+            values={{
+              jmm: <a href="mailto:jmuffat@webphotomag.com" target="_blank">Jérôme Muffat-Méridol</a>,
+              vercel: <a href="https://vercel.com/" target="_blank">vercel.com</a>
+            }}
+          /></small><br/>
         </footer>
       </div>
     </div>

@@ -20,8 +20,6 @@ function MyApp({ Component, pageProps }) {
   const { locale, defaultLocale, pathname } = router
   const messages = loadMessages(locale)
 
-  console.log(messages)
-
   return (
     <IntlProvider
       locale={locale}
