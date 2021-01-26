@@ -232,7 +232,7 @@ function Home(props) {
     namePlaceholder: intl.formatMessage({description:"in maps page, name placeholder", defaultMessage:"used when saving/exporting"}),
     dimensions: intl.formatMessage({description:"in maps page", defaultMessage:"Dimensions"}),
     widthLabel: intl.formatMessage({description:"in maps page, width label", defaultMessage:"w"}),
-    heightLabel: intl.formatMessage({description:"in maps page, height label", defaultMessage:"l"}),
+    heightLabel: intl.formatMessage({description:"in maps page, height label", defaultMessage:"h"}),
     country: intl.formatMessage({description:"in maps page", defaultMessage:"Country"}),
     countryIso: intl.formatMessage({description:"in maps page, country ISO", defaultMessage:"ISO"}),
     countryOnly: intl.formatMessage({description:"in maps page, country only", defaultMessage:"only"}),
