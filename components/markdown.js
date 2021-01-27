@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+// import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+
 
 function reduceChildren(children, child) {
     var lastIndex = children.length - 1;
@@ -85,10 +88,27 @@ function rewriteHeader(a,scripts) {
   return createElement('h' + a.level, null, a.children)
 }
 
+function rewriteCode(props) {
+  const {language,value} = props
+
+  const customStyle = {
+    fontSize: "0.75em"
+  }
+
+  return (
+    <SyntaxHighlighter
+      language={language}
+      children={value}
+      customStyle={customStyle}
+    />
+  )
+}
+
 function Markdown(props) {
   const renderers = {
     link: a=>rewriteLink(a.href,a.children),
-    heading: a=>rewriteHeader(a,props.script)
+    heading: a=>rewriteHeader(a,props.script),
+    code: a=>rewriteCode(a)
   }
 
   return (
