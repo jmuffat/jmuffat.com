@@ -1,5 +1,6 @@
-import React from 'react';
-import Head from 'next/head';
+import React from 'react'
+import Head from 'next/head'
+import dynamic from 'next/dynamic'
 import {FormattedMessage,useIntl} from 'react-intl'
 import FileSaver from 'file-saver'
 
@@ -14,8 +15,9 @@ import {
   FormColors,
   FormLine
 } from '~/components/form'
-import Map from '~/components/map'
 
+import {useMapController} from '~/components/map/map-controller'
+const Map = dynamic(() => import('~/components/map'))
 
 function FieldLatLon(props) {
   const form = useSubForm(props.form,props.field)
@@ -110,7 +112,7 @@ function googleMapURL(P) {
 
 function Home(props) {
   const intl = useIntl()
-  const mapCtrl = Map.useMapController({
+  const mapCtrl = useMapController({
     center: {lng:7.0698281,lat:43.5823383},
     zoomLevel: 0
   })
