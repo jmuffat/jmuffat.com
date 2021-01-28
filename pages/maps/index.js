@@ -167,11 +167,12 @@ function Home(props) {
   const [current,setCurrent] = React.useState(null)
 
   const onClickCountry = country=>{
+    console.log(country)
     form.updateData({detailed: country.iso_a2})
     setCurrent( <AreaData id="iso_a2" data={country}/> )
   }
 
-  const onToggleSeletion = country=>{
+  const onToggleSelection = country=>{
     form.updateData({selection: toggleSelection(form.data.selection, country.iso_a2)})
   }
 
@@ -257,8 +258,6 @@ function Home(props) {
     provinceBorder: intl.formatMessage({description:"in maps page, color labels", defaultMessage:"Province borders"})
   }
 
-
-
   return (
     <BasePage title="SVG Maps Generator"  locales={"*"}>
 
@@ -340,7 +339,7 @@ function Home(props) {
         selection={form.data.selection}
 
         onClickCountry={onClickCountry}
-        onDoubleClickCountry={country=>onToggleCountry(country)}
+        onDoubleClickCountry={country=>onToggleSelection(country)}
 
         onClickProvince={a=>setCurrent( <AreaData id="iso_3166_2" data={a}/> )}
         onDoubleClickProvince={province=>onToggleProvince(province)}

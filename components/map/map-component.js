@@ -209,7 +209,6 @@ export class Map extends React.Component {
     const onClick = (e,part)=>{
       if (!this.panZoom.clicked) return;
       if (!this.props.onClickCountry) return
-      console.log(e)
       this.props.onClickCountry(part)
     }
 
