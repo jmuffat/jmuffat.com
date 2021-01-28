@@ -1,9 +1,12 @@
-import React from 'react';
+import React from 'react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import ReactMarkdown from 'react-markdown'
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-// import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 
+// Only load syntax highlighter when necessary
+const SyntaxHighlighter = dynamic(() =>
+  import('react-syntax-highlighter').then((mod) => mod.Prism)
+)
 
 function reduceChildren(children, child) {
     var lastIndex = children.length - 1;
