@@ -66,6 +66,10 @@ html {
   background-color: $color5;
 }
 
+html, body {
+  // fix scaled down contents on smartphones
+  overflow-x:hidden
+}
 
 footer {
   background-color: #ccc;
