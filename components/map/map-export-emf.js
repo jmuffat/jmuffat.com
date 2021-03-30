@@ -150,7 +150,7 @@ export const generateEmf = P=>{
   writeClipPath(emf, P)
   writeBackground(emf, P)
 
-  const countries = P.onlySelected? P.dataCountries.filter(part=>P.countries.includes(part.iso_a2)) : P.dataCountries
+  const countries = P.onlySelected? P.dataCountries.filter(part=>P.selection.includes(part.iso_a2)) : P.dataCountries
 
   writePaths(emf, P, countries,       P.colors.countryBorder,  part=>P.getCountryFill(part))
   writePaths(emf, P, P.dataDetailed,  P.colors.provinceBorder, part=>P.getProvinceFill(part))
