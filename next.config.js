@@ -1,5 +1,5 @@
 const path = require('path');
-const WorkerPlugin = require('worker-plugin');
+// const WorkerPlugin = require('worker-plugin');
 
 const i18nConfig = require('./i18n-config')
 
@@ -58,9 +58,9 @@ module.exports = {
       ]
     })
 
-    config.plugins.push( new WorkerPlugin({
-      globalObject: 'self' // makes Hot Module Reloading work properly
-    }) )
+    // config.plugins.push( new WorkerPlugin({
+    //   globalObject: 'self' // makes Hot Module Reloading work properly
+    // }) )
 
     return config
   },

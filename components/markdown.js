@@ -58,7 +58,7 @@ function embedAppStore(appId) {
 }
 
 function rewriteLink(href,children) {
-  const simpleLabel = children ? children[0].props?.children : null
+  const simpleLabel = children ? children[0] : null
 
   // special cases
   if (typeof simpleLabel ==='string') {
@@ -81,9 +81,8 @@ function rewriteLink(href,children) {
 
 function rewriteHeader(a,scripts) {
   if (a.level==6) {
-    const node = a?.children[0]?.props?.node
-    if (node && node.type==="text") {
-      const componentName = a.children[0].props.node.value.trim()
+    const componentName = a?.children[0]
+    if (typeof componentName === 'string') {
       return React.createElement(scripts[componentName])
     }
   }
@@ -92,30 +91,34 @@ function rewriteHeader(a,scripts) {
 }
 
 function rewriteCode(props) {
-  const {language,value} = props
+  if (props.inline) {
+    return <code>{props.children}</code>
+  }
 
   const customStyle = {
     fontSize: "0.75em"
   }
 
+  const language = props.className.replace(/^language-/,'')
+
   return (
     <SyntaxHighlighter
       language={language}
-      children={value}
+      children={props.children[0]}
       customStyle={customStyle}
     />
   )
 }
 
 function Markdown(props) {
-  const renderers = {
-    link: a=>rewriteLink(a.href,a.children),
-    heading: a=>rewriteHeader(a,props.script),
+  const components = {
+    a: a=>rewriteLink(a.href,a.children),
+    h6: a=>rewriteHeader(a,props.script),
     code: a=>rewriteCode(a)
   }
 
   return (
-    <ReactMarkdown renderers={renderers}>
+    <ReactMarkdown components={components}>
     {props.md}
     </ReactMarkdown>
   )
