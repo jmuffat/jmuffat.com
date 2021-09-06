@@ -25,17 +25,8 @@ module.exports = {
 
   pageExtensions: ['js', 'md'],
 
-  webpack: (config, {isServer}) => {
-    if (!isServer) {
-      config.node = {
-        fs: 'empty'
-      }
-    }
-
+  webpack: (config, options) => {
     config.resolve.alias['~'] = path.resolve(__dirname);
-
-    const jsLoader = config.module.rules.find(f => f.test.test('.js'))
-    const loaders = Array.isArray(jsLoader.use)? jsLoader.use : [jsLoader.use]
 
     // config.module.rules.push({
     //   test: /\.(graphql|gql)$/,
@@ -53,7 +44,7 @@ module.exports = {
       test: /\.md$/,
       include: pagesFolder,
       use: [
-        ...loaders,
+        options.defaultLoaders.babel,
         {loader:path.resolve('lib/post-loader.js'), options:{}}
       ]
     })

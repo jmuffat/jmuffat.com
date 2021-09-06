@@ -8,7 +8,6 @@ import matter from 'gray-matter'
 import BasePage from './base-page';
 import Markdown from './markdown';
 import ShareButton from './share-button';
-import {getPost, getAllPosts} from '~/lib/compile-posts';
 
 import authors from '~/data/authors.json'
 import threads from '~/data/threads.json'
