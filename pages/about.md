@@ -18,11 +18,11 @@ on [Canon iON](http://www.collection-appareils.fr/x/html/appareil-10562-Canon_Io
 in the 90's, I left the French Riviera for Paris where I found many interesting projects
 like writing a visual train circulation planning tool for the SNCF.
 
-An then, 1994, I join the absolutely bonkers people at [HaïKu Studios](https://web.archive.org/web/19961225045749/http://www.haikustudios.com/)... Writing videogames is the most exciting thing I have done
+An then, 1994, I join the absolutely bonkers people at [HaïKu Studios](https://web.archive.org/web/19961225045749/http%3A%2F%2Fwww.haikustudios.com%2F)... Writing videogames is the most exciting thing I have done
 in my life, whatever anyone in the team does, it is "[turned up to 11](https://www.youtube.com/watch?v=DzLP2Z7JVZA)",
 whether it's about technic, creativity or motivation. It was a fascinating period
 of time that saw the appearance of the CD-ROM and the first [3D accelerators](http://vintage3d.org/3dlabs.php#sthash.L9aYUoky.dpbs). When HaïKu had to shut down, I followed the part of
-the team, including my brother, who had joined [Bits Studios](https://web.archive.org/web/20080331222327/http://www.bitsstudios.com/)
+the team, including my brother, who had joined [Bits Studios](https://web.archive.org/web/20080331222327/http%3A%2F%2Fwww.bitsstudios.com%2F)
 in London, where we spent fabulously rich years with the N64, XBox, PS/2 and the
 infancy of online games.
 
