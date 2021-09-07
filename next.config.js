@@ -17,6 +17,8 @@ async function redirects() {
 }
 
 module.exports = {
+  experimental: { esmExternals: true },
+  
   env: {
     ROOT: path.resolve(process.cwd())
   },
