@@ -16,11 +16,8 @@ function getCoverImage(post) {
   const cover = post.coverImage || post._coverImage
   if (!cover) return null;
 
-  const reURL = /https:\/\/.*/
-  if (reURL.test(cover)) return cover;
-
-  const host = 'jmuffat.com' //process.env.VERCEL_PROJECT_PRODUCTION_URL
-  return host? `https://${host}/${cover}` : `http://localhost:3000/${cover}`
+  const url = new URL(cover, 'https://jmuffat.com')
+  return url.href
 }
 
 function SocialButton(props) {
