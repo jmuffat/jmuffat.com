@@ -19,7 +19,7 @@ function getCoverImage(post) {
   const reURL = /https:\/\/.*/
   if (reURL.test(cover)) return cover;
 
-  const host = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  const host = 'jmuffat.com' //process.env.VERCEL_PROJECT_PRODUCTION_URL
   return host? `https://${host}/${cover}` : `http://localhost:3000/${cover}`
 }
 
