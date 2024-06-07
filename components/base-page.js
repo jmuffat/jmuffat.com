@@ -76,8 +76,8 @@ function BasePage(props){
           {props.children}
         </section>
         <footer>
-          <small><Link href="/privacy-policy"><a><FormattedMessage description="in footer" defaultMessage="Privacy Policy"/></a></Link></small><br/>
-          <small><Link href="/attribution"><a><FormattedMessage description="in footer" defaultMessage="Attribution"/></a></Link></small><br/>
+          <small><Link href="/privacy-policy"><FormattedMessage description="in footer" defaultMessage="Privacy Policy"/></Link></small><br/>
+          <small><Link href="/attribution"><FormattedMessage description="in footer" defaultMessage="Attribution"/></Link></small><br/>
           <small><FormattedMessage
             description="in footer"
             defaultMessage="site authored by {jmm} and hosted by {vercel}"

@@ -49,10 +49,8 @@ function embedAppStore(appId) {
   const href = `https://apps.apple.com/${appId}`
 
   return (
-    <Link href={href}>
-      <a target="_blank">
+    <Link href={href} target="_blank">
         <img src="/img/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"/>
-      </a>
     </Link>
   )
 }
@@ -71,11 +69,11 @@ function rewriteLink(href,children) {
 
   if (href.indexOf('//') < 0) {
     // this is a local link, leave as is
-    return <Link href={href}><a>{children}</a></Link>
+    return <Link href={href}>{children}</Link>
   }
   else {
     // this is an external link, add target="_blank"
-    return <Link href={href}><a target="_blank">{children}</a></Link>
+    return <Link href={href} target="_blank">{children}</Link>
   }
 }
 

@@ -1,5 +1,3 @@
-import react from 'react'
-import Link from 'next/link'
 import {FormattedMessage} from 'react-intl'
 
 import BasePage from '~/components/base-page';

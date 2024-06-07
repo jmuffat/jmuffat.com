@@ -13,9 +13,7 @@ function Post(props){
   return (
     <p>
       <small>{strDate}</small>&nbsp;
-      <Link href={`/${folder}/${post.slug}`}>
-        <a>{post.title}</a>
-      </Link>
+      <Link href={`/${folder}/${post.slug}`}>{post.title}</Link>
     </p>
   )
 }

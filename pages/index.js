@@ -11,7 +11,7 @@ function Home(props) {
       <br/>
       <br/>
       <div className="big-logo">
-        <Link href="/posts"><a><img src="img/2019-jerlock.jpg" width={256} height={256}/></a></Link>
+        <Link href="/posts"><img src="img/2019-jerlock.jpg" width={256} height={256}/></Link>
         <div id="title">jmuffat</div>
         <div id="subtitle"><FormattedMessage
           description="moto"
@@ -25,10 +25,10 @@ function Home(props) {
       <CVDownload/>
 
       <div className="frontpage-icon">
-        <Link href="/maps"><a>
+        <Link href="/maps">
           <img src="/img/map.svg" height="48"/><br/>
           maps
-        </a></Link>
+        </Link>
       </div>
 
     </BasePage>

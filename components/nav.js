@@ -5,15 +5,15 @@ import {FormattedMessage} from 'react-intl'
 
 const Nav = ()=> (
   <nav className="main-menu">
-    <div className="brand"><Link href="/"><a>jmuffat</a></Link></div>
+    <div className="brand"><Link href="/">jmuffat</Link></div>
 
     <ul>
-      <li><Link href="/pzview"><a><FormattedMessage description="menu: pzView" defaultMessage="pzView"/></a></Link></li>
-      <li><Link href="/baladovore"><a><FormattedMessage description="menu: baladovore" defaultMessage="baladovore"/></a></Link></li>
-      <li><Link href="/webphotomag"><a><FormattedMessage description="menu: webphotomag" defaultMessage="webphotomag"/></a></Link></li>
-      <li><Link href="/posts"><a><FormattedMessage description="menu: blog" defaultMessage="blog"/></a></Link></li>
-      <li><Link href="/about"><a><FormattedMessage description="menu: about" defaultMessage="about"/></a></Link></li>
-      {/*<li><Link href="/member"><a><i className="fas fa-user-circle fa-lg"></i></a></Link></li>*/}
+      <li><Link href="/pzview"><FormattedMessage description="menu: pzView" defaultMessage="pzView"/></Link></li>
+      <li><Link href="/baladovore"><FormattedMessage description="menu: baladovore" defaultMessage="baladovore"/></Link></li>
+      <li><Link href="/webphotomag"><FormattedMessage description="menu: webphotomag" defaultMessage="webphotomag"/></Link></li>
+      <li><Link href="/posts"><FormattedMessage description="menu: blog" defaultMessage="blog"/></Link></li>
+      <li><Link href="/about"><FormattedMessage description="menu: about" defaultMessage="about"/></Link></li>
+      {/*<li><Link href="/member"><i className="fas fa-user-circle fa-lg"></i></Link></li>*/}
     </ul>
   </nav>
 );
