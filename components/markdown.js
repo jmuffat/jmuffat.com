@@ -58,7 +58,7 @@ function embedAppStore(appId) {
 }
 
 function rewriteLink(href,children) {
-  const simpleLabel = children ? children[0] : null
+  const simpleLabel = children 
 
   // special cases
   if (typeof simpleLabel ==='string') {
@@ -80,31 +80,32 @@ function rewriteLink(href,children) {
 }
 
 function rewriteHeader(a,scripts) {
-  if (a.level==6) {
-    const componentName = a?.children[0]
+  if (a.node.tagName=="h6") {
+    const componentName = a?.children
     if (typeof componentName === 'string') {
       return React.createElement(scripts[componentName])
     }
   }
 
-  return createElement('h' + a.level, null, a.children)
+  return createElement(a.node.tagname, null, a.children)
 }
 
-function rewriteCode(props) {
-  if (props.inline) {
-    return <code>{props.children}</code>
+function rewriteCode({inline,className,children}) {
+  const language = className?.replace(/^language-/,'')
+
+  if (!language || inline) {
+    return <code>{children}</code>
   }
 
+  console.log({language})
   const customStyle = {
     fontSize: "0.75em"
   }
 
-  const language = props.className.replace(/^language-/,'')
-
   return (
     <SyntaxHighlighter
       language={language}
-      children={props.children[0]}
+      children={children}
       customStyle={customStyle}
     />
   )
