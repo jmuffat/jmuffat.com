@@ -24,7 +24,7 @@ export async function GET(req, opt) {
 		return res
     }
     catch(e) {
-		console.log(`<<< caught error >>> ${process.env.AWS_S3_REGION} ${process.env.AWS_S3_BUCKET}` )
+		console.log(`<<< caught error >>> ${process.env.AWS_S3_REGION} ${process.env.AWS_S3_BUCKET} with auth` )
 		console.log(e)
 		if (e.Code === 'NoSuchKey') return new Response('Not Found', {status:404, headers:{'Content-Type': 'text/plain;charset=utf-8'} })
         return new Response(e.message, {status:500, headers:{'Content-Type': 'text/plain;charset=utf-8'} })
