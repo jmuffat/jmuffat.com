@@ -110,7 +110,7 @@ function CoverImage(props) {
   if (aspect < maxAspect) {
     return (
       <div className="cover">
-        <Image className="cover-image" src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
+        <Image src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
       </div>
     )
   }
@@ -119,9 +119,7 @@ function CoverImage(props) {
 
   return (
     <div className="cover">
-      <div style={{width:`${100*ratio}%`}}>
-        <Image className="cover-image" src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
-      </div>
+      <Image style={{width:`${100*ratio}%`}} src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
     </div>
   )
 }
