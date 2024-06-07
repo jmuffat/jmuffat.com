@@ -8,7 +8,7 @@ function updateBbox(bbox, A) {
 function getDataURL(filename) {
   if (process.env.NEXT_PUBLIC_LOCALDATA>0) return `/api/map-data/${filename}`
 
-  return `https://s3.eu-west-3.amazonaws.com/jmuffat.com/map-data/${filename}`
+  return `/download/map-data/${filename}`
 }
 
 export async function loadMapDirectory() {

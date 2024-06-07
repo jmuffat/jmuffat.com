@@ -20,5 +20,5 @@ L'introduction dit tout ce qu'il y a à savoir sur ce numéro :
 > devraient apparaître dans ces pages, plutôt que les miennes ! "
 
 Télécharger :
-- [webphotomag #0 [FR]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_0_fr.pdf)
-- [webphotomag #0 [EN]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_0.pdf)
+- [webphotomag #0 [FR]](/download/webphotomag_0_fr.pdf)
+- [webphotomag #0 [EN]](/download/webphotomag_0.pdf)

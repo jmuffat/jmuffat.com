@@ -41,7 +41,7 @@ function TransformPolyline(props){
   );
 }
 
-const urlS3 = fname => `https://s3.eu-west-3.amazonaws.com/jmuffat.com/globe/${fname}`
+const urlS3 = fname => `/download/globe/${fname}`
 
 function Globe(props){
   const [data ] = useGeoshape3D( urlS3('ne_110m_coastline.shp'))

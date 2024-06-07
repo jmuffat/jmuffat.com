@@ -9,4 +9,4 @@ locale: 'fr-FR'
 
 
 Télécharger :
-- [webphotomag #4 [EN]](https://s3.eu-west-3.amazonaws.com/jmuffat.com/webphotomag_4.pdf)
+- [webphotomag #4 [EN]](/download/webphotomag_4.pdf)
