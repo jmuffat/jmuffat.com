@@ -2,7 +2,10 @@ const locales = ['fr-FR', 'en-US']
 
 const nextjsConfig = {
   locales,
-  defaultLocale: 'en-US'
+  defaultLocale: 'en-US',
+  ignoreRoutes: [
+    '/download'
+  ]
 }
 
 module.exports = {

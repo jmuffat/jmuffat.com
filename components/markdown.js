@@ -67,6 +67,10 @@ function rewriteLink(href,children) {
     }
   }
 
+  if (/^\/download\//.test(href)) {
+    return <Link locale={false} href={href} target="_blank">{children}</Link>
+  }
+
   if (href.indexOf('//') < 0) {
     // this is a local link, leave as is
     return <Link href={href}>{children}</Link>
