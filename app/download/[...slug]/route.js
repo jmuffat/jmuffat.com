@@ -5,6 +5,10 @@ import {
 
 const client = new S3Client({
 	region: process.env.AWS_S3_REGION,
+	credentials:{
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+	}
 })
 
 const Bucket = process.env.AWS_S3_BUCKET
@@ -24,7 +28,10 @@ export async function GET(req, opt) {
 		return res
     }
     catch(e) {
+		console.log(e)
 		if (e.Code === 'NoSuchKey') return new Response('Not Found', {status:404, headers:{'Content-Type': 'text/plain;charset=utf-8'} })
         return new Response(e.message, {status:500, headers:{'Content-Type': 'text/plain;charset=utf-8'} })
     }
 }
+
+export const runtime = 'edge' // 'nodejs' (default) | 'edge'
