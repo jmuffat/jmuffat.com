@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "./config.scss";
 
 // Credit: Nicolas Gallagher and SUIT CSS.
 
@@ -7,8 +8,8 @@
 }
 
 .without-accept-youtube {
-  border: 1px solid $color1;
-  background-color: $color5;
+  border: 1px solid config.$color1;
+  background-color: config.$color5;
   border-radius: 0.333em;
   padding: 0.5em;
   display: flex;
@@ -54,25 +55,25 @@
 
   .embed-responsive-21by9 {
     &::before {
-      padding-top: percentage( math.div(9,21) );
+      padding-top: math.percentage( math.div(9,21) );
     }
   }
 
   .embed-responsive-16by9 {
     &::before {
-      padding-top: percentage( math.div(9,16) );
+      padding-top: math.percentage( math.div(9,16) );
     }
   }
 
   .embed-responsive-4by3 {
     &::before {
-      padding-top: percentage( math.div(3,4) );
+      padding-top: math.percentage( math.div(3,4) );
     }
   }
 
   .embed-responsive-1by1 {
     &::before {
-      padding-top: percentage( math.div(1,1) );
+      padding-top: math.percentage( math.div(1,1) );
     }
   }
 }

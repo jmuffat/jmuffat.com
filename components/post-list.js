@@ -12,7 +12,7 @@ function Post(props){
 
   return (
     <p>
-      <small>{strDate}</small>&nbsp;
+      <small suppressHydrationWarning>{strDate}</small>&nbsp;
       <Link href={`/${folder}/${post.slug}`}>{post.title}</Link>
     </p>
   )

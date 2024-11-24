@@ -1,3 +1,5 @@
+@use "config.scss";
+
 .post-toc {
   .post-date {
     font-size: 0.8em;
@@ -57,7 +59,7 @@
       .social {
         font-size: 1.33em;
         a {
-          color:$color3;
+          color: config.$color3;
           text-decoration: none;
           padding-right: 0.33em
         }
@@ -92,7 +94,7 @@
   }
 }
 
-@media (max-width:$width-medium) {
+@media (max-width: config.$width-medium) {
   .post-container {
     .page-content {
       .author {
@@ -103,9 +105,9 @@
   }
 }
 
-@media (min-width:$width-medium) {
+@media (min-width: config.$width-medium) {
   .post-container {
-    max-width: $width-medium;
+    max-width: config.$width-medium;
     margin-right: auto;
     margin-left: auto;
 
@@ -150,7 +152,7 @@
   }
 }
 
-@media (min-width:$width-medium) AND (max-width:$width-large) {
+@media (min-width: config.$width-medium) AND (max-width: config.$width-large) {
   .post-container {
     .page-content {
       .more {
@@ -161,9 +163,9 @@
   }
 }
 
-@media (min-width:$width-large) {
+@media (min-width: config.$width-large) {
   .post-container {
-    max-width: $width-large;
+    max-width: config.$width-large;
     margin-right: auto;
     margin-left: auto;
 

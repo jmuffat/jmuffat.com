@@ -42,7 +42,7 @@ function Author(props) {
             {author.linkedin && <SocialButton href={author.linkedin}          fa_id="fab fa-linkedin" color="#2867B2"/>}
             {author.reddit   && <SocialButton href={author.reddit}            fa_id="fab fa-reddit"   color="#FF5700"/>}
           </div>
-          <div className="date">{props.date}</div>
+          <div className="date" suppressHydrationWarning>{props.date}</div>
         </div>
     </div>
   );

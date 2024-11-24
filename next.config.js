@@ -17,7 +17,13 @@ async function redirects() {
 }
 
 module.exports = {
-  experimental: { esmExternals: true },
+  experimental: { 
+    esmExternals: true
+  },
+
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api'],
+  },
   
   env: {
     ROOT: path.resolve(process.cwd())

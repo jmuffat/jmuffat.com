@@ -1,3 +1,5 @@
+@use "./config.scss";
+
 .main-menu {
   ul {
     list-style-type: none;
@@ -32,7 +34,7 @@
   margin: 4px 0 4px 4px;
   padding: 0 4px;
 
-  background-color: $color5;
+  background-color: config.$color5;
 }
 
 .searchbar-button {
@@ -44,7 +46,7 @@
   outline: none;
 }
 
-@media (min-width:$width-small) {
+@media (min-width: config.$width-small) {
   .searchbar {
     display: flex;
   }

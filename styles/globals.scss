@@ -1,4 +1,15 @@
-@import "./config.scss";
+@use "./config.scss";
+
+@use "./nav.scss";
+@use "./embed.scss";
+@use "./post.scss";
+@use "./big-logo.scss";
+@use "./form.scss";
+@use "./maps.scss";
+@use "./color-form.scss";
+
+@import "/fa/css/all.css";
+
 
 /* import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,300&family=Nunito&family=Open+Sans:wght@300;400&display=swap');
@@ -16,19 +27,19 @@ header {
 
 nav {
   height: 56px;
-  color: $color5;
+  color: config.$color5;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: $width-large;
+  max-width: config.$width-large;
 
   >div {
     padding: 0.25em 1em
   }
 
   a {
-    color: $color5;
+    color: config.$color5;
     text-decoration: none;
   }
 }
@@ -42,7 +53,7 @@ button {
   cursor: pointer;
 }
 
-@media (max-width: $width-large){
+@media (max-width: config.$width-large){
   nav > .searchbox {
     display: none
   }
@@ -58,12 +69,12 @@ body {
   margin: 0;
   font-family: $font-stack;
   font-weight: 300;
-  background-color: $color5;
+  background-color: config.$color5;
   display: inline-block;
 }
 
 html {
-  background-color: $color5;
+  background-color: config.$color5;
 }
 
 html, body {
@@ -73,13 +84,13 @@ html, body {
 
 footer {
   background-color: #ccc;
-  color: $color1;
+  color: config.$color1;
   padding: 1em;
   box-sizing: border-box;
   margin-bottom: 10em;
 
-  a {color:$color1}
-  a:visited {color:$color1}
+  a {color:config.$color1}
+  a:visited {color:config.$color1}
 }
 
 
@@ -143,25 +154,15 @@ blockquote {
   }
 }
 
-@media (min-width:$width-medium) {
+@media (min-width: config.$width-medium) {
   body {
     display: block;
   }
 
   .container {
-    max-width: $width-medium;
+    max-width: config.$width-medium;
     margin-right: auto;
     margin-left: auto
   }
 }
 
-@import "/fa/css/all.css";
-@import "./nav.scss";
-@import "./embed.scss";
-@import "./post.scss";
-@import "./big-logo.scss";
-@import "./form.scss";
-@import "./maps.scss";
-@import "./color-form.scss";
-/* @import "/fa/css/all.css";
-@import "./form.scss"; */

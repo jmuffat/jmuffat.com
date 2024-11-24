@@ -22,7 +22,7 @@ async function responseS3Object(Key) {
 
 export async function GET(req, opt) {
     try {
-        const {slug} = opt.params
+        const {slug} = await opt.params
 		const fname = slug.join('/')
         const res = await responseS3Object(fname)
 		return res
