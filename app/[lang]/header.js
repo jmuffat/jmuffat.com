@@ -26,12 +26,12 @@ const NavItem = ({href,children})=>(
 )
 
 export const Header = () => (
-	<header className='border-b border-primary/50'>
-		<nav className="max-w-5xl mx-auto flex h-14 items-center px-4">
-			<div className="text-2xl font-bold pr-4">
+	<header className='mainmenu-background'>
+		<div className="max-w-5xl w-full mx-auto flex h-14 items-center px-4">
+			<div className="text-2xl text-stone-200 font-bold pr-4">
 				<Link className="no-underline" href="/">jmuffat</Link>
 			</div>
-
+			<div className="flex-grow"/>
 			<NavigationMenu>
 				<NavigationMenuList>
 					<NavItem href="/pzview"> <FormattedMessage id="FYR26p" description="menu: pzView" defaultMessage="pzView"/> </NavItem>
@@ -42,6 +42,6 @@ export const Header = () => (
 				</NavigationMenuList>
 			</NavigationMenu>
 
-		</nav>
+		</div>
 	</header>
 )

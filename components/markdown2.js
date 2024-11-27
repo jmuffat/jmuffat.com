@@ -35,13 +35,17 @@ export function Markdown({ className, md, small, noLinks }) {
 			</span>
 		)
 
+		const customStyle = {
+			fontSize: "0.75em"
+		}
+
 		return (
 			<div className="not-prose">
 				<SyntaxHighlighter
 					{...rest}
 					PreTag="div"
 					language={match?match[1]:null}
-					style={dark}
+					style={dark} customStyle={customStyle}
 				>
 					{String(children).replace(/\n$/, '')}
 				</SyntaxHighlighter>

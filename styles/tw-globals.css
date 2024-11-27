@@ -27,6 +27,7 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --site-background: 60, 10%, 94%;
     --radius: 0.5rem
   }
   .dark {
@@ -53,7 +54,8 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
+    --site-background: 60, 10%, 10%
   }
 }
 
@@ -62,10 +64,15 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-site-background text-foreground;
   }
 
   .link {
     @apply underline hover:brightness-125
   }
+
+  .mainmenu-background {
+    background-image: radial-gradient(ellipse at bottom,#5D5A53 0%,#37322C 100%);
+  }
+  
 }

@@ -22,7 +22,7 @@ export function LocaleSelector({available = ['en','fr']}) {
 	const basePath = re? re[1] : "/"
   
 	return (
-		<ul className="max-w-5xl mx-auto px-4 py-1 gap-2 flex flex-row justify-end place-items-center border-r border-l border-secondary">
+		<ul className="max-w-5xl mx-auto px-4 py-1 gap-2 flex flex-row justify-end place-items-center">
 			{locales.map(loc => {
 				const className = cn({
 					'h-4 w-6 border relative': true,
