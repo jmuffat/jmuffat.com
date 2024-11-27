@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import ReactMarkdown from 'react-markdown'
 
@@ -50,7 +51,7 @@ function embedAppStore(appId) {
 
   return (
     <Link href={href} target="_blank">
-        <img src="/img/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"/>
+        <Image src="/img/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="download on App Store" unoptimized/>
     </Link>
   )
 }
@@ -107,9 +108,10 @@ function rewriteCode({inline,className,children}) {
   return (
     <SyntaxHighlighter
       language={language}
-      children={children}
       customStyle={customStyle}
-    />
+    >
+      {children}
+    </SyntaxHighlighter>
   )
 }
 

@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const {extract} = require('@formatjs/cli')
+const {extract} = require('@formatjs/ts-transformer')
 
 async function loadJson(a) {
   const filepath = path.join(__dirname,a)
@@ -33,7 +33,7 @@ async function walk(dir) {
 };
 
 async function extractMessages() {
-  const pages      = await walk(path.resolve(__dirname,'..','pages'))
+  const pages      = await walk(path.resolve(__dirname,'..','app'))
   const components = await walk(path.resolve(__dirname,'..','components'))
   const fileset    = pages.concat(components)
 

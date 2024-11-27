@@ -1,19 +1,22 @@
+"use client"
 import React from 'react'
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import {FormattedMessage} from 'react-intl'
 
-import Nav from './nav';
+import Nav from './nav'
 
 function LocaleSelector(props) {
+  console.log(props)
   const router = useRouter()
   const {locales} = props
 
   return (
     <ul className="locale-selector">
       {router.locales.map( locale=>{
-        const img = <img src={`/img/${locale}.svg`}/>
+        const img = <Image src={`/img/${locale}.svg`} alt={locale} unoptimized/>
         const current = locale===router.locale? 'current ': ''
         const unavailable = locales.includes(locale)? '' : 'unavailable '
         return (
@@ -76,9 +79,10 @@ function BasePage(props){
           {props.children}
         </section>
         <footer>
-          <small><Link href="/privacy-policy"><FormattedMessage description="in footer" defaultMessage="Privacy Policy"/></Link></small><br/>
-          <small><Link href="/attribution"><FormattedMessage description="in footer" defaultMessage="Attribution"/></Link></small><br/>
+          <small><Link href="/privacy-policy"><FormattedMessage id="3zXjyR" description="in footer" defaultMessage="Privacy Policy"/></Link></small><br/>
+          <small><Link href="/attribution"><FormattedMessage id="VRa0Qo" description="in footer" defaultMessage="Attribution"/></Link></small><br/>
           <small><FormattedMessage
+            id="x4hSe8"
             description="in footer"
             defaultMessage="site authored by {jmm} and hosted by {vercel}"
             values={{

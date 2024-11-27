@@ -1,5 +1,5 @@
 import * as martinez from 'martinez-polygon-clipping';
-import {EmfBuilder} from '~/lib/emf'
+import {EmfBuilder} from '@/lib/emf'
 
 function convertColor(s /* #RRGGBB */ ) {
   const r = s.slice(1,3)

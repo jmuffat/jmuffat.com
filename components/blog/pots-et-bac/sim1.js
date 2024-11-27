@@ -8,7 +8,7 @@ import {
   fitCircles
 } from './sim-base'
 
-function Simul(props) {
+export function Simul(props) {
   const router = useRouter()
   const stateMgr = React.useState({
     width: "3.666",
@@ -57,4 +57,3 @@ function Simul(props) {
   )
 }
 
-export default {Simul}

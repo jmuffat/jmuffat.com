@@ -1,16 +1,19 @@
+"server only"
+import path from 'path'
 import React from 'react';
-import Head from 'next/head';
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import matter from 'gray-matter'
+import Link from '@/components/link'
 
-import BasePage from './base-page';
-import Markdown from './markdown';
+import {Markdown} from './markdown2';
 import ShareButton from './share-button';
 
-import authors from '~/data/authors.json'
-import threads from '~/data/threads.json'
+import {NarrowPageBody} from '@/components/narrow-body'
+
+import ImageSize from 'image-size'
+
+import authors from '@/data/authors.json'
+import threads from '@/data/threads.json'
 
 function getCoverImage(post) {
   const cover = post.coverImage || post._coverImage
@@ -32,7 +35,7 @@ function Author(props) {
 
   return (
     <div className="author">
-        <img src={author.img} />
+        <Image src={author.img} unoptimized alt="portrait" width="128" height="128"/>
         <div>
           <div className="name">{author.name}</div>
           <div className="social">
@@ -100,33 +103,43 @@ function HistoricMetadata(props) {
   )
 }
 
-function CoverImage(props) {
-  const {post,coverSize} = props
+function calcCoverSize(cover) {
+  if (!cover) return
+
+  const cwd = process.cwd()
+  const coverPath = path.join(cwd,'public',cover)
+
+  const size = ImageSize(coverPath)
+  return {
+    w: size.width,
+    h: size.height
+  }
+}
+
+
+function CoverImage({post}) {
   if (!post.coverImage) return null;
 
+  const coverSize = calcCoverSize(post.coverImage)
   const maxAspect = 1080/1920
   const aspect = coverSize.h/coverSize.w
 
   if (aspect < maxAspect) {
     return (
-      <div className="cover">
-        <Image src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
-      </div>
+      <Image src={post.coverImage} width={coverSize.w} height={coverSize.h} alt="cover"/>
     )
   }
 
   const ratio = maxAspect / aspect
 
   return (
-    <div className="cover">
-      <Image style={{width:`${100*ratio}%`}} src={post.coverImage} width={coverSize.w} height={coverSize.h}/>
-    </div>
+      <Image style={{width:`${100*ratio}%`}} src={post.coverImage} width={coverSize.w} height={coverSize.h} alt="cover"/>
   )
 }
 
 function PostPage(props) {
-  const router = useRouter()
   const { data, content } = matter(props.content)
+  const locale = 'en'
 
   const post = {
     ...data,
@@ -136,7 +149,7 @@ function PostPage(props) {
 
   const date = new Date(post.date)
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
-  const strDate = date.toLocaleDateString(router.locale,options)
+  const strDate = date.toLocaleDateString(locale,options)
 
   const coverImage = getCoverImage(post)
   const author = authors[post.author]
@@ -144,29 +157,11 @@ function PostPage(props) {
   const canonicalURL = `https://jmuffat.com${postPath}${post.slug}`
 
   return (
-    <BasePage title={post.title} className="post-container" locales={props.locales}>
+    <NarrowPageBody>
 
-      <Head>
-        <meta property="og:type" content="article" />
-        <meta property="article:author" content="https://www.facebook.com/jmuffat" />
-        <meta property="og:title" content={post.title} />
-        <link rel="canonical" href={canonicalURL} />
-        <meta property="og:url" content={canonicalURL} />
-
-        {post.excerpt && <meta property="og:description" content={post.excerpt} />}
-        {coverImage && <meta property="og:image" content={coverImage} />}
-        {coverImage && <meta property="og:image:secure_url" content={coverImage} />}
-        {props.coverSize && <meta property="og:image:width"  content={props.coverSize.w} />}
-        {props.coverSize && <meta property="og:image:height" content={props.coverSize.h} />}
-      </Head>
-
-      <CoverImage post={post} coverSize={props.coverSize}/>
-
-      <div className="title">
-        <h1>{post.title}</h1>
-      </div>
-
-      <div className="content">
+      <div className="max-w-prose mx-auto"> 
+        <CoverImage post={post}/>
+        <h1 className="mt-8 mb-4 pb-3 text-2xl">{post.title}</h1>
         <Markdown md={content} script={props.script}/>
         <HistoricMetadata metadata={data}/>
         {props.children}
@@ -180,7 +175,7 @@ function PostPage(props) {
           <Thread post={post} />
         </div>
       )}
-    </BasePage>
+    </NarrowPageBody>
   );
 }
 

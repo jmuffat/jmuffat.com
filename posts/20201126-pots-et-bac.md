@@ -1,0 +1,61 @@
+---
+title: Des pots dans un bac
+coverImage: /img/pots-et-bac.jpg
+date: '2020-11-26'
+author: jmm
+script: '@/components/blog/pots-et-bac/sim1'
+thread: pots
+locale: 'fr-FR'
+---
+
+L'ami [Ludovic Bisot](https://www.toutunfromage.com/), fromager à la curiosité
+vive et l'imagination débordante,
+pose une [question](https://www.facebook.com/photo?fbid=3521366061277722&set=a.104415532972809)
+qui paraît toute simple:
+
+> J'ai fait de la cervelle de canut, en pots ronds ; puis j'ai rangé les pots
+> dans une caisse rectangulaire. J'ai commencé à les mettre de façon très alignée
+> (photo de gauche) : il en tient 18 (ou 19). Puis je les ai disposés de façon
+> moins organisée (à droite) : il en tient 21.
+
+J'adore ces problèmes qui s'expriment simplement mais qui ne se laissent pas
+résoudre aisément... En jouant un peu avec l'idée dans ma tête, je sens
+intuitivement que s'il y a une heuristique, elle ne sera pas simple.  Une
+recherche rapide m'amène à une considération similaire : pour un nombre donné
+de cercles, quel est le [plus petit carré dans lequel les faire rentrer](https://fr.wikipedia.org/wiki/Empilement_de_cercles_dans_un_carr%C3%A9) ? En regardant les motifs qui en
+résultent, on voit bien que certaines solutions ne sont pas le résultat du
+simple "bon sens"... De plus, la page précise que les solutions ne sont _pas
+nécessairement optimales_ ...
+
+Du coup, ça me titille, me tracasse, me turlupine...
+
+# Première exploration
+
+Dans un premier temps, j'essaie de borner le résultat : trouver un nombre de
+pots que le bac peut trivialement contenir et mesurer l'espace restant
+disponible. De manière à établir un minimum et un maximum.
+
+La simulation ci-dessous utilise trois méthodes et choisit celle qui permet
+de réunir le plus de pots dans le bac.
+
+  - méthode 1: côte à côte, rangés en carrés
+  - méthode 2: en nid d'abeille, orienté horizontalement
+  - méthode 3: en nid d'abeille, orienté verticalement
+
+La longueur et la largeur sont exprimées en largeur de pot : on prétend que le
+diamètre du pot vaut 1.
+
+###### Simul
+
+L'espace disponible tel qu'il est calculé me semble très surestimé, mais je
+ne me l'explique pas encore. Je le calcule en retirant de la surface du bac,
+celle occupée par les pots, puis je corrige par la [densité maximale de
+l'empilement](https://fr.wikipedia.org/wiki/Empilement_compact) et je divise la
+surface résultante par celle occupée par un pot. Cette méthode me paraît
+raisonnable, mais elle donne un résultat qui me laisse perplexe.
+
+Les trois méthodes de remplissage sont naïves et je compte en développer
+d'autres au fur et à mesure que des idées se présente. Par exemple, la difference
+entre une configuration (1.499, 5.999) et (1.500, 5.999) illustre que l'on peut
+faire tenir trivialement le pot supplémentaire dans des bacs plus étroits.
+A suivre, donc...

@@ -43,19 +43,19 @@ function TransformPolyline(props){
 
 const urlS3 = fname => `/download/globe/${fname}`
 
-function Globe(props){
+export function Globe(props){
   const [data ] = useGeoshape3D( urlS3('ne_110m_coastline.shp'))
   const [dataR] = useGeoshape3D( urlS3('ne_110m_admin_0_boundary_lines_land.shp'))
 
   const [t,setT]=React.useState(0);
-  const t0=new Date();
+  const [t0]=React.useState(new Date());
 
   React.useEffect(() => {
     const id = setInterval(() => {
       setT(t=>(new Date()-t0)/1000);
     }, 33);
     return ()=>clearInterval(id);
-  }, []);
+  }, [t0]);
 
   const width = 512;
   const height= 512;
@@ -79,4 +79,3 @@ function Globe(props){
   );
 }
 
-export default {Globe}

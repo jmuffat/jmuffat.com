@@ -1,0 +1,14 @@
+{
+	"extends": "next/core-web-vitals",
+	"plugins": [
+		"eslint-plugin-formatjs"
+	],
+	"rules": {
+		"formatjs/enforce-id": [
+			"error",
+			{
+				"idInterpolationPattern": "[sha512:contenthash:base64:6]"
+			}
+		]
+	}
+}

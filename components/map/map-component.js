@@ -5,7 +5,7 @@ import {useMapController} from './map-controller'
 import {generateSvg} from './map-export'
 import {generateEmf} from './map-export-emf'
 
-import countryCodes from '~/data/countries.json'
+import countryCodes from '@/data/countries.json'
 
 const defaultWidth = 1024
 const defaultHeight=  512
