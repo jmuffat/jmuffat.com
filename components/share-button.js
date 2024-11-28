@@ -5,27 +5,21 @@ import FacebookIcon from "./icons/facebook"
 import { Button } from "@/components/ui/button"
 
 
-function NativeShare(props) {
+function NativeShare({className, title='jmuffat.com', text, url}) {
 
-	const onPress = () => {
-		navigator.share({
-			title: props.title || 'jmuffat.com',
-			text: props.text,
-			url: props.url,
-		})
-	}
+	const onPress = () => navigator.share({title,text,url})
 
 	return (
-		<Button variant="outline" onClick={onPress}><Share /> share</Button>
+		<Button className={className} variant="outline" onClick={onPress}><Share /> share</Button>
 	);
 }
 
-function ButtonBar(props) {
+function ButtonBar({className,url}) {
 	const onPress = () => {
-		window.location.href = `https://www.facebook.com/sharer/sharer.php?u=${props.url}`;
+		window.location.href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
 	}
 
-	return <Button variant="outline" onClick={onPress}><FacebookIcon/> share</Button>
+	return <Button className={className} variant="outline" onClick={onPress}><FacebookIcon/> share</Button>
 }
 
 export default function ShareButton(props) {
