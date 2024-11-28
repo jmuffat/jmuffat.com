@@ -75,4 +75,7 @@
     background-image: radial-gradient(ellipse at bottom,#5D5A53 0%,#37322C 100%);
   }
   
+  .markdown {
+    @apply prose break-words max-w-prose dark:prose-invert
+  }
 }

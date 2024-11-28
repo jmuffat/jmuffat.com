@@ -1,18 +1,34 @@
 import React from 'react'
-
 import Post from '@/components/post'
+import Content, {metadata} from './baladovore.mdx'
 
-import md from './baladovore.mdx'
+function HistoricMetadata({metadata}) {
+	const {historicMetadata} = metadata
+	if (!historicMetadata) return null;
+
+	return (
+		<>
+			<h3>Metadata</h3>
+			<code>
+				<ul>
+					{Object.keys(historicMetadata).map((item, idx) => (
+						<li key={idx}>{item} : {metadata[item]}</li>
+					))}
+				</ul>
+			</code>
+		</>
+	)
+}
 
 function Page(props) {
-  return (
-    <Post content={md} coverSize={props.coverSize} locales={["fr-FR"]}>
-    {/*
-      <h2>News</h2>
-      <PostList {...props}/>
-    */}
-    </Post>
-  );
+	return (
+		<Post locales={["fr"]} metadata={metadata}>
+			<div className="markdown">
+				<Content/>
+			</div>
+			<HistoricMetadata metadata={metadata} />
+		</Post>
+	)
 }
 
 export default Page;

@@ -68,7 +68,7 @@ export function Markdown({ className, md, small, noLinks }) {
 
 	return (
 		<ReactMarkdown
-			className={cn(className,'prose break-words max-w-prose dark:prose-invert')}
+			className={cn('markdown', className)}
 			components={defaultComponents}
 			remarkPlugins={remarkPlugins}
 			rehypePlugins={rehypePlugins}

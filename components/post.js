@@ -2,7 +2,6 @@
 import path from 'path'
 import React from 'react';
 import Image from 'next/image'
-import matter from 'gray-matter'
 import { MailIcon } from 'lucide-react';
 import Link from '@/components/link'
 
@@ -11,7 +10,6 @@ import GithubIcon from "./icons/github"
 import LinkedinIcon from "./icons/linkedin"
 import RedditIcon from "./icons/reddit"
 
-import { Markdown } from './markdown2';
 import ShareButton from './share-button';
 
 import { NarrowPageBody } from '@/components/narrow-body'
@@ -20,14 +18,6 @@ import ImageSize from 'image-size'
 
 import authors from '@/data/authors.json'
 import threads from '@/data/threads.json'
-
-function getCoverImage(post) {
-	const cover = post.coverImage || post._coverImage
-	if (!cover) return null;
-
-	const url = new URL(cover, 'https://jmuffat.com')
-	return url.href
-}
 
 function SocialButton({href,icon,fill="none"}) {
 	if (!href) return null
@@ -91,24 +81,6 @@ function Thread(props) {
 	)
 }
 
-function HistoricMetadata(props) {
-	const metadata = props.metadata?.historicMetadata
-	if (!metadata) return null;
-
-	return (
-		<>
-			<h3>Metadata</h3>
-			<code>
-				<ul>
-					{Object.keys(metadata).map((item, idx) => (
-						<li key={idx}>{item} : {metadata[item]}</li>
-					))}
-				</ul>
-			</code>
-		</>
-	)
-}
-
 function calcCoverSize(cover) {
 	if (!cover) return
 
@@ -143,21 +115,24 @@ function CoverImage({ post }) {
 	)
 }
 
-function PostPage(props) {
-	const { data, content } = matter(props.content)
+function PostPage({
+	metadata={}, 
+	slug, 
+	threadPosts, 
+	children}
+) {
 	const locale = 'en'
 
 	const post = {
-		...data,
-		slug: props.slug,
-		threadPosts: props.threadPosts
+		...metadata,
+		slug: slug,
+		threadPosts: threadPosts
 	};
 
 	const date = new Date(post.date)
 	const options = { year: 'numeric', month: 'long', day: 'numeric' }
 	const strDate = date.toLocaleDateString(locale, options)
 
-	const coverImage = getCoverImage(post)
 	const author = authors[post.author]
 	const postPath = post.path || '/posts/'
 	const canonicalURL = `https://jmuffat.com${postPath}${post.slug}`
@@ -177,9 +152,7 @@ function PostPage(props) {
 
 			<div className="mr-4 ml-4 md:ml-0 row-start-3 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
 				<div className="max-w-prose mx-auto">
-					<Markdown md={content} script={props.script} />
-					<HistoricMetadata metadata={data} />
-					{props.children}
+					{children}
 					<ShareButton className="my-8" title={post.title} text={post.excerpt} url={canonicalURL} />
 				</div>
 			</div>
