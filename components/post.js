@@ -116,6 +116,7 @@ function CoverImage({ post }) {
 }
 
 function PostPage({
+	className="markdown",
 	metadata={}, 
 	slug, 
 	threadPosts, 
@@ -152,7 +153,9 @@ function PostPage({
 
 			<div className="mr-4 ml-4 md:ml-0 row-start-3 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
 				<div className="max-w-prose mx-auto">
+					<div className={className}>
 					{children}
+					</div>
 					<ShareButton className="my-8" title={post.title} text={post.excerpt} url={canonicalURL} />
 				</div>
 			</div>

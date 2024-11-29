@@ -31,7 +31,7 @@ async function PostPage({ params }) {
     const {data,content} = matter(markdown)
 
     return (
-        <Post metadata={data}>
+        <Post metadata={data} className="">
             <Markdown md={content}/>
             <HistoricMetadata metadata={data} />
         </Post>
