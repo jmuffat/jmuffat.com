@@ -95,7 +95,9 @@ function calcCoverSize(cover) {
 }
 
 
-function CoverImage({ post }) {
+function CoverImage({ cover, post }) {
+	if (cover) return <Image src={cover} alt="cover"/>
+
 	if (!post.coverImage) return null;
 
 	const coverSize = calcCoverSize(post.coverImage)
@@ -117,6 +119,7 @@ function CoverImage({ post }) {
 
 function PostPage({
 	className="markdown",
+	cover,
 	metadata={}, 
 	slug, 
 	threadPosts, 
@@ -142,7 +145,7 @@ function PostPage({
 		<NarrowPageBody className="grid grid-cols-12 md:pt-4 md:pl-0 lg:pr-0">
 			
 			<div className="row-start-1 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
-				<CoverImage post={post} />
+				<CoverImage cover={cover} post={post} />
 			</div>
 
 			<div className="mr-4 ml-4 md:ml-0 row-start-2 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
