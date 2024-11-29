@@ -3,6 +3,9 @@ import path from 'path'
 
 import createMDX from '@next/mdx'
 import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+
 import rehypeExternalLinks from 'rehype-external-links'
 
 // import i18nConfig from './i18n-config.mjs'
@@ -35,7 +38,9 @@ const nextConfig = {
 const withMDX = createMDX({
 	options: {
 		remarkPlugins: [
-			remarkGfm
+			remarkGfm,
+			remarkFrontmatter, 
+			[remarkMdxFrontmatter, {name: 'matter'}]
 		],
 		rehypePlugins: [
 			[rehypeExternalLinks, { target: '_blank' }],

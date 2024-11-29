@@ -53,8 +53,6 @@ export function middleware(request) {
 	return NextResponse.redirect(request.nextUrl)
 }
 
-// localhost:3000/fr-FR/posts/20210201-i18n
-
 export const config = {
 	matcher: [
 		'/((?!_next).*)',
