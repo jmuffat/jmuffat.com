@@ -4,7 +4,7 @@ import {matter} from './page.mdx'
 function Page({children}) {
 	return (
 		<Post locales={["fr"]} metadata={matter}>
-				{children}
+			{children}
 		</Post>
 	)
 }
