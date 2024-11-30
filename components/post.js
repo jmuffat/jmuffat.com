@@ -144,16 +144,19 @@ function OldPost({
 
 
 export const PostPage = ({children})=>(
-	<NarrowPageBody className="grid grid-cols-12 md:pt-4 md:pl-0 lg:pr-0">
+	<NarrowPageBody className="grid grid-cols-12 auto-rows-max md:pt-4 md:pl-0 lg:pr-0">
 		{children}
 	</NarrowPageBody>
 )
 
-export const PostCover = ({cover})=>(
-	<div className="row-start-1 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
-		<Image src={cover} alt="cover"/>
-	</div>
-)
+export function PostCover({cover}){
+	if (!cover) return null
+	return (
+		<div className="row-start-1 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
+			<Image src={cover} alt="cover"/>
+		</div>
+	)
+}
 PostPage.Cover = PostCover
 
 export function PostTitle({children}){
