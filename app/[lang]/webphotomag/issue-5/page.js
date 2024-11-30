@@ -1,18 +1,14 @@
-import Post from '@/components/post'
+import {genPostPage} from '@/components/post'
 import Content, {matter} from './content.mdx'
 import cover from './cover.jpg'
 
-async function Page({params}) {
-	const {lang} = await params
-	return (
-		<Post 
-			locales={["fr"]} 
-			cover={cover} 
-			metadata={matter}
-		>
-			<Content/>
-		</Post>
-	)
+const postdata = {
+	matter,
+	Content,
+	cover,
+
+	src: import.meta.url,
 }
 
+const Page = genPostPage(postdata)
 export default Page

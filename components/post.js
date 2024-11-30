@@ -1,16 +1,11 @@
 "server only"
 import path from 'path'
-import React from 'react';
+import React from 'react'
 import Image from 'next/image'
-import { MailIcon } from 'lucide-react';
 import Link from '@/components/link'
 
-import FacebookIcon from "./icons/facebook"
-import GithubIcon from "./icons/github"
-import LinkedinIcon from "./icons/linkedin"
-import RedditIcon from "./icons/reddit"
-
-import ShareButton from './share-button';
+import ShareButton from './share-button'
+import {Author} from './post-author'
 
 import { NarrowPageBody } from '@/components/narrow-body'
 
@@ -18,34 +13,6 @@ import ImageSize from 'image-size'
 
 import authors from '@/data/authors.json'
 import threads from '@/data/threads.json'
-
-function SocialButton({href,icon,fill="none"}) {
-	if (!href) return null
-	const Icon=icon
-	return <Link href={href} target="_blank"><Icon fill={fill} /></Link>
-}
-
-function Author(props) {
-	let author = props.author;
-	if (!author) return null;
-
-	return (
-		<div>
-			<Image src={author.img} unoptimized alt="portrait" width="128" height="128" />
-			<div>
-				<div className="">{author.name}</div>
-				<div className="flex flex-row gap-1 w-fit text-black my-1 dark:p-1 dark:bg-neutral-300 dark:rounded">
-					<SocialButton href={author.email&&`mailto:${author.email}`} icon={MailIcon} />
-					<SocialButton href={author.github} icon={GithubIcon} fill="#000000" />
-					<SocialButton href={author.facebook} icon={FacebookIcon} fill="#1877f2" />
-					<SocialButton href={author.linkedin} icon={LinkedinIcon} fill="#2867B2" />
-					<SocialButton href={author.reddit} icon={RedditIcon} fill="#FF5700" />
-				</div>
-				<div className="text-xs" suppressHydrationWarning>{props.date}</div>
-			</div>
-		</div>
-	);
-}
 
 function ThreadPost(props) {
 	const { current, post } = props
@@ -117,14 +84,15 @@ function CoverImage({ cover, post }) {
 	)
 }
 
-function PostPage({
+function OldPost({
 	className="markdown",
 	cover,
 	metadata={}, 
 	slug, 
 	threadPosts, 
-	children}
-) {
+
+	children
+}) {
 	const locale = 'en'
 
 	const post = {
@@ -163,9 +131,7 @@ function PostPage({
 				</div>
 			</div>
 
-			<div className='row-start-4 col-start-1 col-span-12 md:row-start-3 md:col-start-1 md:col-span-3 p-4'>
-				<Author author={author} date={strDate} />
-			</div>
+			<Author className='row-start-4 col-start-1 col-span-12 md:row-start-3 md:col-start-1 md:col-span-3 p-4' author={author} date={strDate} />
 
 			{postHasThread(post) && (
 				<div className="row-start-3 col-start-10 col-span-3">
@@ -176,4 +142,83 @@ function PostPage({
 	);
 }
 
-export default PostPage
+
+export const PostPage = ({children})=>(
+	<NarrowPageBody className="grid grid-cols-12 md:pt-4 md:pl-0 lg:pr-0">
+		{children}
+	</NarrowPageBody>
+)
+
+export const PostCover = ({cover})=>(
+	<div className="row-start-1 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
+		<Image src={cover} alt="cover"/>
+	</div>
+)
+PostPage.Cover = PostCover
+
+export function PostTitle({children}){
+	if (!children) return null
+	return (
+		<div className="mr-4 ml-4 md:ml-0 row-start-2 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
+			<div className="max-w-prose mx-auto">
+				<h1 className="mt-8 mb-4 pb-3 text-2xl">{children}</h1>
+			</div>
+		</div>
+	)
+}
+PostPage.Title = PostTitle
+
+export const PostBody = ({children})=>(
+	<div className="mr-4 ml-4 md:ml-0 row-start-3 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
+		<div className="max-w-prose mx-auto">
+			{children}
+		</div>
+	</div>
+)
+PostPage.Body = PostBody
+
+export function PostAuthor({author,date}){
+	return (
+		<Author className='row-start-4 col-start-1 col-span-12 md:row-start-3 md:col-start-1 md:col-span-3 p-4' author={author} date={date} />
+	)
+}
+PostPage.Author = PostAuthor
+
+export const PostSubposts = ({children})=>(
+	<div className="row-start-3 col-start-10 col-span-3">
+		{children}
+	</div>
+)
+
+export function Post({postdata, lang="", children}) {
+	const LANG = lang.toUpperCase()
+	const matter = postdata[`matter${LANG}`] ?? postdata.matter ?? {}
+	const cover = postdata[`cover${LANG}`] ?? postdata.cover
+	const Content = postdata[`Content${LANG}`] ?? postdata.Content
+	const canonicalURL = `https://jmuffat.com/todo` 
+
+	return (
+		<PostPage>
+			<PostCover cover={cover}/>
+			<PostTitle>{matter.title}</PostTitle>
+			<PostBody>
+				<div className="markdown">
+					<Content/>
+				</div>
+				{children}
+				<ShareButton className="my-8" title={matter.title} text={matter.excerpt} url={canonicalURL} />
+			</PostBody>
+			<PostAuthor/>
+			<PostSubposts/>
+		</PostPage>
+	)
+}
+
+export const genPostPage = (postdata)=>(
+	async ({params})=> {
+		const {lang} = await params
+		return <Post lang={lang} postdata={postdata}/>
+	}
+)
+
+export default OldPost
