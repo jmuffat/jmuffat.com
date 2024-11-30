@@ -200,6 +200,8 @@ export function Post({postdata, lang="", children}) {
 	const Content = postdata[`Content${LANG}`] ?? postdata.Content
 	const canonicalURL = `https://jmuffat.com/todo` 
 
+	console.log(postdata)
+
 	return (
 		<PostPage>
 			<PostCover cover={cover}/>
