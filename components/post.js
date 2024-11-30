@@ -200,8 +200,6 @@ export function Post({postdata, lang="", children}) {
 	const Content = postdata[`Content${LANG}`] ?? postdata.Content
 	const canonicalURL = `https://jmuffat.com/todo` 
 
-	console.log(postdata)
-
 	return (
 		<PostPage>
 			<PostCover cover={cover}/>
@@ -219,11 +217,16 @@ export function Post({postdata, lang="", children}) {
 	)
 }
 
-export const genPostPage = (postdata)=>(
-	async ({params})=> {
-		const {lang} = await params
-		return <Post lang={lang} postdata={postdata}/>
-	}
-)
+export function genPostPage(postdata){
+	const res = (
+		async ({params})=> {
+			const {lang} = await params
+			return <Post lang={lang} postdata={postdata}/>
+		}
+	)
+
+	res.displayName = "GeneratedPostPage"
+	return res
+}
 
 export default OldPost

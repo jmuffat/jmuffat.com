@@ -1,4 +1,6 @@
 "use client"
+import Image from 'next/image'
+import Link from '@/components/link'
 import { MailIcon } from 'lucide-react';
 import {FormattedDate} from 'react-intl'
 
