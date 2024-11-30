@@ -1,5 +1,5 @@
+"use client"
 import React from 'react'
-import {useRouter} from 'next/router'
 import {
   SimulSVG,
   MethodButton
@@ -9,7 +9,6 @@ import {
 } from './sim-base'
 
 export function Simul2(props) {
-  const router = useRouter()
   const stateMgr = React.useState({
     //width: "5.999",
     //height: "1.499",
@@ -35,7 +34,7 @@ export function Simul2(props) {
   const curMethod = circles[0].method
 
   return (
-    <div>
+    <div className='bg-secondary p-4 rounded'>
       <p>
         <input type="range" min="1000" max="10000" value={width*1000} className="slider" id="width" onChange={onChangeSlider}/>&nbsp;
         Largeur <input type="edit" id="width" value={state.width} onChange={onChange}/>
@@ -58,7 +57,7 @@ export function Simul2(props) {
         <MethodButton id="7"    stateMgr={stateMgr} sel={curMethod}>7</MethodButton>
       </p>
 
-      <div style={{display:"flex",justifyContent:"center"}}>
+      <div className="flex justify-center">
         <SimulSVG width={width} height={height} circles={circles}/>
       </div>
     </div>

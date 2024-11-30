@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import {useGeoshape3D} from './data';
 import {xform} from './xform';
