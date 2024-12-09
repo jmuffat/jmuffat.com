@@ -1,5 +1,4 @@
 "server only"
-import fsp from 'fs/promises'
 import path from 'path'
 import React from 'react'
 import Image from 'next/image'
@@ -9,7 +8,6 @@ import Link from '@/components/link'
 
 import ShareButton from './share-button'
 import {Author} from './post-author'
-import { Subpost } from './post-subpost'
 
 import { NarrowPageBody } from '@/components/narrow-body'
 
@@ -18,6 +16,8 @@ import ImageSize from 'image-size'
 import authors from '@/data/authors.json'
 import threads from '@/data/threads.json'
 import { fileURLToPath } from 'url'
+
+import contentIndex from '@/content-idx/index.json'
 
 function ThreadPost(props) {
 	const { current, post } = props
@@ -205,27 +205,37 @@ export const PostSubposts = ({children})=>(
 	</div>
 )
 
-async function Subposts({src}) {
+async function Subposts({src,sitepath,lang}) {
 	if (!src) return null
 
-	const srcPath = fileURLToPath(src)
-	const folderPath = path.dirname(srcPath)
+	const pageBase = sitepath+'/'
+	const slugStart = pageBase.length
+	const subPages = contentIndex
+		.map( p=>{
+			if (!p.sitepath.startsWith(pageBase)) return null
+			const slug = p.sitepath.substring(slugStart)
+			if (slug.indexOf('/')>=0) return null
 
-	const files  = await fsp.readdir(folderPath,{withFileTypes:true})
-	const folders= files.filter( f=>f.isDirectory() )
-	const subposts = []
-	for(const f of folders) {
-		const subfolder = path.join(folderPath, f.name)
-		const files  = await fsp.readdir(subfolder,{withFileTypes:true})
-		const hasPage = files.find( f=>f.isFile() && /^page\.(js|jsx|md|mdx|ts|tsx)$/i.test(f.name) ) 
-		if (hasPage) subposts.push(f.name)
-	}
-	if (!subposts.length) return null
+			const meta = p[lang] ?? p[0]
+
+			return {
+				slug,
+				title: meta?.title ?? slug,
+				sitepath: p.sitepath
+			}
+		})
+		.filter(a=>!!a)
+
+	if (!subPages.length) return null
 
 	return (
 		<PostSubposts> 
 			<ul>
-			{subposts.map( seg => <li key={seg}><Subpost seg={seg}/></li> )}
+			{subPages.map( page => (
+				<li key={page.slug}>
+					<Link href={page.sitepath}>{page.title}</Link>
+				</li>
+			) )}
 			</ul>
 		</PostSubposts>
 	)		
@@ -237,6 +247,9 @@ export async function Post({postdata, lang="", children}) {
 	const cover = postdata[`cover${LANG}`] ?? postdata.cover
 	const Content = postdata[`Content${LANG}`] ?? postdata.Content
 	const canonicalURL = `https://jmuffat.com/todo` 
+
+	const src = fileURLToPath(postdata.src)
+	const {sitepath} = contentIndex.find( a=>a.src===src)
 
 	return (
 		<PostPage>
@@ -250,7 +263,7 @@ export async function Post({postdata, lang="", children}) {
 				<ShareButton className="my-8" title={matter.title} text={matter.excerpt} url={canonicalURL} />
 			</PostBody>
 			<PostAuthor/>
-			<Subposts src={postdata.src}/>
+			<Subposts src={postdata.src} sitepath={sitepath} lang={lang}/>
 		</PostPage>
 	)
 }
