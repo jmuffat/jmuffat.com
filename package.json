@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ICU_DATA=node_modules/full-icu next dev",
-    "build": "NODE_ICU_DATA=node_modules/full-icu next build",
+    "build": "node content-idx/gen.mjs && NODE_ICU_DATA=node_modules/full-icu next build",
     "start": "next start",
     "lint": "next lint",
+    "index": "node content-idx/gen.mjs",
     "map-gen": "node map-gen/index.js",
     "iso3166": "node map-gen/iso3166-wikipedia-import/index.js",
     "todo-fr": "node i18n/todo-fr.js"
