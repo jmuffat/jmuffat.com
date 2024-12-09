@@ -1,11 +1,15 @@
 "server only"
+import fsp from 'fs/promises'
 import path from 'path'
 import React from 'react'
 import Image from 'next/image'
+
+import {cn} from '@/components/cn'
 import Link from '@/components/link'
 
 import ShareButton from './share-button'
 import {Author} from './post-author'
+import { Subpost } from './post-subpost'
 
 import { NarrowPageBody } from '@/components/narrow-body'
 
@@ -13,6 +17,7 @@ import ImageSize from 'image-size'
 
 import authors from '@/data/authors.json'
 import threads from '@/data/threads.json'
+import { fileURLToPath } from 'url'
 
 function ThreadPost(props) {
 	const { current, post } = props
@@ -152,7 +157,7 @@ export const PostPage = ({children})=>(
 export function PostCover({cover}){
 	if (!cover) return null
 	return (
-		<div className="row-start-1 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
+		<div className="max-w-prose mx-auto row-start-1 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
 			<Image src={cover} alt="cover"/>
 		</div>
 	)
@@ -172,7 +177,7 @@ export function PostTitle({children}){
 PostPage.Title = PostTitle
 
 export const PostBody = ({children})=>(
-	<div className="mr-4 ml-4 md:ml-0 row-start-3 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
+	<div className="mx-4 md:mx-0 row-start-3 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
 		<div className="max-w-prose mx-auto">
 			{children}
 		</div>
@@ -188,12 +193,45 @@ export function PostAuthor({author,date}){
 PostPage.Author = PostAuthor
 
 export const PostSubposts = ({children})=>(
-	<div className="row-start-3 col-start-10 col-span-3">
-		{children}
+	<div className={cn(
+		"mx-4 mb-4",
+		"   row-start-5    col-start-1     col-span-12",
+		"md:row-start-5 md:col-start-4  md:col-span-9",
+		"lg:row-start-3 lg:col-start-10 lg:col-span-3"
+	)}>
+		<div className="max-w-prose mx-auto">
+			{children}
+		</div>
 	</div>
 )
 
-export function Post({postdata, lang="", children}) {
+async function Subposts({src}) {
+	if (!src) return null
+
+	const srcPath = fileURLToPath(src)
+	const folderPath = path.dirname(srcPath)
+
+	const files  = await fsp.readdir(folderPath,{withFileTypes:true})
+	const folders= files.filter( f=>f.isDirectory() )
+	const subposts = []
+	for(const f of folders) {
+		const subfolder = path.join(folderPath, f.name)
+		const files  = await fsp.readdir(subfolder,{withFileTypes:true})
+		const hasPage = files.find( f=>f.isFile() && /^page\.(js|jsx|md|mdx|ts|tsx)$/i.test(f.name) ) 
+		if (hasPage) subposts.push(f.name)
+	}
+	if (!subposts.length) return null
+
+	return (
+		<PostSubposts> 
+			<ul>
+			{subposts.map( seg => <li key={seg}><Subpost seg={seg}/></li> )}
+			</ul>
+		</PostSubposts>
+	)		
+}
+
+export async function Post({postdata, lang="", children}) {
 	const LANG = lang.toUpperCase()
 	const matter = postdata[`matter${LANG}`] ?? postdata.matter ?? {}
 	const cover = postdata[`cover${LANG}`] ?? postdata.cover
@@ -212,7 +250,7 @@ export function Post({postdata, lang="", children}) {
 				<ShareButton className="my-8" title={matter.title} text={matter.excerpt} url={canonicalURL} />
 			</PostBody>
 			<PostAuthor/>
-			<PostSubposts/>
+			<Subposts src={postdata.src}/>
 		</PostPage>
 	)
 }
