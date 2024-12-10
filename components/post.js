@@ -5,11 +5,12 @@ import Image from 'next/image'
 
 import {cn} from '@/components/cn'
 import Link from '@/components/link'
+import { NarrowPageBody } from '@/components/narrow-body'
+import {cnYoutubeAccept} from '@/components/youtube'
 
 import ShareButton from './share-button'
 import {Author} from './post-author'
 
-import { NarrowPageBody } from '@/components/narrow-body'
 
 import ImageSize from 'image-size'
 
@@ -148,8 +149,14 @@ function OldPost({
 }
 
 
-export const PostPage = ({children})=>(
-	<NarrowPageBody className="grid grid-cols-12 auto-rows-max md:pt-4 md:pl-0 lg:pr-0">
+export const PostPage = ({className,children})=>(
+	<NarrowPageBody 
+		className={cn(
+			"grid grid-cols-12 auto-rows-max md:pt-4 md:pl-0 lg:pr-0",
+			cnYoutubeAccept(true),
+			className
+		)}
+	>
 		{children}
 	</NarrowPageBody>
 )
