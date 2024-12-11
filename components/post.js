@@ -148,7 +148,7 @@ function OldPost({
 
 
 export const PostPage = ({children})=>(
-	<NarrowPageBody className="grid grid-cols-12 auto-rows-max md:pt-4 md:pl-0 lg:pr-0">
+	<NarrowPageBody className="grid grid-cols-12 md:pt-4 md:pl-0 lg:pr-0">
 		{children}
 	</NarrowPageBody>
 )
@@ -197,11 +197,24 @@ export function PostAuthor({author,date}){
 }
 PostPage.Author = PostAuthor
 
-export const PostSubposts = ({children})=>(
+export const PostSubposts = ({className,children})=>(
 	<div className={cn(
-		"mx-4 mb-4",
-		"   row-start-5    col-start-1     col-span-12",
-		"md:row-start-5 md:col-start-4  md:col-span-9",
+		"mx-4 md:mx-0 mb-4 row-start-5", 
+		"   col-start-1    col-span-12",
+		"md:col-start-4 md:col-span-9",
+		"lg:col-start-4 lg:col-span-6"
+	)}>
+		<div className={cn("max-w-prose mx-auto", className)}>
+			{children}
+		</div>
+	</div>
+)
+
+export const PostThreadposts = ({children})=>(
+	<div className={cn(
+		"mx-4 md:mx-0 mb-4",
+		"   row-start-7    col-start-1     col-span-12",
+		"md:row-start-7 md:col-start-4  md:col-span-9",
 		"lg:row-start-3 lg:col-start-10 lg:col-span-3"
 	)}>
 		<div className="max-w-prose mx-auto">
@@ -210,7 +223,17 @@ export const PostSubposts = ({children})=>(
 	</div>
 )
 
-async function Subposts({src,sitepath,lang}) {
+function SubpostTitle({title,lang}) {
+	if (!title) return null
+
+	let text = null
+	if (typeof title === 'string') text = title
+	else text = title[lang] || title['en'] || title['fr']
+
+	return <h2 className="mt-4">{text}</h2>
+}
+
+async function Subposts({title,src,sitepath,lang}) {
 	if (!src) return null
 
 	const pageBase = sitepath+'/'
@@ -234,7 +257,8 @@ async function Subposts({src,sitepath,lang}) {
 	if (!subPages.length) return null
 
 	return (
-		<PostSubposts> 
+		<PostSubposts className="markdown"> 
+			<SubpostTitle title={title} lang={lang}/>
 			<ul>
 			{subPages.map( page => (
 				<li key={page.slug}>
@@ -245,6 +269,19 @@ async function Subposts({src,sitepath,lang}) {
 		</PostSubposts>
 	)		
 }
+
+const PostFooter = ({matter,url})=>(
+	<div className={cn(
+		"mx-4 md:mx-0 mb-4 row-start-6", 
+		"   col-start-1    col-span-12",
+		"md:col-start-4 md:col-span-9",
+		"lg:col-start-4 lg:col-span-6"
+	)}>
+		<div className="max-w-prose mx-auto">
+			<ShareButton className="my-8" title={matter.title} text={matter.excerpt} url={url} />
+		</div>
+	</div>
+) 
 
 export async function Post({postdata, lang="", children}) {
 	const LANG = lang.toUpperCase()
@@ -265,10 +302,10 @@ export async function Post({postdata, lang="", children}) {
 					<Content/>
 				</div>
 				{children}
-				<ShareButton className="my-8" title={matter.title} text={matter.excerpt} url={canonicalURL} />
 			</PostBody>
 			<PostAuthor/>
-			<Subposts src={postdata.src} sitepath={sitepath} lang={lang}/>
+			<Subposts title={postdata.subpostsTitle} src={postdata.src} sitepath={sitepath} lang={lang}/>
+			<PostFooter matter={matter} url={canonicalURL}/>
 		</PostPage>
 	)
 }

@@ -7,6 +7,10 @@ const postdata = {
 	Content,
 	cover,
 
+	subpostsTitle: {
+		en: "News",
+		fr: "Actu"
+	},
 	src: import.meta.url,
 }
 

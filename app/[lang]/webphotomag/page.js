@@ -9,6 +9,10 @@ const postdata = {
 	coverFR,
 	coverEN,
 
+	subpostsTitle: {
+		en: "Issues",
+		fr: "Les numéros"
+	},
 	src: import.meta.url,
 }
 
