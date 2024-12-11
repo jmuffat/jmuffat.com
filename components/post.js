@@ -175,9 +175,15 @@ export function PostTitle({children}){
 }
 PostPage.Title = PostTitle
 
-export const PostBody = ({children})=>(
-	<div className="mx-4 md:mx-0 row-start-3 col-start-1 col-span-12 md:col-start-4 md:col-span-9 lg:col-start-4 lg:col-span-6">
-		<div className="max-w-prose mx-auto">
+export const PostBody = ({className,children})=>(
+	<div className={cn(
+		"mx-4 md:mx-0",
+		"row-start-3",
+		"   col-start-1    col-span-12",
+		"md:col-start-4 md:col-span-9",
+		"lg:col-start-4 lg:col-span-6"
+	)}>
+		<div className={cn("max-w-prose mx-auto", className)}>
 			{children}
 		</div>
 	</div>
