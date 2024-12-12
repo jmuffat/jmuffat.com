@@ -16,13 +16,6 @@ export async function generateMetadata({ params }) {
 
 	return {
 		metadataBase: new URL('https://jmuffat.com'),
-		alternates: {
-			languages: {
-				'en-GB': '/en',
-				'fr-FR': '/fr',
-			},
-		},
-
 		title: 'jmuffat.com',
 		description: isEn ?
 			'random ideas, by Jérôme Muffat-Méridol'
