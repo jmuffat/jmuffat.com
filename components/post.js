@@ -298,6 +298,15 @@ export function genPostPage(postdata){
 	return res
 }
 
+function getMetadataBase() {
+	if (process.env.VERCEL_ENV==='production') {
+		return {metadataBase: new URL("https://jmuffat.com")}
+	}
+
+	return null
+	// {metadataBase: new URL(`https://${process.env.VERCEL_URL}`)}
+}
+
 export function PostPageMetadata(postdata) {
 
 	const src = fileURLToPath(postdata.src)
@@ -311,7 +320,7 @@ export function PostPageMetadata(postdata) {
 			const published = postdata.matter?.date? new Date(postdata.matter.date) : undefined
 
 			return {
-				metadataBase: new URL('https://jmuffat.com'),
+				...getMetadataBase(),
 				alternates: {
 					canonical: meta.sitepath,
 					languages: {
