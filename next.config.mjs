@@ -8,8 +8,6 @@ import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 import rehypeExternalLinks from 'rehype-external-links'
 
-// import i18nConfig from './i18n-config.mjs'
-
 async function redirects() {
 	// old blog used this format : /2020/03/04/my-first-paid-job
 	return [
@@ -23,7 +21,6 @@ async function redirects() {
 
 const nextConfig = {
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-	// i18n: i18nConfig.nextjsConfig,
 	redirects,
 
 	sassOptions: {
