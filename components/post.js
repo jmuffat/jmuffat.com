@@ -3,7 +3,7 @@ import path from 'path'
 import React from 'react'
 import Image from 'next/image'
 
-import {cn} from '@/components/cn'
+import {cn} from '@/lib/utils'
 import Link from '@/components/link'
 import { NarrowPageBody } from '@/components/narrow-body'
 

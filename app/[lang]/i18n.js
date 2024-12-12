@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {IntlProvider, useIntl} from 'react-intl'
-import {cn} from '@/components/cn'
+import {cn} from '@/lib/utils'
 
 import FlagFR from './fr.svg'
 import FlagEN from './en.svg'

@@ -1,7 +1,7 @@
 "use client"
 import NextLink from 'next/link'
 import {useIntl} from 'react-intl'
-import {cn} from '@/components/cn'
+import {cn} from '@/lib/utils'
 
 export function Link({href,className,children,...props}) {
     const intl = useIntl()

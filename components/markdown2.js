@@ -8,7 +8,7 @@ import { atomDark as dark } from 'react-syntax-highlighter/dist/esm/styles/prism
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeExternalLinks from 'rehype-external-links'
 
-import { cn } from '@/components/cn'
+import { cn } from '@/lib/utils'
 
 export function Markdown({ className, md, small, noLinks }) {
 	const resolvedTheme = 'dark' // always use dark ()
