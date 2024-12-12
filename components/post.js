@@ -298,4 +298,47 @@ export function genPostPage(postdata){
 	return res
 }
 
+export function PostPageMetadata(postdata) {
+
+	const src = fileURLToPath(postdata.src)
+	const meta = contentIndex.find( a=>a.src===src)
+
+	console.log(postdata)
+	console.log(meta)
+
+	return (
+		async ({ params }) => {
+			const { lang } = await params
+			const isEn = lang === 'en'
+
+			const published = postdata.matter.date? new Date(postdata.matter.date) : null
+
+			return {
+				metadataBase: new URL('https://jmuffat.com'),
+				alternates: {
+					canonical: meta.sitepath,
+					languages: {
+						'en-GB': `/en${meta.sitepath}`,
+						'fr-FR': `/fr${meta.sitepath}`,
+					},
+				},
+		
+				title: postdata?.matter?.title ?? 'jmuffat.com',
+				description: isEn ?
+					'random ideas, by Jérôme Muffat-Méridol'
+					: 'idées en vrac, par Jérôme Muffat-Méridol',
+				openGraph: {
+					type: 'website',
+					siteName: "jmuffat.com",
+					title: postdata.matter?.title,
+					url: meta.sitepath,
+					locale: isEn? 'en-GB' : 'fr-FR',
+					publishedTime: published
+				}
+			}
+		}
+	)
+}
+
 export default OldPost
+

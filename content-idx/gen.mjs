@@ -2,6 +2,24 @@ import path from 'path'
 import fsp from 'fs/promises'
 import matter from 'gray-matter'
 
+async function updateCovers(folder, entries) {
+    const reCover = /^cover(?:\..*)?.(jpg|png|webp)$/i
+    const covers = (
+        entries
+        .filter(e=>e.isFile() && reCover.test(e.name))
+        .map(e=>e.name)
+        .sort()
+    )
+
+    if (!covers.length) return
+
+    const src = path.join(folder,covers[0])
+    const re = reCover.exec(covers[0])
+    const ext = re[1]
+    await fsp.copyFile(src, path.join(folder,`opengraph-image.${ext}`))
+    await fsp.copyFile(src, path.join(folder,`twitter-image.${ext}`))
+}
+
 async function parseFolder(
     index,
     folder,
@@ -36,7 +54,10 @@ async function parseFolder(
         }
     }
 
-    if (page.src) index.push(page)
+    if (page.src) {
+        await updateCovers(folder, entries)
+        index.push(page)
+    }
 
     // recurse
     for(const e of entries) {

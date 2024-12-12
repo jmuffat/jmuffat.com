@@ -1,4 +1,4 @@
-import {genPostPage} from '@/components/post'
+import {genPostPage,PostPageMetadata} from '@/components/post'
 import Content, {matter} from './content.mdx'
 import cover from './cover.png'
 
