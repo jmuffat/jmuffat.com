@@ -303,15 +303,12 @@ export function PostPageMetadata(postdata) {
 	const src = fileURLToPath(postdata.src)
 	const meta = contentIndex.find( a=>a.src===src)
 
-	console.log(postdata)
-	console.log(meta)
-
 	return (
 		async ({ params }) => {
 			const { lang } = await params
 			const isEn = lang === 'en'
 
-			const published = postdata.matter.date? new Date(postdata.matter.date) : null
+			const published = postdata.matter?.date? new Date(postdata.matter.date) : undefined
 
 			return {
 				metadataBase: new URL('https://jmuffat.com'),
