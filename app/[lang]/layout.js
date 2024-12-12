@@ -15,14 +15,11 @@ export async function generateMetadata({ params }) {
 	const isEn = lang === 'en'
 
 	return {
-		metadataBase: new URL('https://jmuffat.com'),
+		metadataBase: new URL(process.env.NEXT_PUBLIC_URL),
 		title: 'jmuffat.com',
 		description: isEn ?
 			'random ideas, by Jérôme Muffat-Méridol'
 			: 'idées en vrac, par Jérôme Muffat-Méridol',
-		openGraph: {
-			siteName: "jmuffat.com",
-		}
 	}
 }
 
