@@ -1,4 +1,6 @@
 import React from 'react'
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
 
 export function CheckboxField(props) {
   const {form, field} = props
@@ -6,14 +8,13 @@ export function CheckboxField(props) {
 
   return (
     <div className="form-checkbox">
-      <input
+      <Checkbox
         id={props.id}
-        type="checkbox"
         disabled={props.disabled}
         checked={form.data[field]}
         onChange={()=>form.updateData({[field]:!form.data[field]})}
       />
-      <label htmlFor={props.id} disabled={props.disabled}>{label}</label>
+      <Label htmlFor={props.id} disabled={props.disabled}>{label}</Label>
     </div>
   )
 }

@@ -1,5 +1,7 @@
 import React from 'react'
-
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+ 
 export function TextField(props) {
   const {form, field, label, className} = props
   const filter = props.filter || (a=>a)
@@ -16,8 +18,8 @@ export function TextField(props) {
 
   return (
     <>
-      {label && <label htmlFor={field}>{label}</label>}
-      <input
+      {label && <Label htmlFor={field}>{label}</Label>}
+      <Input
         type="text"
         field={field}
         value={form.data[field]}

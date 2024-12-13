@@ -1,4 +1,6 @@
 import React from 'react'
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export function FloatField(props) {
   const {form, field} = props
@@ -44,8 +46,8 @@ export function IntField(props) {
 
   return (
     <>
-      {label && <label htmlFor={field}>{label}</label>}
-      <input type="text" field={field} value={text} onChange={onChange} />
+      {label && <Label htmlFor={field}>{label}</Label>}
+      <Input type="text" field={field} value={text} onChange={onChange} />
     </>
   )
 }

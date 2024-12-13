@@ -1,11 +1,12 @@
 import React from 'react'
+import {cn} from '@/lib/utils'
 import {SketchPicker,CustomPicker} from 'react-color'
 import {EditableInput,Hue,Saturation} from 'react-color/lib/components/common'
 
 
 const Slider = props=>(
-  <div className='slider-outer' style={{height:props.height}}>
-    <div className='slider-inner'>
+  <div className='pl-4 pt-4 w-[90%]' style={{height:props.height}}>
+    <div className='relative size-full'>
     {props.children}
     </div>
   </div>
@@ -24,7 +25,7 @@ class PickerBase extends React.Component {
     }
 
     return (
-      <div className="color-picker">
+      <div className="flex flex-col">
         <EditableInput {...this.props} label="hex" hideLabel value={color} onChange={a=>onChange({hex:a.hex})} />
         <Slider height="0.5em"> <Hue {...this.props} style={styles.hue}/> </Slider>
         <Slider height="8em"> <Saturation {...this.props} style={styles.saturation}/> </Slider>
@@ -50,9 +51,9 @@ export function ColorField(props) {
 
   return (
     <>
-      <div className="colorswatch-outer">
+      <div className="w-4 h-4 mx-auto mt-0 mb-1">
         <span>
-          <div className="colorswatch-inner" style={{background: color}} onClick={onClickSwatch}></div>
+          <div className="size-full relative rounded shadow" style={{background: color}} onClick={onClickSwatch}></div>
         </span>
       </div>
 
@@ -64,9 +65,9 @@ export function ColorField(props) {
 function Swatch(props) {
   const onClickSwatch = a=>console.log(a)
   return (
-    <div className="colorswatch-outer">
+    <div className="grow-0 size-4 m-2">
       <span>
-        <div className="colorswatch-inner" style={{background: props.value}} onClick={onClickSwatch}></div>
+        <div className="size-full relative border rounded shadow" style={{background: props.value}} onClick={onClickSwatch}></div>
       </span>
     </div>
   )
@@ -77,9 +78,16 @@ function getLabel(name,labels) {
   return label || name
 }
 
-const ColorLine = props=>(
-  <div className={props.sel?"form-colors-line-sel":"form-colors-line"} onClick={props.onClick}>
-    <Swatch value={props.color} /> {props.label}
+const ColorLine = ({sel,onClick,color,label})=>(
+  <div 
+    className={cn({
+      "p-1 cursor pointer flex flex-row gap-2 justify-start": true,
+       "bg-secondary rounded": sel,
+    })} 
+    onClick={onClick}
+  >
+    <Swatch value={color} /> 
+    <div className='grow-1'>{label}</div>
   </div>
 )
 
@@ -97,11 +105,11 @@ export function FormColors(props) {
   })
 
   return (
-    <div className="form-colors">
-      <div className="form-colors-list">
+    <div className="flex border rounded mt-4 p-4">
+      <div className="flex-1">
       {col.map(a=><ColorLine key={a} color={colors[a]} sel={a==cur} label={getLabel(a,props.labels)} onClick={()=>setCur(a)}/> )}
       </div>
-      <div className="form-colors-editor">
+      <div className="flex-auto p-2">
         <Picker color={colors[cur]} onChange={onPickerChange}/>
       </div>
     </div>
