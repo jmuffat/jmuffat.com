@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import FileSaver from 'file-saver'
 
@@ -13,9 +13,11 @@ import {
 	FormColors,
 	FormLine
 } from '@/components/form'
+import { Label } from '@/components/ui/label'
+import { Button,buttonVariants } from '@/components/ui/button'
 import { Slider } from "@/components/ui/slider"
 import Map,{useMapController} from '@/components/map'
-import { NarrowPageBody } from '@/components/narrow-body';
+import { NarrowPageBody } from '@/components/narrow-body'
 
 // function FieldLatLon(props) {
 // 	const form = useSubForm(props.form, props.field)
@@ -44,15 +46,11 @@ function toggleSelection(selection, iso) {
 	return list.join(' ')
 }
 
-function AreaInfo({data}) {
-	if (!data) return <div className="area-info">none</div>
-
-	return (
-		<div className="area-info">
-			{data}
-		</div>
-	)
-}
+const AreaInfo = ({data})=> (
+	<div className="bg-secondary/25 border rounded p-2">
+		{data??"\u00A0"}
+	</div>
+)
 
 async function wikipediaPageURL(lang, wikipediaPage) {
 	if (lang !== 'en') {
@@ -315,7 +313,7 @@ function MapsPage() {
 						className="w-64" 
 						min={0} max={8} step={0.01} 
 						defaultValue={[mapCtrl.zoomLevel]} 
-						onValueChange={level => mapCtrl.setZoomLevel(level)}
+						onValueChange={level => mapCtrl.setZoomLevel(level[0])}
 					/>
 					<div className=""> {mapCtrl.zoomLevel}</div>
 				</div>
@@ -323,16 +321,16 @@ function MapsPage() {
 
 			<AreaInfo data={current} />
 
-			{/*<button onClick={onExportSvg} className="map-button">{form.data.name}.svg</button>
-      <button onClick={onExportEmf} className="map-button">{form.data.name}.emf</button>*/}
-			<button onClick={onSave} className="map-button"><FormattedMessage id="3RUbRy" description="in maps page" defaultMessage="Save" /></button>
+			<div className='flex flex-row gap-4 items-center my-4'>
+				<Button variant="outline" onClick={onSave}><FormattedMessage id="3RUbRy" description="in maps page" defaultMessage="Save" /></Button>
 
-			<label htmlFor="file-upload" className="map-button-load"><FormattedMessage id="L5Yit8" description="in maps page" defaultMessage="Load" /></label>
-			<input id="file-upload" type="file" style={{ display: "none" }} onChange={onLoad} />
+				<Label className={buttonVariants({ variant: "outline" })} htmlFor="file-upload"><FormattedMessage id="L5Yit8" description="in maps page" defaultMessage="Load" /></Label>
+				<input className='hidden' id="file-upload" type="file" onChange={onLoad} />
 
-			{form.data.name && <a href='#' className="mr-1" onClick={onExportSvg}>{form.data.name}.svg</a>}
-			{form.data.name && <a href='#' className="mr-1" onClick={onExportEmf}>{form.data.name}.emf</a>}
-			<a href={googleMapURL(mapCtrl)} className="mr-1" target="_blank">Google Maps</a>
+				{form.data.name && <a href='#' className="link" onClick={onExportSvg}>{form.data.name}.svg</a>}
+				{form.data.name && <a href='#' className="link" onClick={onExportEmf}>{form.data.name}.emf</a>}
+				<a href={googleMapURL(mapCtrl)} className="link" target="_blank">Google Maps</a>
+			</div>
 
 			<Map
 				controller={mapCtrl}
