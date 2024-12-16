@@ -9,9 +9,9 @@ export function FormLine(props){
   const {label} = props
 
   return (
-    <div className="flex flex-row min-h-8 w-full mb-2">
-      <div className="flex grow-1">{label}</div>
-      <div className="flex fex-row px-2 gap-2 grow-[4]">
+    <div className="flex flex-row min-h-8 w-full mb-2 items-center">
+      <div className="flex flex-none w-28">{label}</div>
+      <div className="flex grow flex-row px-2 gap-4 items-center">
         {props.children}
       </div>
     </div>

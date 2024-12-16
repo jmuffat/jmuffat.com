@@ -45,9 +45,9 @@ export function IntField(props) {
   }
 
   return (
-    <>
+    <div className="flex gap-2 items-center">
       {label && <Label htmlFor={field}>{label}</Label>}
       <Input type="text" field={field} value={text} onChange={onChange} />
-    </>
+    </div>
   )
 }

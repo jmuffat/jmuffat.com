@@ -3,7 +3,6 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl'
 import FileSaver from 'file-saver'
 
-import { NarrowPageBody } from '@/components/narrow-body';
 import {
 	useForm, useSubForm,
 	TextField,
@@ -14,8 +13,9 @@ import {
 	FormColors,
 	FormLine
 } from '@/components/form'
+import { Slider } from "@/components/ui/slider"
 import Map,{useMapController} from '@/components/map'
-
+import { NarrowPageBody } from '@/components/narrow-body';
 
 // function FieldLatLon(props) {
 // 	const form = useSubForm(props.form, props.field)
@@ -241,7 +241,6 @@ function MapsPage() {
 		FileSaver.saveAs(blob, `${form.data.name}.emf`);
 	}
 
-	const onChangeSlider = e => mapCtrl.setZoomLevel(e.currentTarget.value / 100)
 	const soloDisabled = !form.data.detailed
 
 	const msg = {
@@ -299,10 +298,11 @@ function MapsPage() {
 			</FormLine>
 
 			<FormLine label={msg.country}>
-				<TextField form={form} field="detailed" placeholder={msg.countryIso} filter={a => a.toUpperCase()} width="2em" />
-				<CheckboxField form={form} field="onlySelected" label={msg.countryOnly} disabled={soloDisabled} />
-				<label><FormattedMessage id="Fh36dm" description="in maps page, country LoD" defaultMessage="Detail level:" /></label>
-				<RadioField form={form} field="subdivisionLevel" options={subdivisionOptions} />
+				<TextField form={form} field="detailed" placeholder={msg.countryIso} filter={a => a.toUpperCase()} className="w-12"/>
+				<CheckboxField form={form} field="onlySelected" label={msg.countryOnly} disabled={soloDisabled}>
+					<FormattedMessage id="Fh36dm" description="in maps page, country LoD" defaultMessage="Detail level:" />
+				</CheckboxField>
+				<RadioField horizontal form={form} field="subdivisionLevel" options={subdivisionOptions} />
 			</FormLine>
 
 			<FormLine label={msg.selection}>
@@ -310,9 +310,14 @@ function MapsPage() {
 			</FormLine>
 
 			<FormLine label={msg.zoom}>
-				<div className="form-range">
-					<div className="range-slider"> <input type="range" min={0} max={800} value={mapCtrl.zoomLevel * 100} id="zoom-slider" onChange={onChangeSlider} /> </div>
-					<div className="range-value"> {mapCtrl.zoomLevel.toFixed(2)}</div>
+				<div className="flex flex-row gap-4 items-center">
+					<Slider id="zoom-slider" 
+						className="w-64" 
+						min={0} max={8} step={0.01} 
+						defaultValue={[mapCtrl.zoomLevel]} 
+						onValueChange={level => mapCtrl.setZoomLevel(level)}
+					/>
+					<div className=""> {mapCtrl.zoomLevel}</div>
 				</div>
 			</FormLine>
 

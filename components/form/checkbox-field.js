@@ -7,12 +7,12 @@ export function CheckboxField(props) {
   const label = props.label || field
 
   return (
-    <div className="form-checkbox">
+    <div className="flex gap-2">
       <Checkbox
         id={props.id}
         disabled={props.disabled}
         checked={form.data[field]}
-        onChange={()=>form.updateData({[field]:!form.data[field]})}
+        onCheckedChange={()=>form.updateData({[field]:!form.data[field]})}
       />
       <Label htmlFor={props.id} disabled={props.disabled}>{label}</Label>
     </div>
