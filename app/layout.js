@@ -1,4 +1,4 @@
-import '@/styles/tw-globals.css'
+import '@/styles/globals.css'
 import '@/components/youtube/youtube.scss'
 import ThemeProvider from './theme'
 

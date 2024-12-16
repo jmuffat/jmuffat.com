@@ -1,7 +1,7 @@
 import {genPostPage,PostPageMetadata} from '@/components/post'
 import ContentEN, {matter as matterEN} from './content.en.mdx'
 import ContentFR, {matter as matterFR} from './content.fr.mdx'
-import cover from '@/public/img/2019-jerlock.jpg'
+import cover from '@/data/2019-jerlock.jpg'
 
 const postdata = {
 	matterEN, matterFR,
