@@ -5,7 +5,11 @@ author: jmm
 locale: 'fr-FR'
 ---
 
-![diamètres des planètes](/img/diametre-apparent.svg)
+import Image from 'next/image'
+import imgPlanets from './diametre-apparent.svg'
+import imgBigMars from './mars_aussi_grosse_lune.jpg'
+
+<Image src={imgPlanets} alt="diamètres des planètes"/>
 
 En voyant une [superbe photographie](https://500px.com/photo/311677709/notre-lune-jupiter-et-ses-4-lunes-by-dominique-richeux-photography) de [Dominique Richeux](https://www.facebook.com/Photography.Domi.Art), où l'on voit Jupiter et ses satellites avec la lune en premier plan, je m'étonnais que Jupiter soit si grosses par rapport à la lune, que l'écart de ses satellites paraissent si grand, toujours en rapport au diamètre apparent de la lune. J'avoue, j'ai douté un instant que ça puisse être un montage...
 
@@ -15,7 +19,7 @@ Et donc, oui, Jupiter est grosse comme ça dans le ciel ! Et, oui, aussi, vérif
 
 D'ailleurs, ça me rappelle que ça n'est pas la première fois que je me retrouve à sortir ma calculette à propos de planètes... Il y a presque tout juste un an, un site spécialisé en infos à propos de réalités alternatives titrait "[Un événement cosmique qui n’arrive que tous les 35 000 ans : le 27 juillet, la planète Mars sera aussi grosse que la Lune](http://www.scienceinfo.fr/le-27-juillet-la-planete-mars-sera-aussi-grosse-que-la-lune/)", tous les indices de l'intox sont là et la nouvelle, bien qu'absurde, fit rapidement le tour des réseaux...
 
-![Mars aussi grosse que la Lune](/img/mars_aussi_grosse_lune_.jpg)
+<Image src={imgBigMars} alt="Mars aussi grosse que la Lune"/>
 
 Je l'ai donc vue passer plein de fois, cette galéjade de Mars qui se ferait aussi grosse que la Lune, et puis je me suis dit "ok, mais ça voudrait dire quoi ?"
 

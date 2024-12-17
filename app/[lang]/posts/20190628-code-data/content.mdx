@@ -1,22 +1,25 @@
 ---
 title: 'code = data'
-coverImage: /img/img_0569.jpg
 date: '2019-06-28'
 author: jmm
 locale: 'fr-FR'
 ---
 
+import Image from 'next/image'
+import imgExcel from './sphere-surface.jpg'
+import imgVisualCode from './sphere-visualprogram-2.png'
+
 Quand on découvre l'informatique, une des premières choses que l'on apprend, c'est qu'il y a, d'un côté les données et, de l'autre, le code : _le code agit sur les données_. Très vite, on met les données de côté (vu qu'elles changent tout le temps) et on se concentre sur le code. C'est d'autant plus vrai que l'approche dominante aujourd'hui, est la programmation orientée objet qui favorise la création de "boîtes noires" abstraites qui encapsulent si bien les données qu'on ne les voit plus.
 
 Mais quand on utilise un tableur, le raisonnement est complètement inversé. On a un grand tableau avec un très grand nombre de cases, et chaque case peut contenir une valeur. Ici on mettra des titres, là des chiffres : on le remplit de données. Et puis, il y a cette donnée un peu particulière et qui change tout : une formule qui produira la valeur par calcul. En pratique, c'est du code mais on le perçoit comme une donnée.
 
-![Visual Code](/img/sphere-surface.jpg)
+<Image alt="Visual Code" src={imgExcel}/>
 
 Ce qui apparaît sur une feuille de calcul, c'est uniquement les valeurs, on ne voit que les données (si on veut voir une formule, il faut cliquer) : c'est tout l'inverse du code où on ne voit que les expressions (pour voir les résultats, il faut lancer l'exécution). Je crois que c'est ce qui différencie les programmeurs des autres utilisateurs : le programmeur parvient à exécuter le code "dans sa tête" et peut se passer de voir les valeurs pour comprendre ce qui se produit, un peu de la même façon que le mathématicien manipule des formules sans toujours avoir besoin de représentation plus concrète (et je pense que c'est la raison principale pour laquelle on prétend qu'il faut être bon en math pour programmer).
 
 Dans son expression la plus simple, un programme c'est une liste d'instructions, une séquence d'actions à effectuer. On peut la représenter à l'écran comme une liste de blocs, chacun calculant un résultat intermédiaire et référençant les précédents. Chaque bloc contenant un nom, une valeur et une expression.
 
-![Visual Code](/img/sphere-visualprogram-2.png)
+<Image alt="Visual Code" src={imgVisualCode}/>
 
 Pour simplifier, ce dont il s'agit c'est de programmer directement dans un debugger. Une autre manière de voir les choses est de considérer que la séparation entre éditer et voir le résultat n'est peut-être pas nécessaire, comme pour les traitements de texte. Et, toujours comme pour les traitements de texte, je crois qu'il est plus que temps de présenter les expressions clairement, comme on le ferait en mathématiques.
 
