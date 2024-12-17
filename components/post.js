@@ -299,7 +299,6 @@ export function genPostPage(postdata){
 }
 
 export function PostPageMetadata(postdata) {
-
 	const src = fileURLToPath(postdata.src)
 	const meta = contentIndex.find( a=>a.src===src)
 
@@ -307,7 +306,9 @@ export function PostPageMetadata(postdata) {
 		async ({ params }) => {
 			const { lang } = await params
 			const isEn = lang === 'en'
-
+			const LANG = lang.toUpperCase()
+			const matter = postdata[`matter${LANG}`] ?? postdata.matter ?? {}
+		
 			const published = postdata.matter?.date? new Date(postdata.matter.date) : undefined
 
 			return {
@@ -319,14 +320,14 @@ export function PostPageMetadata(postdata) {
 					},
 				},
 		
-				title: postdata?.matter?.title ?? 'jmuffat.com',
+				title: matter?.title ?? 'jmuffat.com',
 				description: isEn ?
-					'random ideas, by Jérôme Muffat-Méridol'
+					  'random ideas, by Jérôme Muffat-Méridol'
 					: 'idées en vrac, par Jérôme Muffat-Méridol',
 				openGraph: {
 					type: 'website',
 					siteName: "jmuffat.com",
-					title: postdata.matter?.title,
+					title: matter?.title,
 					url: meta.sitepath,
 					locale: isEn? 'en-GB' : 'fr-FR',
 					publishedTime: published
