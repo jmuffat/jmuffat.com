@@ -1,0 +1,40 @@
+---
+title: La dette technique, ça pousse tout seul
+date: '2024-12-17'
+author: jmm
+locale: 'fr-FR'
+---
+
+> Comme beaucoup, je me décide souvent à publier plus régulièrement
+> en ligne et me retrouve invariablement pris par autre chose et
+> quand je m'y remet, tout à changé et je dois tout recommencer.
+-- <cite>(moi il y a quatre ans)</cite>
+
+Et nous y revoilà, je n'ai pas beaucoup mis à jour mon site ces
+dernières années, occupé par mes projets à Intel. Ensuite, quand
+je me suis à nouveau retrouvé dans une charette, j'ai été bien
+occupé par mon "projet secret" et ne suis pas revenu au blog. Le
+temps passe...
+
+Quand je décidais qu'il était temps de s'y remettre, je réalisais 
+que j'avais accumulé un tas de _dette technique_. C'est ce qui arrive
+même au meilleur code quand n'y touche pas pendant trop longtemps: le
+monde évolue et on se retrouve dépassé. Ce n'est pas que j'ai laissé
+le site pourrir ou quoi que ce soit, seulement que je n'ai pas modernisé
+mon code au fur et à mesure des évolutions. Le site utilisait toujours
+l'approche _page router_, avec du code maison pour inclure du Markdown
+et y intégrer des composants spécifiques (comme dans [pots in tray problem](/posts/20201127-toujours-des-ptits-pots)).
+
+Au bout du compte, j'ai sauté le pas. J'ai converti le site à la
+structure [app router](https://nextjs.org/docs/app), avec le contenu
+Markdown intégré via [MDX](https://nextjs.org/docs/app/building-your-application/configuring/mdx),
+j'ai remplacé les fichiers SASS et ai refait la mise en page avec [Tailwind](https://tailwindcss.com) 
+et [shadcn/ui](https://tailwindcss.com). C'était beaucoup plus de travail 
+que prévu, mais tout est beaucoup plus pratique maintenant, en particulier 
+du fait de l'_app router_ qui me permet d'avoir dans un même dossier tous 
+les fichiers nécessaire à une page (contenu, traduction, images et même 
+du code). Je ne sais pas si je vais être plus prolifique qu'auparavant,
+si c'est le cas ce sera plus simple pour moi et, sinon, ça sera toujours 
+du temps de gagné pour la prochaine fois...
+
+Le code de ce site est toujours public sur [github](https://github.com/jmuffat/jmuffat.com)

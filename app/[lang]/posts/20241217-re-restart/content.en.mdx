@@ -1,0 +1,38 @@
+---
+title: Tech debt just builds up
+date: '2024-12-17'
+author: jmm
+locale: 'en-US'
+---
+
+> Like many, I keep starting to put stuff online only to get caught
+> into something else and letting things drift until some new medium
+> appears to make me want to start over. 
+> 
+-- <cite>(me four years ago)</cite>
+
+Here we go again, I haven't been updating my website very much over the 
+past years, as I was busy with projects at Intel. And then, after they
+reorg'ed me again, I have been busy with my "secret project" and haven't
+gone back to blogging. Time flies...
+
+When I decided it was time to bring it back up, I realized I had accumulated
+a ton of _technical debt_. This is what happens to perfectly good code 
+when you leave it as is for too long: the world moves on, you're left behind. 
+It's not that I have let the site rot or anything like that, just that I 
+haven't updated my code as tech was evolving. The site was still on
+_page router_, with custom code to process Markdown and embed custom gadgets
+into it (like in the [pots in tray problem](/posts/20201127-toujours-des-ptits-pots)).
+
+In the end, I have bitten the bullet. I converted the site to [app router](https://nextjs.org/docs/app),
+with markdown content using [MDX](https://nextjs.org/docs/app/building-your-application/configuring/mdx),
+I got rid of all the SASS CSS files and went with [Tailwind](https://tailwindcss.com) 
+and [shadcn/ui](https://tailwindcss.com). It was a lot more work than I
+would have wanted, but things are much more convenient now, in particular 
+because with the _app router_, I can now keep all files related to a post 
+in the same folder (content, its translation, images and even code). I 
+don't know if I am going to be more prolific on this site than I have 
+been in the past, if so it's all going to be a lot more convenient now 
+and if not, well, that's time saved for next time...
+
+The code for this site is still public on [github](https://github.com/jmuffat/jmuffat.com)
