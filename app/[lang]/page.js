@@ -1,6 +1,4 @@
 import Image from 'next/image'
-import NextLink from 'next/link'
-import { cn } from '@/lib/utils'
 import Link from '@/components/link'
 import {NarrowPageBody} from '@/components/narrow-body'
 
@@ -12,11 +10,11 @@ import { Open_Sans, Merriweather } from 'next/font/google'
 const openSans = Open_Sans({ subsets: ['latin'] })
 const merriweather = Merriweather({ subsets: ['latin'], weight:"400", style:"italic" })
 
-const Icon = ({href,icon,target,children,})=>(
-    <NextLink className="flex flex-col items-center p-2" href={href} target={target}>
-        <Image className="bg-white" src={icon} width="48" height="48"/>
+const Icon = ({href,icon,target,hasLocale,children})=>(
+    <Link className="flex flex-col items-center p-2" href={href} target={target} hasLocale={hasLocale}>
+        <Image className="bg-white" alt="" src={icon} width="48" height="48"/>
         <div className='link text-gray-600 dark:text-gray-400'>{children}</div>
-    </NextLink>
+    </Link>
 ) 
 
 export default async function HomePage({params}) {
@@ -32,7 +30,7 @@ export default async function HomePage({params}) {
             </div>
             
             <div className="flex flex-row gap-4">
-                <Icon icon={iconCv} href="/download/cvjmm.pdf" target="_blank">cvjmm.pdf</Icon>
+                <Icon icon={iconCv} href="/download/cvjmm.pdf" hasLocale target="_blank">cvjmm.pdf</Icon>
                 <Icon icon={iconMap} href="/maps">maps</Icon>
             </div>
         </NarrowPageBody>

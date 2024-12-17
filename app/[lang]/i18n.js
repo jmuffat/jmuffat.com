@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/components/link'
 import { usePathname } from 'next/navigation'
 import {IntlProvider, useIntl} from 'react-intl'
 import {cn} from '@/lib/utils'
@@ -33,7 +33,7 @@ export function LocaleSelector({available = ['en','fr']}) {
 
 				return (
 					<li key={loc.id} className={className}>
-						<Link href={`/${loc.id}${basePath}`}>
+						<Link href={`/${loc.id}${basePath}`} hasLocale>
 							<Image src={loc.img} alt={loc.id} fill/>
 						</Link>
 					</li>

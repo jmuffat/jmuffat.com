@@ -14,8 +14,19 @@ export async function generateMetadata({ params }) {
 	const { lang } = await params
 	const isEn = lang === 'en'
 
+	function getBaseUrl() {
+		if (	!process.env.NEXT_PUBLIC_URL 
+			||	 process.env.NEXT_PUBLIC_URL==='https://') 
+		{ 
+			return 'http://localhost:3000' 
+		}
+		else {
+			return process.env.NEXT_PUBLIC_URL 
+		}			
+	}
+
 	return {
-		metadataBase: new URL(process.env.NEXT_PUBLIC_URL),
+		metadataBase: new URL(getBaseUrl()),
 		title: 'jmuffat.com',
 		description: isEn ?
 			'random ideas, by Jérôme Muffat-Méridol'

@@ -1,5 +1,4 @@
 import path from 'path'
-// const WorkerPlugin = require('worker-plugin');
 
 import createMDX from '@next/mdx'
 import remarkGfm from 'remark-gfm'

@@ -67,7 +67,6 @@
     "mkdirp": "^3.0.1",
     "node-fetch": "^3.0.0",
     "parsedbf": "^2.0.0",
-    "raw-loader": "^4.0.2",
-    "worker-plugin": "^5.0.0"
+    "raw-loader": "^4.0.2"
   }
 }
