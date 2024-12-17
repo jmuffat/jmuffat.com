@@ -1,13 +1,11 @@
 import {genPostPage,PostPageMetadata} from '@/components/post'
 import Content, {matter} from './content.mdx'
-import coverFR from './cover.fr.jpg'
-import coverEN from './cover.en.jpg'
+import cover from './opengraph-image.jpg'
 
 const postdata = {
 	matter,
 	Content,
-	coverFR,
-	coverEN,
+	cover,
 
 	subpostsTitle: {
 		en: "Issues",

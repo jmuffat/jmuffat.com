@@ -1,6 +1,6 @@
 import {genPostPage,PostPageMetadata} from '@/components/post'
 import Content, {matter} from './content.mdx'
-import cover from './cover.jpg'
+import cover from './opengraph-image.jpg'
 
 const postdata = {
 	matter,

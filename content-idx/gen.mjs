@@ -2,24 +2,6 @@ import path from 'path'
 import fsp from 'fs/promises'
 import matter from 'gray-matter'
 
-async function updateCovers(folder, entries) {
-    const reCover = /^cover(?:\..*)?.(jpg|png|webp)$/i
-    const covers = (
-        entries
-        .filter(e=>e.isFile() && reCover.test(e.name))
-        .map(e=>e.name)
-        .sort()
-    )
-
-    if (!covers.length) return
-
-    const src = path.join(folder,covers[0])
-    const re = reCover.exec(covers[0])
-    const ext = re[1]
-    await fsp.copyFile(src, path.join(folder,`opengraph-image.${ext}`))
-    await fsp.copyFile(src, path.join(folder,`twitter-image.${ext}`))
-}
-
 async function parseFolder(
     index,
     folder,
@@ -28,6 +10,7 @@ async function parseFolder(
 {
     const rePage = /^page\.(js|jsx|md|mdx|ts|tsx)$/
     const reContent = /^content(?:\.(.*))?.mdx$/
+    const reCover = /^opengraph-image\.(jpg|png)$/
     const entries = await fsp.readdir(folder,{withFileTypes:true})
 
     // parse folder
@@ -52,12 +35,14 @@ async function parseFolder(
             page[locale] = data
             continue
         }
+
+        const cover = reCover.exec(e.name)
+        if (cover) {
+            page.cover = cover[0]
+        }
     }
 
-    if (page.src) {
-        await updateCovers(folder, entries)
-        index.push(page)
-    }
+    if (page.src) index.push(page)
 
     // recurse
     for(const e of entries) {
@@ -70,7 +55,7 @@ async function parseFolder(
 }
 
 async function run() {
-    const appRoot = path.join(process.cwd(), 'app', '[lang]')
+    const appRoot = path.join(process.cwd(), 'app','[lang]')
     const index = []
 
     await parseFolder(index,appRoot,'')

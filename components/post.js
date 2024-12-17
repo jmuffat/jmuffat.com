@@ -262,7 +262,7 @@ async function Subposts({title,src,sitepath,lang}) {
 export async function Post({postdata, lang="", children}) {
 	const LANG = lang.toUpperCase()
 	const matter = postdata[`matter${LANG}`] ?? postdata.matter ?? {}
-	const cover = postdata[`cover${LANG}`] ?? postdata.cover
+	const cover = postdata.cover
 	const Content = postdata[`Content${LANG}`] ?? postdata.Content
 	const canonicalURL = `https://jmuffat.com/todo` 
 
