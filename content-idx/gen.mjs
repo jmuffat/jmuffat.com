@@ -15,6 +15,7 @@ async function parseFolder(
 
     // parse folder
     const page = {}
+    const saveDefault = (data,key)=> {if (!page[key] && data[key]) page[key] = data[key]}
     for(const e of entries) {
         const currentPath = ()=> path.join(folder, e.name)
 
@@ -33,6 +34,9 @@ async function parseFolder(
             const {data} = matter(fileContents)
 
             page[locale] = data
+            saveDefault(data,'date')
+            saveDefault(data,'author')
+            saveDefault(data,'thread')
             continue
         }
 
