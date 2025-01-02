@@ -22,7 +22,7 @@ function postMeta(a,lang) {
 }
 
 function Thread({id,posts}) {
-    const title = id? threadsInfo[id].title??id : "Uncategorised"
+    const {title="Uncategorised"} = threadsInfo[id] ?? {}
     const threadPosts = (
         posts
         .filter(id? a=>a.thread===id : a=>!a.thread)

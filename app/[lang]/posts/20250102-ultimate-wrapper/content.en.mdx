@@ -1,0 +1,45 @@
+---
+title: unique_ptr, the ultimate wrapper
+date: '2025-01-02'
+author: jmm
+thread: tds
+locale: 'en-US'
+---
+
+I just started this C++ version of a concept I've been working on for over
+a year now (more about that in future posts). In the process of doing the 
+groundwork, I started doing my usual thing : write wrappers around libs, to
+handle a few things for me, primarily making sure that resources are freed
+when they aren't used any more. So, here I am, mechanically writing a 
+wrapper for libCurl's easy handle, constructor, destructor, rule of five,
+something I feel like I've done a million times ; and then I remembered 
+something...
+
+A little while ago, I found a really [useful talk](https://www.youtube.com/watch?v=Npiw4cYElng)
+about coroutines, where the speaker does a really neat use of `std::unique_ptr`, 
+painlessly managing the lifetime of the `coroutine_handle`. It should work
+here too and look something like:
+
+```cpp
+std::unique_ptr<CURL,curl_easy_cleanup> CurlHandle;
+```
+
+Something funny happened when I tried: as soon as I had typed `...<CURL,` ,
+_CoPilot_ suggested that esoteric part that converts
+the function pointer into a type : `decltype(&curl_easy_cleanup)` ! This 
+did help me figure out the syntax but, more importantly, it made me realize 
+this was far from a new idea since the IA could parrot it out. 
+
+Before this, I thought `unique_ptr` was only some `new`-replacement that
+improved memory allocations management. Before watching this talk, I wasn't
+aware it had an optional `Deleter` template parameter. I should have known 
+better as C++ has pretty much always encouraged us not to consider memory 
+as any specific sort of resource. I now see `unique_ptr` as a generic wrapper
+for a lot of libraries with C interfaces, it makes it dead easy to safely
+keep a handle to something, and be sure cleanup will happen properly
+whatever the code does and however exceptions fire. 
+
+I'm so happy with this discovery, I thought I should share it, hoping
+it will help somebody else (even if I have figured out I am late to the
+party and many will go _"What? Ya didn't know ?"_)
+

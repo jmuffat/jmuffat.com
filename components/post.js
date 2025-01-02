@@ -10,7 +10,7 @@ import ShareButton from './share-button'
 import {Author} from './post-author'
 
 import authors from '@/data/authors.json'
-import threads from '@/data/threads.json'
+import threadsInfo from '@/content-idx/threads.json'
 import { fileURLToPath } from 'url'
 
 import contentIndex from '@/content-idx/index.json'
@@ -96,7 +96,7 @@ export function PostThreadposts({lang,current}) {
 			"md:row-start-7 md:col-start-4  md:col-span-9",
 			"lg:row-start-3 lg:col-start-10 lg:col-span-3"
 		)}>
-			<h3>{threads[thread]?.title??thread}</h3>
+			<h3>{threadsInfo[thread]?.title??thread}</h3>
 			<ol className='ml-5 text-xs list-decimal list-outside'>
 			{threadPosts.map( post=>(
 				<li className="my-2" key={post.sitepath}>
