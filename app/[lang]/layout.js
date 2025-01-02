@@ -49,6 +49,7 @@ export default async function LocalizedLayout({ params, children }) {
 				</main>
 				<Footer/>
 				<div className='h-32'/>
+				<div className='dark'/> {/* HACK: forces next.js to include CSS variables necessary for dark mode support */}
 			</div>
 
 		</LocalizedMessagesProvider>

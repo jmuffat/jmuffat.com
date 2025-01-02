@@ -6,6 +6,7 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 import rehypeExternalLinks from 'rehype-external-links'
+import rehypeHighlight from 'rehype-highlight'
 
 async function redirects() {
 	// old blog used this format : /2020/03/04/my-first-paid-job
@@ -40,6 +41,7 @@ const withMDX = createMDX({
 		],
 		rehypePlugins: [
 			[rehypeExternalLinks, { target: '_blank' }],
+			rehypeHighlight,
 		],
 	}
 })
