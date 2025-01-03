@@ -1,0 +1,50 @@
+---
+title: unique_ptr, le wrapper ultime
+date: '2025-01-02'
+author: jmm
+thread: tds
+locale: 'fr-FR'
+---
+
+Je viens de commencer une version en C++ d'un concept sur lequel je 
+travaille depuis un peu plus d'un an (j'en reparlerais plus tard). 
+Pendant que je mettais en place les fondations, je commençais une
+tâche habituelle: écrire des wrappers autour des libs que je vais
+utiliser, pour me simplifier la tâche, notamment en ce qui concerne
+la bonne libération des resources. Donc, me voilàa en train d'écrire
+mécaniquement un wrapper pour les easy handles libCurl, constructeur,
+destructeur, règle de cinq, des lignes que j'ai l'impression d'avoir
+écrites un million de fois ; et je me suis souvenu de quelque chose...
+
+Il y a peu, je suis tombé sur une [conf très utile](https://www.youtube.com/watch?v=Npiw4cYElng)
+à propos de coroutines, où l'intervenant fait un usage vraiment futé
+de `std::unique_ptr` pour gérer la durée de vie de la `coroutine_handle`.
+Ça devrait fonctionner aussi dans mon cas et ressembler à:
+
+```cpp
+std::unique_ptr<CURL,curl_easy_cleanup> CurlHandle;
+```
+
+Quand j'ai commencé à taper cela, il s'est produit une chose amusante:
+à peine avais-je saisi `...<CURL,`, que _CoPilot_ suggéra la syntaxe un peu
+alambiquée qui convertie le pointeur sur fonction en un type: `decltype(&curl_easy_cleanup)`! 
+Ça m'a aidé à trouver la bonne syntaxe mais, surtout, m'a fait réaliser
+que ce n'est pas une idée aussi originale que je ne le pensais, pour que
+ce petit perroquet d'IA soit capable de la réciter...
+
+Auparavant, je considérais `unique_ptr` comme un simple remplacement
+de `new` visant à perfectionner la gestion des allocations. Avant de voir
+cette conf, je n'avais pas connaissance du paramètre de template optionnel
+`Deleter`. J'aurais dû m'en douter, puisque C++ a toujours encouragé à
+ne pas considérer la mémoire comme une resource spécial par rapport aux
+autres. Je vois maintenant `unique_ptr` comme un wrapper universel
+pour beaucoup de librairie qui présentent une interface en C, il permet
+de conserver en toute simplicité un handle sur quelque chose, en pouvant
+compter sur sa bonne libération le moment venu, quoi que fasse le code et
+quelque exception qui puisse se produire.
+
+Tellement content de cette découverte, je me suis dit que je devais la
+partager, dans l'espoir que cela aide aussi quelqu'un d'autre (même si
+je vois bien que j'ai un métro de retard et que beaucoup s'écriront
+_"Quoi ? Tu savais pas ça ?"_)
+

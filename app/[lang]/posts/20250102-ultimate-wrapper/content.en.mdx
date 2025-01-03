@@ -34,7 +34,7 @@ Before this, I thought `unique_ptr` was only some `new`-replacement that
 improved memory allocations management. Before watching this talk, I wasn't
 aware it had an optional `Deleter` template parameter. I should have known 
 better as C++ has pretty much always encouraged us not to consider memory 
-as any specific sort of resource. I now see `unique_ptr` as a generic wrapper
+as any specific sort of resource. I now see `unique_ptr` as a universal wrapper
 for a lot of libraries with C interfaces, it makes it dead easy to safely
 keep a handle to something, and be sure cleanup will happen properly
 whatever the code does and however exceptions fire. 
