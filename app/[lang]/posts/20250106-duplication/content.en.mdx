@@ -1,0 +1,64 @@
+---
+title: Data duplication
+date: '2025-01-06'
+author: jmm
+thread: code
+locale: 'en-US'
+---
+
+When designing a data structure/model, it is good practice to avoid data 
+duplication as much as possible. It's really not difficult to understand 
+why, just playing with the idea of Murphy's law will make you understand 
+why I end up having to claim, far too often, that _"if the same data is 
+stored in two different places, it _will_ diverge"_. This is really non 
+controversial: _if it isn't duplicated, it cannot diverge_.
+
+The first time I got bit by this was in the very early days, before I 
+even started a carreer. I was helping parents of friends knock together
+programs that'd generate their quotes&invoices. 1982, the French government
+decides to bump VAT from 17.6% to 18.6%... Yes, that value was hard 
+coded in the programs (note the _plural_). So here I was, suddenly
+every one of my "clients" had a problem and needed it fixed _right 
+away_. But it isn't so simple. It is _not_ just a matter of moving the
+hard coded value into some constant that we'll just change next time
+the government does this again, you need to still be able to open 
+old invoices, and those want to show the rate that was current at
+the time. 
+
+The case of invoices is a good one to bear in mind. Once you have
+sent an invoice, it cannot change. Prices may evolve, products be
+discontinued, customer and suppliers may change address or even 
+disappear entirely, taxes may change rate or even the way they're 
+calculated and, in every one of these cases, old invoices want to 
+remain the same and peacefully live together with the newer ones 
+inside your information system. It is not just a question of 
+immutability, there are also structural challenges with other 
+modules (like Stock Management) referring to details in invoices.
+Trying to avoid data duplication in that sort of (not very complex)
+case turns out to be a lot more difficult than it seems at first and,
+at this point, I should go back to the beginning: all this only
+to avoid _divergence_. Having "one source of truth" does not
+guarantee we actually have the truth : if a mistake is
+made, everybody will make the same mistake (with the hope that, 
+once solved, it's solved everywhere).
+
+Which finally leads me to what I wanted to talk about: duplication 
+is the basis of fault tolerance. Efforts are duplicated and we
+_expect_ problems to cause divergence, which can then be detected 
+and acted upon. Divergence is actually information, it is a good
+thing, the dangerous thing is not the divergence, the dangerous
+thing is to assume divergence will not happen and _not having
+processes to control for it_. When duplicating data, we need to 
+either prove that any divergence will converge again (ie that
+we have "eventual consistency") or prove that we can detect
+it, raise some alarm and start a process addressing it.
+
+In conclusion, you do want to design data structures to avoid
+duplication, it is easier to work this way, it is clearer, 
+you want to keep things as simple as possible, but don't be
+afraid to go off those tracks when it turns out that it'd 
+be simpler than possible (and be warned it is going to be 
+_a lot of work_). 
+
+
+
