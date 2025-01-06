@@ -1,0 +1,69 @@
+---
+title: Duplication de données
+date: '2025-01-06'
+author: jmm
+thread: code
+locale: 'en-US'
+---
+
+Quand on construit un modèle ou une structure de données, les bonnes
+pratiques veulent que l'on évite de dupliquer des données. Ça n'est 
+pas bien difficile à comprendre, il suffit de jouer un peu avec l'idée
+de loi de Murphy pour réaliser que si une information est stockée en
+deux endroits différents, ça va _diverger_. Rien de polémique: _s'il
+n'y a pas de duplication, il n'y a pas de divergence._ 
+
+La première fois que je me suis heurté à ce problème, c'était au tout 
+début, je n'avais même pas commencé ma carrière. J'aidais des parents
+de mes copains à bricoler des programmes pour gérer leurs 
+devis&factures. 1982, le gouvernement décide de passer la TVA de 17,6%
+à 18,6%... Evidemment, la valeur était claquée en dur dans le code
+des programmes (noter l'usage du _pluriel_). Et me voilà avec tous
+mes "clients" qui ont soudain le même problème et ont besoin qu'il
+soit résolu _au plus vite_. Mais ça n'est pas si simple. Il ne 
+suffit _pas_ de déplacer la valeur dans une variable qu'il suffirait
+de changer la prochaine fois qu'un gouvernement changerait le taux,
+on a besoin de pouvoir continuer à ouvrir les anciennes factures, 
+et elles doivent utiliser le taux en vigueur au moment de leur 
+émission.
+
+Le cas des factures est interessant. Une fois qu'elle a été émise,
+elle ne peut plus être modifiée. Les prix peuvent changer, des 
+produits peuvent être discontinués, les clients et les fournisseurs 
+peuvent déménager, voire complètement disparaître, les taux de 
+taxes peuvent évoluer ainsi que leur méthode de calcul et, quoi
+qu'il arrive les anciennes factures ne doivent pas en être affectées
+tout en cohabitant pacifiquement avec les nouvelles, à l'intérieur
+de votre système d'information. Ce n'est pas qu'une simple question
+d'immutabilité, il y a aussi des questions structurelles liées
+aux autres modules (comme la Gestion de Stock) qui font référence
+aux lignes de facture. Tenter d'éviter toute duplication dans
+ce genre de cas (pas si allambiqué) se révèle une tâche bien 
+plus ardue qu'il ne paraît au départ et, à ce stade, je voudrais 
+revenir à mes considérations de départ: tout cela uniquement 
+dans le but d'éviter la _divergence_. De surcroît, avoir une "valeur
+unique de référence" ne garantit pas qu'elle soit juste: si
+une erreur est introduite, tout le monde subit la même erreur 
+(avec l'espoir, qu'une fois corrigée, elle soit corrigée pour 
+tous)
+
+Ce qui m'amène enfin à ce dont je voulais parler: la duplication,
+c'est la base de la tolérance aux pannes. On duplique les 
+systèmes et on _s'appuie_ sur l'idée qu'un problème causera une
+divergence, que l'on pourra détecter et permettra de réagir. Cette
+divergence est de l'information, c'est une bonne chose, ce qui 
+est dangereux ce n'est pas la divergence, ce qui est dangereux
+c'est d'ignorer qu'une divergence puisse apparaître et de 
+_ne pas avoir de procédure de contrôle_. Quand on duplique de
+l'information, on doit soit prouver que toute divergence est
+amenée à re-converger ("eventual consistency"), soit prouver
+que l'on sait détecter la situation et enclencher une 
+procédure pour la résoudre.
+
+En conclusion, il est bon d'architecturer ses données en
+évitant la duplication, c'est plus simple comme ça, c'est
+plus clair, il faut rendre les choses aussi simples que
+possible ; mais n'hésitons pas à sortir de ce droit chemin
+dans ces situations où cela se révèlerait plus simple que 
+possible (et, soyez prévenus, c'est _beaucoup de travail_)
+

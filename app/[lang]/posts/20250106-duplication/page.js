@@ -1,13 +1,13 @@
 import {genPostPage,PostPageMetadata} from '@/components/post'
-import Content, {matter} from './content.en.mdx'
-// import ContentEN, {matter as matterEN} from './content.en.mdx'
-// import ContentFR, {matter as matterFR} from './content.fr.mdx'
+// import Content, {matter} from './content.en.mdx'
+import ContentEN, {matter as matterEN} from './content.en.mdx'
+import ContentFR, {matter as matterFR} from './content.fr.mdx'
 import cover from './opengraph-image.webp'
 
 const postdata = {
-	matter, Content, 
-	// matterEN, ContentEN,
-	// matterFR, ContentFR,
+	// matter, Content, 
+	matterEN, ContentEN,
+	matterFR, ContentFR,
 	cover,
 
 	src: import.meta.url,
