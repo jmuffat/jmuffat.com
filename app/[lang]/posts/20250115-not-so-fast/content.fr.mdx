@@ -1,0 +1,69 @@
+---
+title: unique_ptr, pas si vite !
+date: '2025-01-15'
+author: jmm
+thread: code
+locale: 'en-US'
+---
+
+En ce début d'année, j'étais heureux de parler de l'idée d'utiliser
+[std::unique_ptr comme wrapper](/posts/20250102-ultimate-wrapper) des 
+easy handles de libCurl. J'aimais la simplicité de l'idée et puis 
+j'étais aussi heureux de voir Copilot deviner ce que je voulais 
+taper, ce que j'ai mépris pour une confirmation que c'était une 
+idée répandue (comment ce petit perroquet aurait-il pu deviner,
+sinon ?). En fin de compte, ça ne compile même pas,  du fait que
+`CURL*` est en fait un `void*` et que mon wrapper correspond donc
+à `unique_ptr<void,...>`... Malheur. Donc, ok, d'accord, je retourne
+écrire mon propre wrapper, constructeur, destructeur, rule-of-five,
+rien de très extraordinaire.
+
+A ce stade, si vous lisez encore, vous vous demandez: _"qu'est-ce
+qui t'as pris tout ce temps ? Comment ça se fait que n'ai pas vu
+de suite que ça compilait pas ?"_. Ben, j'étais dans un tunnel. Je
+convertissais mon code de transfert depuis un url, pour utiliser 
+des coroutines et proposer une interface similaire au `Fetch` de 
+Javascript. Je viens de sortir de ce tunnel et je peux maintenant
+écrire cela ainsi:
+
+```cpp
+    auto res = co_await fetcher.fetch("https://httpbin.org/get");
+    auto mimetype = res.getHeader("content-type");
+    auto len = res.getHeader("content-length");
+
+    auto json = co_await res.json();
+    auto headers = json["headers"].GetObject();
+    auto agent = headers["User-Agent"].GetString();
+```
+
+Le besoin du wrapper s'est fait sentir quand j'ai séparé le
+code en deux partie, de façon à lire les headers et, une fois
+reçus, pouvoir décidé quoi faire du contenu. Cela implique 
+d'enchaîner des coroutines qui se repassent le handle CURL 
+au fur et à mesure que le processus se déroule... ou alors,
+s'en débarasser proprement s'il se produit quoi que ce soit
+d'innatendu. Le code de départ utilisait tout simplement un
+`CURL*` mais, avec bien plus de cas particuliers à prévoir,
+j'aime mieux m'appuyer sur un dispositif du type de 
+`unique_ptr` pour que tout soit aussi étanche que possible...
+
+Aujourd'hui, je me demande ce qui m'a poussé à publier 
+immédiatement alors que je n'avais encore rien testé. C'est ce
+qui m'a fait choisir un labyrinthe pour illuster ce post: il 
+y a deux types de labyrinthes, ceux qui sont en réalité un 
+seul chemin entortillé sur lui-même et ceux qui forment un
+arbre dont on essaye d'atteindre une noeud terminal spécifique. 
+Je crois qu'on résoud ces derniers comme s'il s'agissait 
+du premier type, en rebroussant chemin quand on arrive à un
+cul-de-sac. C'est ce qui s'est passé ici: je croyais avoir
+trouvé une solution simple et élégante et qu'il ne restait
+plus qu'une _dernière ligne droite_. J'ai fait le présupposé 
+qu'il n'y avait plus rien à résoudre et, comme toujours 
+(comme on dit dans "Under Siege II")
+
+> Assumption is the Mother of All Fuckups ! 
+
+...que je ne sais pas traduire alors, en échange, je vous
+donne ceci:
+
+> J’ai pensé à un machin inoffensif… qui me venait du fond de mon enfance… Quelque chose de gentil de mignon qui ne pouvait pas nous détruire

@@ -1,0 +1,58 @@
+---
+title: unique_ptr, not so fast !
+date: '2025-01-15'
+author: jmm
+thread: code
+locale: 'en-US'
+---
+
+First thing this year, I was happy to post about an idea about using
+[std::unique_ptr as a wrapper](/posts/20250102-ultimate-wrapper) for
+libCurl easy handles. I was happy about the simplicity and I was also 
+happy because copilot guessed what I was going to type when I started, 
+which I took as confirmation this was something people do (how might 
+that little parrot guess, otherwise?). It turns out that it does not 
+even compile, since `CURL*` really is a `void*` and my wrapper 
+translates to a `unique_ptr<void,...>`... Shame. So, ok, never mind, I 
+went back to writing a wrapper myself, constructor, destructor, 
+rule-of-five, nothing special.
+
+At this point, I expect that those still reading are wondering:
+_"what took you so long ? Why didn't you realise straight away
+that it didn't even compile ?"_. Well, I was in a tunnel. I was
+reworking my code to fetch a url so that it'd use coroutines and
+could be presented like `Fetch` in Javascript. I'm out of this
+tunnel now and it lets me write things this way:
+
+```cpp
+    auto res = co_await fetcher.fetch("https://httpbin.org/get");
+    auto mimetype = res.getHeader("content-type");
+    auto len = res.getHeader("content-length");
+
+    auto json = co_await res.json();
+    auto headers = json["headers"].GetObject();
+    auto agent = headers["User-Agent"].GetString();
+```
+
+The need for a wrapper came when I split the logic in two parts,
+so as to be able to get the headers and, once we have them, 
+decide what to do with the contents. This means chaining 
+coroutines and passing the CURL handle from one to the other as
+we progress... or dispose of the handle if anything unexpected 
+happens. The initial code was using a plain `CURL*` as its lifetime
+was straightforward ; with many more cases to take into 
+account, I tend to prefer to rely on something akin to a
+`unique_ptr` to avoid leaving any leaks...
+
+Now, I'm asking myself what led me to publish that first post
+even though I hadn't tried it yet. This is the reason for my choosing
+a maze as the illustration for today's post: there are two sorts of
+mazes, those that are a single path wrapped around itself and those
+that are like a tree and you want to reach a specific leaf... I
+think we tend to solve the latter as if they were the former and 
+backtrack when we reach dead ends. That's really what happened here: 
+I thought this was a clean and elegant solution and the rest would 
+just be legwork. I assumed there was nothing left to solve and as 
+always (as they say in "Under Siege II"):
+
+> Assumption is the Mother of All Fuckups ! 
