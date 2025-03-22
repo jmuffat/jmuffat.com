@@ -31,7 +31,7 @@ export const Header = () => (
 			<div className="text-2xl text-stone-200 font-bold pr-4">
 				<Link className="no-underline" href="/">jmuffat</Link>
 			</div>
-			<div className="flex-grow"/>
+			<div className="grow"/>
 			<NavigationMenu>
 				<NavigationMenuList>
 					<NavItem href="/pzview"> <FormattedMessage id="FYR26p" description="menu: pzView" defaultMessage="pzView"/> </NavItem>

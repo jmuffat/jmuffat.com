@@ -43,7 +43,7 @@ export function ColorField(props) {
 		<>
 			<div className="w-4 h-4 mx-auto mt-0 mb-1">
 				<span>
-					<div className="size-full relative rounded shadow" style={{ background: color }} onClick={onClickSwatch}></div>
+					<div className="size-full relative rounded shadow-sm" style={{ background: color }} onClick={onClickSwatch}></div>
 				</span>
 			</div>
 
@@ -57,7 +57,7 @@ function Swatch(props) {
 	return (
 		<div className="grow-0 size-4 m-2">
 			<span>
-				<div className="size-full relative border rounded shadow" style={{ background: props.value }} onClick={onClickSwatch}></div>
+				<div className="size-full relative border rounded shadow-sm" style={{ background: props.value }} onClick={onClickSwatch}></div>
 			</span>
 		</div>
 	)
