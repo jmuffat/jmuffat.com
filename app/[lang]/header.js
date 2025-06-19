@@ -34,6 +34,7 @@ export const Header = () => (
 			<div className="grow"/>
 			<NavigationMenu>
 				<NavigationMenuList>
+					<NavItem href="/girolamo"> <FormattedMessage id="T/UYQe" description="menu: girolamo" defaultMessage="Girolamo"/> </NavItem>
 					<NavItem href="/pzview"> <FormattedMessage id="FYR26p" description="menu: pzView" defaultMessage="pzView"/> </NavItem>
 					<NavItem href="/baladovore"> <FormattedMessage id="9UrABp" description="menu: baladovore" defaultMessage="baladovore"/> </NavItem>
 					<NavItem href="/webphotomag"> <FormattedMessage id="nLKhFA" description="menu: webphotomag" defaultMessage="webphotomag"/> </NavItem>
