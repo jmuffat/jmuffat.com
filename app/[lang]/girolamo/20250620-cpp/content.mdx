@@ -1,0 +1,68 @@
+---
+title: a C++ project
+date: '2025-06-20'
+author: jmm
+thread: girolamo
+locale: 'en-US'
+---
+
+A friend, asking me what I was up to these days, was surprised that I'd use C++
+to start a new project. We've written a lot of C++ together, going back to 
+the end of 80s. So this made me realise it wasn't as obvious as I might have
+thought, hence this post. 
+
+# vs CSharp
+His main thing was _"why don't you use something like C# and be rid of 
+managing memory ?"_. I don't feel I'm having any problems managing memory in 
+C++. For ages, constructors, destructors and scopes have been my main tool 
+to ensure resources (not just memory) get tracked properly. Also `std::unique_ptr` 
+and `std::shared_ptr` are here to keep the more involved situations under 
+control. As a matter of fact, the idea that I know precisely and for sure 
+when resources get disposed of is one of my main reasons for liking C++.
+
+# vs Javascript
+This may sound as an odd point to bring up, here's why: if you want to write
+code that will run on pretty much any platform, target web browsers. So, of
+course, I considered it: there is no reason I couldn't replicate most of what
+I had written over ten years ago, on today's machines, in a browser. I actually
+did experiment. I ran into two main problems: UI/DOM and sandboxing. Running
+inside the browser means a lot of your UI is decided by the browser, you have
+to relinguish control over things like the right-mouse button (workarounds are
+possible but tricky). The sandboxing, though, is the dealbreaker: you cannot
+access the machine from a web page, this is a problem when your goal is to 
+index the user's content. The sandboxing is an _absolute necessity_ in a 
+browser, so JS is just out of the question. (... sigh of relief)
+
+# vs Java, Rust, Go, Swift or otherwise
+For Javascript, there is the argument of the ubiquity of the browser. For other
+languages, so far, there isn't an argument or feature that'd make _me_ want to go further
+than experimenting.
+
+# Innovative UI
+I strongly believe that applications would benefit from building UI's like
+we do in videogames. I am going to dive again in a pan&zoom UI, a very 
+dynamic and reactive experience. The easiest way to do this is to go
+down to the graphics API and handle resources at that lower level. The
+Windows version runs on Vulkan, the OSX version on Metal ; I have built a
+version on the Raspberry Pi with Vulkan, so Linux should be covered too. 
+That's a great advantage of C++ : it runs on pretty much anything.
+
+# Libraries have C interfaces
+There are a few libraries that make a project like **Girolamo** possible, 
+handling basic needs. They are all written in C++ or C, they're all trivial
+to integrate in a C project:
+ - [_libuv_](https://docs.libuv.org/en/v1.x/): the lib that makes node.js asynchronous
+ - [_sqlite_](https://sqlite.org): easiest way to store large amounts of structured data inside one file 
+ - [_libcurl_](https://curl.se/libcurl/): access (that works) to internet resources 
+ - [_opencv_](https://opencv.org): everything computer vision
+ - [_llama.cpp_](https://github.com/ggml-org/llama.cpp): I don't need to introduce this, do I ?
+ - ...
+
+I am going to talk more about all the tools I use in later posts similar to this 
+one, but the point is clear: C++ has all the toys !
+
+# Conclusion
+I have been away from C++ for a long time because it wasn't a good option to 
+build for the new platforms of the time: iOS and Android. I have tried many things
+and, I must admit, I missed C++. The best reason I can give for choosing C++ as
+the tool of choice for **Girolamo** is this: _I enjoy it_.
