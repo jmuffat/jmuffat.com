@@ -1,0 +1,23 @@
+---
+title: Rediscovering CMake
+date: '2025-06-20'
+author: jmm
+thread: girolamo
+locale: 'en-US'
+---
+
+I chose C++ for this project in part because I want it to run on many (any?) platform. From previous experience, I knew I would have to have a CMake script and was really not looking forward to it. 
+
+CMake, in my mind, was still some necessary evil that'd help me keep the common parts in order. I had memories of having to script a lot of little utilities, having to look for quirky little hacks to get MSDev to understand something, or to get Xcode to do some other thing. But, most importantly, I had memories that the pain was worth it. So I bit the bullet...
+
+CMake has changed so much (over the last maybe ten years)... Also, the adoption has been such that most tools and libraries can be integrated without bothering about the details (I love not having to bother about details when it's unnecessary). 
+
+Most of the libraries are just a `find_package(acmeLib REQUIRED)` away. Together with a repository manager like Conan, a lot of things become completely trivial. The younger audience probably does not realise how much simpler this makes things, as platform/versions subtleties get delegated to the package's CMake integration...
+
+There is a fantastic feature called `source_group` which helps organise source in the project, once opened in an IDE. In the old days, I would generate a flat project and curse all day while looking up items when debugging something... It's one of these little things that turn out to be BIG things.
+
+Finally, and this came as a massive surprise, CMake now does something absolutely AMAZING : it generates your installer. It only took me a couple of days to get both Windows and macOS installers ready for generation. It's wonderful to have the installers nicely integrated with everything else (again, that's a lot of not having to bother unnecessarily).
+
+Kudos to all the people involved with CMake ! It feels great to come back to something and find it so very much improved. 
+
+I used to recommend CMake as "it's worth the additional work", now I can wholeheartedly recommend CMake as "do it before anything else, it'll save you so much work !".
