@@ -1,0 +1,36 @@
+---
+title: sqlite for metadata
+date: '2025-06-20'
+author: jmm
+thread: girolamo
+locale: 'en-US'
+---
+
+The secret to **Project Girolamo** being a good archivist is to collect, generate and index as 
+much metadata as possible. **Girolamo** works like a journalist, constantly asking the 
+"Five W's" : _who?_, _what?_, _when?_, _where?_ (I'm even starting to contemplate ideas around
+handling the hardest one: _why?_). We also need to store summaries and previews, so as to
+let the user immediately identify items on display. There is a lot of little pieces of metadata, 
+that we want to constantly update and access in real time. How much is a lot ? Well, in a 
+previous iteration of this project, "a lot" was in the order of some gigabytes. So, the
+problem isn't as much size (it can all fit in RAM) as it is recording things durably on
+disk and avoiding any kind of corruption.
+
+I like to use **sqlite** for this sort of problem. The underlying storage is the simplest
+you can think of, one file broken down in 4KB pages mapping nicely to the OS's own memory
+pages. For most cases, we query on an index, using the package more like it was Borland's
+Paradox Engine and we were back in the 90's... The number one benefit definitely is the
+_transactional_ nature of operations: sqlite is very resistant to adversity like power
+failures, crashes and the rug generally being pulled from under itself. 
+
+**sqlite** also shines in performance. When loading a thumbnail from it, there is no additional 
+file to open, there is no directory tree to walk, there is no difference whether the file
+lives in a crowded folder or whatnot. It's always only about looking up the index of a page and 
+loading it. The simple fact of not having to go through the process of opening a file makes 
+a multi-fold increase in performance.
+
+I first encountered sqlite in some code that was handling saving games to memory card on
+the PlayStation 2. If you've ever dealt with the requirements for certifying a game,
+you know the checklist on this topic is particularly brutal... I became a fan because of
+that and, now that it has stood the test of time, it has become a central tool in my 
+toolbox.
