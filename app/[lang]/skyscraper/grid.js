@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 import styles from './sksc.module.css'
 import {knownMask,candidateMask} from './state'
+import {
+    cn_row,cn_col,
+    cn_gridCols,cn_gridRows
+} from './util'
 
 const VisibilityHoriz = ({line,val}) =>(
     val.map((a,i)=>(
@@ -8,8 +12,8 @@ const VisibilityHoriz = ({line,val}) =>(
             key={i} 
             className={cn(
                 styles.visib,
-                `row-${line+1}`,
-                `col-${i+2}`
+                cn_row(line+1),
+                cn_col(i+2)
             )}
         >
             {val[i] || null}
@@ -23,8 +27,8 @@ const VisibilityVert = ({col,val}) =>(
             key={i} 
             className={cn(
                 styles.visib,
-                `row-${i+2}`,
-                `col-${col+1}`
+                cn_row(i+2),
+                cn_col(col+1)
             )}
         >
             {val[i] || null}
@@ -37,8 +41,8 @@ const KnownCell = ({row,col,value})=>(
         className={cn(
             styles.cell,
             styles.known,
-            `row-${row}`,
-            `col-${col}`
+            cn_row(row),
+            cn_col(col)
         )}
     >
         {value}
@@ -65,8 +69,8 @@ function Cell({row,col,data}) {
         <div 
             className={cn(
                 styles.cell,
-                `row-${row}`,
-                `col-${col}`
+                cn_row(row),
+                cn_col(col)
             )}
         >
             <Pencil mask={0x0001} className={styles.pen1}>1</Pencil>
@@ -108,8 +112,8 @@ export function SkyscraperGrid({data}) {
             <div 
                 className={cn(
                     'grid gap-1',
-                    `grid-cols-${data.sz+2}`,
-                    `grid-rows-${data.sz+2}`
+                    cn_gridCols(data.sz+2),
+                    cn_gridRows(data.sz+2)
                 )}
             >
                 <VisibilityHoriz line={0}    val={data.N}/>
@@ -121,14 +125,3 @@ export function SkyscraperGrid({data}) {
         </div>
     )
 }
-
-
-// ----------
-const dummyUseOfTailwindSymbolsWeMayGenerate = ()=>(
-    <div>
-        <div className="row-1 row-2 row-3 row-4 row-5 row-6 row-7 row-8 row-9"/>
-        <div className="col-1 col-2 col-3 col-4 col-5 col-6 col-7 col-8 col-9"/>
-        <div className="grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4 grid-cols-5 grid-cols-6 grid-cols-7 grid-cols-8 grid-cols-9 grid-cols-10 grid-cols-11 grid-cols-12"/>
-        <div className="grid-rows-1 grid-rows-2 grid-rows-3 grid-rows-4 grid-rows-5 grid-rows-6 grid-rows-7 grid-rows-8 grid-rows-9 grid-rows-10 grid-rows-11 grid-rows-12"/>
-    </div>
-)
