@@ -37,7 +37,7 @@ export function skyscraperStringDecode(s) {
     res.sz = sz
 
     let allCandidates = 0;
-    for(let i=1; i<sz; i++) allCandidates |= candidateMask(i);
+    for(let i=1; i<=sz; i++) allCandidates |= candidateMask(i);
 
     res.c = [] // candidates
     for(let i=0; i<sz*sz; i++) res.c[i] = allCandidates
