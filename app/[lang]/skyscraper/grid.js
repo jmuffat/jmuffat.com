@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import styles from './sksc.module.css'
-import {knownMask,candidateMask} from './state'
+import {knownMask} from './state'
 import {
     cn_row,cn_col,
     cn_gridCols,cn_gridRows

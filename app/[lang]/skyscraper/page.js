@@ -3,7 +3,7 @@ import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
 
 import { NarrowPageBody } from '@/components/narrow-body'
-import { skyscraperStringDecode } from './state'
+import { skyscraperStringDecode } from './decode'
 import { SkyscraperGrid } from './grid'
 
 function SkyscraperPage() {
