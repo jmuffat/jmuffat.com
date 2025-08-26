@@ -38,7 +38,7 @@ function addProvincesToDir(D,opt) {
 
 function wikipediaPageTitle(a) {
   if (!a) return
-  return a.replace(/^\/wiki\//,'')
+  return a.replace(/^\/wiki\//,'');
 }
 
 async function loadIsoRemap() {

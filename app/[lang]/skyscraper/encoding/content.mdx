@@ -1,0 +1,27 @@
+---
+title: Skyscraper puzzle encoding
+date: '2025-09-26'
+author: jmm
+thread: skyscraper
+locale: 'en-US'
+---
+
+This is the scheme we use for encoding a skyscrapper puzzle:
+
+`N.E.S.W.hints`
+
+example: `03004.02020.32200.00224.D32`
+
+## visibility hints
+
+The first four segments are hints telling the number of buildings visible from each cardinal point. These are strings with one number per column|line, a zero means that no hint is given and otherwise the number is the hint. 
+
+`N` and `S` hints are given left to right as read on the page. 'E' and 'W' hints are given top down, again as read on the page.
+
+## given cells
+
+The last segment is a list of triplets of the form letter-digit-digit. The first letter is the column index in A-Z notation, the middle digit is the line number in 1-9 notation and, finally, the last digit is the value given to that cell.
+
+## Misc
+
+- The size of the puzzle is implied by the visibility hints

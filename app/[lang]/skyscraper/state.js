@@ -1,6 +1,17 @@
 export const knownMask = 0x8000 
 export const candidateMask = value => 1<<(value-1)
 
+export function setCell(s, row, col, value) {
+    // remove candidates on same line|column
+    const mask = candidateMask(value)
+    const notMask = ~mask
+    for(let i=0; i<s.sz; i++) s.c[ i +row*s.sz]&=notMask
+    for(let i=0; i<s.sz; i++) s.c[col+ i *s.sz]&=notMask
+
+    // actually set cell
+    s.c[col+row*s.sz] = mask | knownMask;
+}
+
 export function skyscraperStringDecode(s) {
     const re = /(\d*)\.(\d*)\.(\d*)\.(\d*)\.?((?:[a-z]\d\d)*)/i
     const parts = re.exec(s) 
@@ -45,9 +56,10 @@ export function skyscraperStringDecode(s) {
             if (x<0 || y<0 || x>=sz || y>>sz) return {error: `Bad hint position "${hint}"`}
             if (v<1 || v>sz) return {error: `Bad hint value "${hint}"`}
 
-            res.c[x+sz*y] = knownMask|candidateMask(v)
+            setCell(res, y,x,v)
         }
     }
 
     return res
 }
+

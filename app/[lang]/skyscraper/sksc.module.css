@@ -1,0 +1,33 @@
+.cell {
+    background-color: #aaa;
+    width: 48px;
+    height: 48px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.known {
+    font-size: 40px;
+}
+
+.pen1 {font-size: 10px; position: absolute; left:  4px; top:  0px;}
+.pen2 {font-size: 10px; position: absolute; left: 20px; top:  0px;}
+.pen3 {font-size: 10px; position: absolute; left: 36px; top:  0px;}
+.pen4 {font-size: 10px; position: absolute; left:  4px; top: 16px;}
+.pen5 {font-size: 10px; position: absolute; left: 20px; top: 16px;}
+.pen6 {font-size: 10px; position: absolute; left: 36px; top: 16px;}
+.pen7 {font-size: 10px; position: absolute; left:  4px; top: 32px;}
+.pen8 {font-size: 10px; position: absolute; left: 20px; top: 32px;}
+.pen9 {font-size: 10px; position: absolute; left: 36px; top: 32px;}
+
+.visib {
+    background-color: #ccc;
+    color:#000;
+    font-size: 28px;
+    font-weight: 100;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}

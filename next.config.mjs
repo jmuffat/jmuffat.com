@@ -11,11 +11,11 @@ import rehypeHighlight from 'rehype-highlight'
 async function redirects() {
 	// old blog used this format : /2020/03/04/my-first-paid-job
 	return [
-		{
-			source: '/:yy(\\d{1,})/:mm(\\d{1,})/:dd(\\d{1,})/:slug',
-			destination: '/posts/:yy:mm:dd-:slug',
-			permanent: true
-		}
+		// {
+		// 	source: '/:yy(\\d{1,})/:mm(\\d{1,})/:dd(\\d{1,})/:slug',
+		// 	destination: '/posts/:yy:mm:dd-:slug',
+		// 	permanent: true
+		// }
 	]
 }
 
