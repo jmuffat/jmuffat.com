@@ -42,7 +42,7 @@ function SkyscraperPage() {
             <SkyscraperGrid data={steps[current].state} prev={steps[prev].state}/>
             
             <div className="flex flex-col gap-2 border py-4 px-2">
-            {steps.map((step,i)=><Step index={i} step={step} onClick={()=>setCurrent(i)}/>)}
+            {steps.map((step,i)=><Step key={i} index={i} step={step} onClick={()=>setCurrent(i)}/>)}
             </div>
         </NarrowPageBody>
     )
