@@ -9,7 +9,12 @@ import { skyscraperSolve } from './solve'
 
 function Step({index,step,onClick}) {
     return (
-        <div className="text-xs cursor-pointer" onClick={onClick}>{index+1} - {step.label}</div>
+        <div 
+            className="cursor-pointer px-2 text-xs hover:text-accent-foreground hover:bg-accent" 
+            onClick={onClick}
+        >
+            {index+1} - {step.label}
+        </div>
     )
 }
 
@@ -36,7 +41,7 @@ function SkyscraperPage() {
             
             <SkyscraperGrid data={steps[current].state} prev={steps[prev].state}/>
             
-            <div className="flex flex-col gap-2 border padding-4">
+            <div className="flex flex-col gap-2 border py-4 px-2">
             {steps.map((step,i)=><Step index={i} step={step} onClick={()=>setCurrent(i)}/>)}
             </div>
         </NarrowPageBody>

@@ -116,7 +116,7 @@ export function SkyscraperGrid({data,prev}) {
     
     const {sz} = data;
     return (
-        <div className="p-4 border bg-neutral-100 dark:bg-neutral-800 size-fit mx-auto">
+        <div className="p-4 m-4 border bg-neutral-100 dark:bg-neutral-800 size-fit mx-auto">
             <div 
                 className={cn(
                     'grid gap-1',
