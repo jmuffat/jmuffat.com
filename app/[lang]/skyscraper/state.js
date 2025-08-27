@@ -13,9 +13,18 @@ export function setCell(s, row, col, value) {
 }
 
 export function pencilCell(s, row, col, mask) {
-    const offset = col+row*s.sz
-    if (s.c[offset]&knownMask) return
+    // this function returns an int rather than a bool because
+    // multiple pencil marks will be combined using `+` rathen
+    // than '||' to avoid short-circuiting evaluation optimisation
 
-    s.c[offset] &= mask
+    const offset = col+row*s.sz
+    if (s.c[offset]&knownMask) return 0
+
+    const oldVal = s.c[offset]
+    const newVal = oldVal & mask
+    if (oldVal == newVal) return 0
+
+    s.c[offset] = newVal
+    return 1
 }
 

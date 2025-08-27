@@ -49,7 +49,7 @@ const KnownCell = ({row,col,value})=>(
     </div>
 )
 
-function Cell({row,col,data}) {
+function Cell({row,col,data,prev}) {
     if (data&knownMask) {
         let mask = data&0x0ff
         let value
@@ -61,7 +61,12 @@ function Cell({row,col,data}) {
     }
     
     function Pencil({mask, className, children}) {
-        if (!(data&mask)) return null
+        if (!(prev&mask)) return null // was already discarded
+
+        if (!(data&mask)) {
+            return <div className={cn(className,"text-red-700")}>{children}</div>
+        }
+
         return <div className={className}>{children}</div>
     }
 
@@ -86,25 +91,28 @@ function Cell({row,col,data}) {
     )    
 }
 
-function Cells({data}) {
-    const {c,sz} = data
+function Cells({data,prev}) {
+    const {sz} = data
     const res = []
 
     for(let i=0; i<sz; i++) {
         for(let j=0; j<sz; j++) {
             const offset = i+j*sz
-            const a = c[offset]
-            res.push( <Cell key={offset} row={j+2} col={i+2} data={a}/> )
+            const a = data.c[offset]
+            const b = prev.c[offset]
+            res.push( <Cell key={offset} row={j+2} col={i+2} data={a} prev={b}/> )
         }
     }
 
     return res
 }
 
-export function SkyscraperGrid({data}) {
+export function SkyscraperGrid({data,prev}) {
     if (data.error) {
         return <p>Error: {data.error}</p>
     }
+
+    if (prev.error) prev=data
     
     const {sz} = data;
     return (
@@ -120,7 +128,7 @@ export function SkyscraperGrid({data}) {
                 <VisibilityVert  col={sz+1}  val={data.E}/>
                 <VisibilityHoriz line={sz+1} val={data.S}/>
                 <VisibilityVert  col={0}     val={data.W}/>
-                <Cells data={data}/>
+                <Cells data={data} prev={prev}/>
             </div>
         </div>
     )
