@@ -1,4 +1,4 @@
-import {candidateMask,pencilCell} from '../state'
+import {candidateMask,setCell,pencilCell} from '../state'
 
 function impossibleList(sz,vis) {
     let res=[]
@@ -95,11 +95,29 @@ function impossibleListW(s) {
     return res
 }
 
+function ones(state) {
+    const {sz, N,E,S,W} = state
+    let changed = false
+
+    for(let i=0; i<sz; i++) {
+        if (N[i]==1) {setCell(state,    0,    i, sz); changed=true}
+        if (E[i]==1) {setCell(state,    i, sz-1, sz); changed=true}
+        if (S[i]==1) {setCell(state, sz-1,    i, sz); changed=true}
+        if (W[i]==1) {setCell(state,    i,    0, sz); changed=true}
+    }
+
+    if (changed) return [{
+        label: 'visibility of 1',
+        state: structuredClone(state)
+    }]
+}
+
 export function pencilBasicVisibility(state) {
     // all steps returned at once, as this is ran first
     // and won't be needed again
 
     let res = []
+    res = res.concat( ones(state) )
     res = res.concat( impossibleListN(state) )
     res = res.concat( impossibleListE(state) )
     res = res.concat( impossibleListS(state) )
