@@ -24,7 +24,7 @@ function Step({index,sel,step,onClick}) {
 
 function SkyscraperPage() {
     const searchParams = useSearchParams()
-    const str = searchParams.get('s') // "03004.02020.32200.00224.D32" 
+    const str = searchParams.get('s') ?? "0030400.0056000.0600050.0000040"
     
     const steps = React.useMemo(
         ()=>{
