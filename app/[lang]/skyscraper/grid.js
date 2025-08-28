@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import styles from './sksc.module.css'
-import {knownMask} from './state'
+import {knownMask,getKnownCell} from './state'
 import {
     cn_row,cn_col,
     cn_gridCols,cn_gridRows
@@ -51,13 +51,7 @@ const KnownCell = ({row,col,value})=>(
 
 function Cell({row,col,data,prev}) {
     if (data&knownMask) {
-        let mask = data&0x0ff
-        let value
-        for(value=1; value<10; value++) {
-            if (mask==1) break
-            mask >>= 1
-        }
-        return <KnownCell row={row} col={col} value={value}/>
+        return <KnownCell row={row} col={col} value={getKnownCell(data)}/>
     }
     
     function Pencil({mask, className, children}) {

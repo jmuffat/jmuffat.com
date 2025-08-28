@@ -1,8 +1,13 @@
+import {isSolved}               from '../state'
 import {pencilBasicVisibility}  from './s00-basic-visibility'
-import {checkOnlyCandidates}    from './s01-last-one-standing'
+import {findSingleCandidate}    from './s01-obvious'
+import {checkOnlyCandidates}    from './s02-last-one-standing'
+import {pencilForVisibility}    from './s03-visibility'
 
 const solverStep = state => (
-    checkOnlyCandidates(state)
+    findSingleCandidate(state)
+ ?? checkOnlyCandidates(state)
+ ?? pencilForVisibility(state)
 ) 
 
 export function skyscraperSolve(state) {
@@ -27,9 +32,17 @@ export function skyscraperSolve(state) {
         }
     }
 
-    res.push({
-        label: "Final state",
-        state: structuredClone(state)
-    })
+    if (isSolved(state)) {
+        res.push({
+            label: "Solved !",
+            state: structuredClone(state)
+        })
+    }
+    else {
+        res.push({
+            label: "Don't know how to solve further",
+            state: structuredClone(state)
+        })
+    }
     return res;
 }

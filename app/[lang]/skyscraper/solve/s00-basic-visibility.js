@@ -110,6 +110,8 @@ function ones(state) {
         label: 'visibility of 1',
         state: structuredClone(state)
     }]
+
+    return []
 }
 
 export function pencilBasicVisibility(state) {

@@ -1,19 +1,23 @@
 "use client"
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 import { NarrowPageBody } from '@/components/narrow-body'
 import { SkyscraperGrid } from './grid'
 import { skyscraperStringDecode } from './decode'
 import { skyscraperSolve } from './solve'
 
-function Step({index,step,onClick}) {
+function Step({index,sel,step,onClick}) {
     return (
         <div 
-            className="cursor-pointer px-2 text-xs hover:text-accent-foreground hover:bg-accent" 
+            className={cn(
+                "cursor-pointer px-2 text-xs",
+                sel && "text-accent-foreground bg-accent"
+            )}
             onClick={onClick}
         >
-            {index+1} - {step.label}
+            {index+1} - {step?.label ?? "?null step?"}
         </div>
     )
 }
@@ -30,6 +34,7 @@ function SkyscraperPage() {
         }, 
         [str] 
     )
+
     const [current,setCurrent] = React.useState(0) 
     const prev = Math.max(current-1,0)
 
@@ -42,7 +47,7 @@ function SkyscraperPage() {
             <SkyscraperGrid data={steps[current].state} prev={steps[prev].state}/>
             
             <div className="flex flex-col gap-2 border py-4 px-2">
-            {steps.map((step,i)=><Step key={i} index={i} step={step} onClick={()=>setCurrent(i)}/>)}
+            {steps.map((step,i)=><Step key={i} index={i} sel={i==current} step={step} onClick={()=>setCurrent(i)}/>)}
             </div>
         </NarrowPageBody>
     )
