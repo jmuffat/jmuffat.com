@@ -41,7 +41,7 @@ function SkyscraperPage() {
     return (
         <NarrowPageBody>
             <div className='markdown'>
-                <h1>Skyscraper solver</h1>
+                <h1>Skyscraper solver <span className="text-sm">(wip)</span></h1>
             </div>
             
             <SkyscraperGrid data={steps[current].state} prev={steps[prev].state}/>
