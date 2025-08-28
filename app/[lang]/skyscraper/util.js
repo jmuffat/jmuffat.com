@@ -1,3 +1,5 @@
+export const popCount = n=> n.toString(2).replace(/0/g,"").length
+
 // The utility functions so Tailwind knows to include those styles 
 export function cn_row(n) {
     switch(n) {

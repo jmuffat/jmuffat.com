@@ -82,7 +82,6 @@ function processSeq(state,seq) {
     }
 
     let options = generateOptions(sz,line,seq.vis, 0,0)
-    console.log(options)
 
     // TODO: generate options directly as bitfields
     let optionsMask = options.reduce(
@@ -94,6 +93,10 @@ function processSeq(state,seq) {
         },
         Array(sz).fill(0)
     )
+
+    // console.log('----------')
+    // console.log(seq)
+    // console.log(options)
 
     // apply constraints
     let change = 0
