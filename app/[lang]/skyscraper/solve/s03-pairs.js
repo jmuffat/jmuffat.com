@@ -1,57 +1,74 @@
 import { popCount } from '../util'
-import {setCell,gridCoords,singleCandidate, knownMask, pencilCell} from '../state'
+import { pencilCell, candidateMask } from '../state'
 
 
 export function findPair(state) {
     const {sz,c} = state
 
-    // rows
-    for(let row=0; row<sz; row++) {
-        for(let colA=0; colA<sz-1; colA++) {
-            const maskA = c[colA+row*sz]
-            if (maskA&knownMask) continue;
-            if (popCount(maskA)!=2) continue
+    function findPairs(label,where, row,col, dr, dc) {
 
-            for(let colB=colA+1; colB<sz; colB++) {
-                const maskB = c[colB+row*sz]
-                if (maskA==maskB) {
-                    // found pair, remove candidates from rest of row
-                    let change=0
-                    for(let col=0; col<sz; col++) {
-                        if (col==colA || col==colB) continue
-                        change += pencilCell(state, row, col, ~maskA)
-                    }
-                    if (change) return({
-                        label: `pair ${gridCoords(row,colA)}/${gridCoords(row,colB)}`,
-                        state: structuredClone(state)
-                    })
+        function gotPair(a,b, loc) {
+            const mask = candidateMask(a)|candidateMask(b)
+            let change = 0
+            for(let i=0; i<sz; i++) {
+                const ir = row+i*dr
+                const ic = col+i*dc
+
+                if (loc&(1<<i)) {
+                    // cell can only be either candidates ("hidden pair")
+                    change += pencilCell(state,ir,ic,mask) 
+                }
+                else {
+                    // cell cannot be either candidate ("naked pair")
+                    change += pencilCell(state,ir,ic,~mask)
+                }
+            }
+
+            if (change) return {
+                label: `pair (${a},${b}) found in ${label}`,
+                state: structuredClone(state)
+            }
+        }
+
+        for(let i=0; i<sz-1; i++) {
+            const a = where[i]
+            if (popCount(a)!=2) continue
+            for(let j=i+1; j<sz; j++) {
+                if (where[j]==a) {
+                    const change = gotPair(i+1,j+1,a)
+                    if (change) return change
                 }
             }
         }
     }
 
-    // cols
-    for(let col=0; col<sz; col++) {
-        for(let rowA=0; rowA<sz-1; rowA++) {
-            const maskA = c[col+rowA*sz]
-            if (maskA&knownMask) continue;
-            if (popCount(maskA)!=2) continue
-
-            for(let rowB=rowA+1; rowB<sz; rowB++) {
-                const maskB = c[col+rowB*sz]
-                if (maskA==maskB) {
-                    // found pair, remove candidates from rest of col
-                    let change=0
-                    for(let row=0; row<sz; row++) {
-                        if (row==rowA || row==rowB) continue
-                        change += pencilCell(state, row, col, ~maskA)
-                    }
-                    if (change) return({
-                        label: `pair ${gridCoords(rowA,col)}/${gridCoords(rowB,col)}`,
-                        state: structuredClone(state)
-                    })
-                }
+    // rows
+    for(let i=0; i<sz; i++) {
+        const where = Array(sz).fill(0)
+        // find where each value might sit
+        for(let j=0; j<sz; j++) {
+            const mask = c[j+i*sz]
+            for(let a=0; a<sz; a++) {
+                if (mask&candidateMask(a+1)) where[a]|=1<<j
             }
         }
+        // find pairs
+        const change = findPairs(`row ${i+1}`, where, i,0, 0,1)
+        if (change) return change
+    }
+
+    // cols
+    for(let i=0; i<sz; i++) {
+        const where = Array(sz).fill(0)
+        // find where each value might sit
+        for(let j=0; j<sz; j++) {
+            const mask = c[i+j*sz]
+            for(let a=0; a<sz; a++) {
+                if (mask&candidateMask(a+1)) where[a]|=1<<j
+            }
+        }
+        // find pairs
+        const change = findPairs(`col ${i+1}`, where, 0,i, 1,0)
+        if (change) return change
     }
 }
