@@ -67,6 +67,38 @@ export function pencilCell(s, row, col, mask) {
     return 1
 }
 
+
+export function verifyVisibility(state) {
+    const {sz,c, N,E,S,W} = state
+    const n=sz-1 // last row|column
+
+    function verify(label,vis, row,col, dr,dc) {
+        if (!vis) return
+        let min=0
+        let n=0
+        for(let i=0; i<sz; i++) {
+            const a = getKnownCell( c[col+row*sz])
+            if (!a) return
+            if (min<a) {
+                min=a
+                n++
+            }
+            row+=dr
+            col+=dc
+        }
+        if (vis!=n) {
+            setError(state, `visibility ${label} = ${n}`)
+        }
+    }
+
+    for(let i=0; i<sz; i++) {
+        verify(`N${i+1}`, N[i], 0, i,  1,  0)
+        verify(`E${i+1}`, E[i], i, n,  0, -1)
+        verify(`S${i+1}`, S[i], n, i, -1,  0)
+        verify(`W${i+1}`, W[i], i, 0,  0,  1)
+    }
+}
+
 export function isSolved(state) {
     if (state.error) return true
 

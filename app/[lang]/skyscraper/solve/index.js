@@ -1,4 +1,4 @@
-import {isSolved}               from '../state'
+import {isSolved,verifyVisibility} from '../state'
 import {pencilBasicVisibility}  from './s00-basic-visibility'
 import {findSingleCandidate}    from './s01-obvious'
 import {checkOnlyCandidates}    from './s02-last-one-standing'
@@ -23,7 +23,9 @@ export function skyscraperSolve(state) {
     res = res.concat( pencilBasicVisibility(state) )
 
     for(;;) {
+        verifyVisibility(state)
         if (state.error) break;
+        
         const step = solverStep(state)
         if (!step) break;
 
