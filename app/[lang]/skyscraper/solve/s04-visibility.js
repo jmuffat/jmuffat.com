@@ -139,5 +139,3 @@ export function pencilForVisibility(state) {
         if (res) return res // return, so easier steps can improve solution
     }
 }
-
-// http://localhost:3000/en/skyscraper?s=0000.0020.0000.0003.A22C32
