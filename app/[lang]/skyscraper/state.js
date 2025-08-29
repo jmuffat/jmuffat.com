@@ -1,5 +1,13 @@
 export const knownMask = 0x8000 
 export const candidateMask = value => 1<<(value-1)
+export const gridCol = col=>String.fromCharCode( 'A'.charCodeAt(0) + col )
+export const gridCoords = (row,col)=> `${gridCol(col)}${row+1}`
+
+export function setError(state,err) {
+    if (state.error)
+         state.error.push(err)
+    else state.error = [err]
+}
 
 export function singleCandidate(mask) {
     switch (mask) {
@@ -23,14 +31,23 @@ export function getKnownCell(mask) {
 }
 
 export function setCell(s, row, col, value) {
-    // remove candidates on same line|column
     const mask = candidateMask(value)
     const notMask = ~mask
-    for(let i=0; i<s.sz; i++) pencilCell(s,row,i,  notMask)
-    for(let i=0; i<s.sz; i++) pencilCell(s,i,  col,notMask)
+    const oldMask = s.c[col+row*s.sz]
+
+    if (oldMask&knownMask) {
+        if (oldMask==value|knownMask) return
+
+        setError(s, `${gridCoords(row,col)}=${getKnownCell(oldMask)}, can't also be ${value}`)
+        return
+    }
 
     // actually set cell
     s.c[col+row*s.sz] = mask | knownMask;
+
+    // remove candidates on same line|column
+    for(let i=0; i<s.sz; i++) pencilCell(s,row,i,  notMask)
+    for(let i=0; i<s.sz; i++) pencilCell(s,i,  col,notMask)
 }
 
 export function pencilCell(s, row, col, mask) {
@@ -46,14 +63,13 @@ export function pencilCell(s, row, col, mask) {
     if (oldVal == newVal) return 0
 
     s.c[offset] = newVal
+    if (!newVal) setError(s, `${gridCoords(row,col)} has no candidates left`)
     return 1
 }
 
-export const gridCol = col=>String.fromCharCode( 'A'.charCodeAt(0) + col )
-export const gridCoords = (row,col)=> `${gridCol(col)}${row+1}`
-
 export function isSolved(state) {
-    // TODO: verify solution is actually correct...
+    if (state.error) return true
+
     const x = state.c.reduce(
         (cur,a) => cur&a,
         knownMask

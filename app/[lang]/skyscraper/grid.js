@@ -101,13 +101,7 @@ function Cells({data,prev}) {
     return res
 }
 
-export function SkyscraperGrid({data,prev}) {
-    if (data.error) {
-        return <p>Error: {data.error}</p>
-    }
-
-    if (prev.error) prev=data
-    
+export function SkyscraperGrid({data,prev}) {    
     const {sz} = data;
     return (
         <div className="p-4 m-4 border bg-neutral-100 dark:bg-neutral-800 size-fit mx-auto">

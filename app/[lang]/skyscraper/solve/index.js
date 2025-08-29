@@ -23,6 +23,7 @@ export function skyscraperSolve(state) {
     res = res.concat( pencilBasicVisibility(state) )
 
     for(;;) {
+        if (state.error) break;
         const step = solverStep(state)
         if (!step) break;
 
@@ -35,7 +36,13 @@ export function skyscraperSolve(state) {
         }
     }
 
-    if (isSolved(state)) {
+    if (state.error) {
+        res.push({
+            label: "ERROR: "+state.error.join("; "),
+            state: structuredClone(state)
+        })
+    }
+    else if (isSolved(state)) {
         res.push({
             label: "Solved !",
             state: structuredClone(state)

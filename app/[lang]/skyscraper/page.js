@@ -9,15 +9,17 @@ import { skyscraperStringDecode } from './decode'
 import { skyscraperSolve } from './solve'
 
 function Step({index,sel,step,onClick}) {
+    const {label,state={error:"null step"}} = step
     return (
         <div 
             className={cn(
                 "cursor-pointer px-2 text-xs",
-                sel && "text-accent-foreground bg-accent"
+                sel && "bg-accent",
+                state.error && "font-bold text-red-700"
             )}
             onClick={onClick}
         >
-            {index+1} - {step?.label ?? "?null step?"}
+            {index+1} - {label} 
         </div>
     )
 }
