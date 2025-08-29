@@ -81,9 +81,8 @@ function processSeq(state,seq) {
         line.push( c[ic+sz*ir] )
     }
 
-    let options = generateOptions(sz,line,seq.vis, 0,0)
+    const options = generateOptions(sz,line,seq.vis, 0,0)
 
-    // TODO: generate options directly as bitfields
     let optionsMask = options.reduce(
         (cur,a)=>{
             for(let i=0; i<sz; i++) {
@@ -105,6 +104,21 @@ function processSeq(state,seq) {
         if (i==0x1ff) continue
         
         change += pencilCell(state, row+i*dr, col+i*dc, m)
+    }
+
+    // values present in every option cannot lie in cell further than longest option
+    const valueSurvey= options.reduce(
+        (cur,a)=>{
+            cur.maxLen = Math.max(cur.maxLen,a.length)
+            const optMask = a.reduce( (m,v)=>m|candidateMask(v),0 )
+            cur.mask &= optMask
+            return cur
+        },
+        {maxLen:0, mask:0x1ff}
+    )
+
+    for(let i=valueSurvey.maxLen; i<sz; i++) {
+        change += pencilCell(state, row+i*dr, col+i*dc, ~valueSurvey.mask)
     }
 
     // if it changes anything, it is a step forward
