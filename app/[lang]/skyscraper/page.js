@@ -2,6 +2,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 import { NarrowPageBody } from '@/components/narrow-body'
 import { SkyscraperGrid } from './grid'
@@ -39,6 +40,7 @@ function SkyscraperPage() {
 
     const [current,setCurrent] = React.useState(0) 
     const prev = Math.max(current-1,0)
+    const next = Math.min(current+1, steps.length-1)
 
     return (
         <NarrowPageBody>
@@ -48,6 +50,17 @@ function SkyscraperPage() {
             
             <SkyscraperGrid data={steps[current].state} prev={steps[prev].state}/>
             
+            <div className='flex flex-row justify-center text-muted-foreground mb-2'>
+                <div>{steps[current]?.label}</div>
+            </div>
+
+            <div className="flex flex-row gap-4 mb-4 justify-center">
+                <Button variant="outline" className="w-24" onClick={()=>setCurrent(0)}>First</Button>
+                <Button variant="outline" className="w-24" onClick={()=>setCurrent(prev)}>Prev</Button>
+                <Button variant="outline" className="w-24" onClick={()=>setCurrent(next)}>Next</Button>
+                <Button variant="outline" className="w-24" onClick={()=>setCurrent(steps.length-1)}>Last</Button>
+            </div>
+
             <div className="flex flex-col gap-2 border py-4 px-2">
             {steps.map((step,i)=><Step key={i} index={i} sel={i==current} step={step} onClick={()=>setCurrent(i)}/>)}
             </div>

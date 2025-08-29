@@ -36,13 +36,14 @@ const VisibilityVert = ({col,val}) =>(
     ))
 )
 
-const KnownCell = ({row,col,value})=>(
+const KnownCell = ({row,col,value, prev})=>(
     <div 
         className={cn(
             styles.cell,
             styles.known,
             cn_row(row),
-            cn_col(col)
+            cn_col(col),
+            value!=prev && "text-blue-700 dark:text-blue-800"
         )}
     >
         {value}
@@ -51,7 +52,7 @@ const KnownCell = ({row,col,value})=>(
 
 function Cell({row,col,data,prev}) {
     if (data&knownMask) {
-        return <KnownCell row={row} col={col} value={getKnownCell(data)}/>
+        return <KnownCell row={row} col={col} value={getKnownCell(data)} prev={getKnownCell(prev)}/>
     }
     
     function Pencil({mask, className, children}) {
