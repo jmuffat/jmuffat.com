@@ -1,4 +1,4 @@
-import {isSolved,verifyVisibility} from '../state'
+import {isSolved,verifyVisibility,solveStep} from '../state'
 import {pencilBasicVisibility}  from './s00-basic-visibility'
 import {findSingleCandidate}    from './s01-obvious'
 import {checkOnlyCandidates}    from './s02-last-one-standing'
@@ -17,10 +17,7 @@ const solverStep = state => (
 export function skyscraperSolve(state) {
     let res = []
 
-    res.push({
-        label: "Initial hints",
-        state: structuredClone(state)
-    })
+    res.push( solveStep(state,"Initial hints") )
     
     res = res.concat( pencilBasicVisibility(state) )
 
@@ -41,22 +38,14 @@ export function skyscraperSolve(state) {
     }
 
     if (state.error) {
-        res.push({
-            label: "ERROR: "+state.error.join("; "),
-            state: structuredClone(state)
-        })
+        res.push( solveStep(state, "ERROR: "+state.error.join("; ")) )
     }
     else if (isSolved(state)) {
-        res.push({
-            label: "Solved !",
-            state: structuredClone(state)
-        })
+        res.push( solveStep(state,"Solved !") )
     }
     else {
-        res.push({
-            label: "Don't know how to solve further",
-            state: structuredClone(state)
-        })
+        res.push( solveStep(state,"Don't know how to solve further") )
     }
+
     return res;
 }

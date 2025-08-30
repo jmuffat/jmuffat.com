@@ -1,4 +1,4 @@
-import {knownMask,pencilCell,getKnownCell,candidateMask} from '../state'
+import {knownMask,pencilCell,getKnownCell,candidateMask,solveStep} from '../state'
 
 function prepSeq(state,seq) {
     const {sz,c} = state
@@ -122,10 +122,7 @@ function processSeq(state,seq) {
     }
 
     // if it changes anything, it is a step forward
-    if (change) return({
-        label: `visibility ${seq.label}`,
-        state: structuredClone(state)
-    })
+    if (change) return solveStep(state, `visibility ${seq.label}`)
 }
 
 export function pencilForVisibility(state) {

@@ -9,18 +9,23 @@ import { SkyscraperGrid } from './grid'
 import { skyscraperStringDecode } from './decode'
 import { skyscraperSolve } from './solve'
 
-function Step({index,sel,step,onClick}) {
-    const {label,state={error:"null step"}} = step
+function Step({index,sel,step,t0,onClick}) {
+    const {label,state={error:"null step"},clock} = step
+
+    const sClock = (clock-t0).toLocaleString('en-US', {minimumFractionDigits: 0, useGrouping:false})
+
     return (
         <div 
             className={cn(
-                "cursor-pointer px-2 text-xs",
+                "flex flex-row gap-4 cursor-pointer px-2 text-xs",
                 sel && "bg-accent",
                 state.error && "font-bold text-red-700"
             )}
             onClick={onClick}
         >
-            {index+1} - {label} 
+            <div className="w-12 text-right">{index+1}</div>
+            <div className="w-12 text-right">{sClock}ms</div>
+            <div>{label}</div> 
         </div>
     )
 }
@@ -38,9 +43,10 @@ function SkyscraperPage() {
         [str] 
     )
 
-    const [current,setCurrent] = React.useState(0) 
+    const [current,setCurrent] = React.useState(steps.length-1) 
     const prev = Math.max(current-1,0)
     const next = Math.min(current+1, steps.length-1)
+    const t0 = steps[0].clock
 
     return (
         <NarrowPageBody>
@@ -62,7 +68,15 @@ function SkyscraperPage() {
             </div>
 
             <div className="flex flex-col gap-2 border py-4 px-2">
-            {steps.map((step,i)=><Step key={i} index={i} sel={i==current} step={step} onClick={()=>setCurrent(i)}/>)}
+            {steps.map((step,i)=>(
+                <Step key={i} 
+                    index={i} 
+                    sel={i==current} 
+                    step={step} 
+                    t0={t0} 
+                    onClick={()=>setCurrent(i)}
+                />
+            ))}
             </div>
         </NarrowPageBody>
     )

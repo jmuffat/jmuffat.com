@@ -1,4 +1,4 @@
-import {knownMask,setCell} from '../state'
+import {knownMask,setCell,solveStep} from '../state'
 
 export function checkOnlyCandidates(state) {
     const {sz,c} = state
@@ -25,10 +25,7 @@ export function checkOnlyCandidates(state) {
 
             let col=Number(X[i])
             setCell(state, row, col, i+1)
-            return {
-                label: `only ${i+1} in row ${row+1}`,
-                state: structuredClone(state)
-            }
+            return solveStep(state, `only ${i+1} in row ${row+1}`)
         }
     }
     
@@ -42,10 +39,7 @@ export function checkOnlyCandidates(state) {
 
             let row=Number(X[i])
             setCell(state, row, col, i+1)
-            return {
-                label: `only ${i+1} in column ${col+1}`,
-                state: structuredClone(state)
-            }
+            return solveStep(state,`only ${i+1} in column ${col+1}`)
         }
     }     
 }

@@ -1,5 +1,5 @@
 import { popCount } from '../util'
-import {gridCoords, knownMask, pencilCell} from '../state'
+import {gridCoords, knownMask, pencilCell,solveStep} from '../state'
 
 
 export function findNakedPair(state) {
@@ -21,10 +21,8 @@ export function findNakedPair(state) {
                         if (col==colA || col==colB) continue
                         change += pencilCell(state, row, col, ~maskA)
                     }
-                    if (change) return({
-                        label: `naked pair ${gridCoords(row,colA)}/${gridCoords(row,colB)}`,
-                        state: structuredClone(state)
-                    })
+
+                    if (change) return solveStep(state, `naked pair ${gridCoords(row,colA)}/${gridCoords(row,colB)}`)
                 }
             }
         }
@@ -46,10 +44,8 @@ export function findNakedPair(state) {
                         if (row==rowA || row==rowB) continue
                         change += pencilCell(state, row, col, ~maskA)
                     }
-                    if (change) return({
-                        label: `naked pair ${gridCoords(rowA,col)}/${gridCoords(rowB,col)}`,
-                        state: structuredClone(state)
-                    })
+                    
+                    if (change) return solveStep(state, `naked pair ${gridCoords(rowA,col)}/${gridCoords(rowB,col)}`)
                 }
             }
         }

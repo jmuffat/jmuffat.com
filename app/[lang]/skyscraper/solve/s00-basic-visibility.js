@@ -1,4 +1,4 @@
-import {candidateMask,setCell,pencilCell} from '../state'
+import {candidateMask,setCell,pencilCell,solveStep} from '../state'
 
 function impossibleList(sz,vis) {
     let res=[]
@@ -26,10 +26,7 @@ function impossibleListN(s) {
             change += pencilCell(s, j, col, X[j])
         }
 
-        if (change) res.push({
-            label: `basic visibility N${col+1}`,
-            state: structuredClone(s)
-        })
+        if (change) res.push( solveStep(s, `basic visibility N${col+1}`) )
     }
     
     return res
@@ -46,10 +43,7 @@ function impossibleListE(s) {
             change += pencilCell(s, row, sz-j-1, X[j])
         }
 
-        if (change) res.push({
-            label: `basic visibility E${row+1}`,
-            state: structuredClone(s)
-        })
+        if (change) res.push( solveStep(s, `basic visibility E${row+1}`) )
     }
 
     return res
@@ -66,10 +60,7 @@ function impossibleListS(s) {
             change += pencilCell(s, sz-j-1, col, X[j])
         }
 
-        if (change) res.push({
-            label: `basic visibility S${col+1}`,
-            state: structuredClone(s)
-        })
+        if (change) res.push( solveStep(s, `basic visibility S${col+1}`) )
     }
 
     return res
@@ -86,10 +77,7 @@ function impossibleListW(s) {
             change += pencilCell(s, row, j, X[j])
         }
 
-        if (change) res.push({
-            label: `basic visibility W${row+1}`,
-            state: structuredClone(s)
-        })
+        if (change) res.push( solveStep(s, `basic visibility W${row+1}`) )
     }
 
     return res
@@ -106,12 +94,10 @@ function ones(state) {
         if (W[i]==1) {setCell(state,    i,    0, sz); changed=true}
     }
 
-    if (changed) return [{
-        label: 'visibility of 1',
-        state: structuredClone(state)
-    }]
+    let res = []
+    if (changed) res.push( solveStep(state, 'visibility of 1') )
 
-    return []
+    return res
 }
 
 export function pencilBasicVisibility(state) {

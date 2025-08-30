@@ -1,5 +1,5 @@
 import { popCount } from '../util'
-import { pencilCell, candidateMask } from '../state'
+import { pencilCell,candidateMask,solveStep } from '../state'
 
 
 export function findHiddenPair(state) {
@@ -24,10 +24,7 @@ export function findHiddenPair(state) {
                 }
             }
 
-            if (change) return {
-                label: `hidden pair (${a},${b}) found in ${label}`,
-                state: structuredClone(state)
-            }
+            if (change) return solveStep(state, `hidden pair (${a},${b}) found in ${label}`)
         }
 
         for(let i=0; i<sz-1; i++) {

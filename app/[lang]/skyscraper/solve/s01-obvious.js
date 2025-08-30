@@ -1,4 +1,4 @@
-import {setCell,gridCoords,singleCandidate} from '../state'
+import {setCell,gridCoords,singleCandidate,solveStep} from '../state'
 
 
 export function findSingleCandidate(state) {
@@ -9,10 +9,7 @@ export function findSingleCandidate(state) {
             const x = singleCandidate(c[col+row*sz])
             if (x) {
                 setCell(state, row, col, x)
-                return {
-                    label: `${gridCoords(row,col)} can only be ${x}`,
-                    state: structuredClone(state)
-                }
+                return solveStep(state, `${gridCoords(row,col)} can only be ${x}`)
             }
         }
     }
