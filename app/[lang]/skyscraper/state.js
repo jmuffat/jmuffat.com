@@ -100,7 +100,7 @@ export function verifyVisibility(state) {
 }
 
 export function isSolved(state) {
-    if (state.error) return true
+    if (state.error) return false
 
     const x = state.c.reduce(
         (cur,a) => cur&a,
