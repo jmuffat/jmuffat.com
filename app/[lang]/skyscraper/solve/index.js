@@ -2,13 +2,15 @@ import {isSolved,verifyVisibility} from '../state'
 import {pencilBasicVisibility}  from './s00-basic-visibility'
 import {findSingleCandidate}    from './s01-obvious'
 import {checkOnlyCandidates}    from './s02-last-one-standing'
-import {findPair}               from './s03-pairs'
-import {pencilForVisibility}    from './s04-visibility'
+import {findNakedPair}          from './s03-naked-pair'
+import {findHiddenPair}         from './s04-hidden-pair'
+import {pencilForVisibility}    from './s05-visibility'
 
 const solverStep = state => (
     findSingleCandidate(state)
  ?? checkOnlyCandidates(state)
- ?? findPair(state)
+ ?? findNakedPair(state)
+ ?? findHiddenPair(state)
  ?? pencilForVisibility(state)
 ) 
 

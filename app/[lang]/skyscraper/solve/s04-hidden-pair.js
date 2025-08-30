@@ -2,7 +2,7 @@ import { popCount } from '../util'
 import { pencilCell, candidateMask } from '../state'
 
 
-export function findPair(state) {
+export function findHiddenPair(state) {
     const {sz,c} = state
 
     function findPairs(label,where, row,col, dr, dc) {
@@ -25,7 +25,7 @@ export function findPair(state) {
             }
 
             if (change) return {
-                label: `pair (${a},${b}) found in ${label}`,
+                label: `hidden pair (${a},${b}) found in ${label}`,
                 state: structuredClone(state)
             }
         }
