@@ -11,9 +11,11 @@ const openSans = Open_Sans({ subsets: ['latin'] })
 const merriweather = Merriweather({ subsets: ['latin'], weight:"400", style:"italic" })
 
 const Icon = ({href,icon,target,hasLocale,children})=>(
-    <Link className="flex flex-col items-center p-2" href={href} target={target} hasLocale={hasLocale}>
-        <Image className="bg-white" alt="" src={icon} width="48" height="48"/>
-        <div className='link text-gray-600 dark:text-gray-400'>{children}</div>
+    <Link href={href} target={target} hasLocale={hasLocale}>
+        <div className="flex flex-col items-center p-2 cursor-pointer">
+            <Image className="bg-white" alt="" src={icon} width="48" height="48"/>
+            <div className='link text-gray-600 dark:text-gray-400'>{children}</div>
+        </div>
     </Link>
 ) 
 
