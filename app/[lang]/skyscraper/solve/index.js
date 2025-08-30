@@ -4,13 +4,15 @@ import {findSingleCandidate}    from './s01-obvious'
 import {checkOnlyCandidates}    from './s02-last-one-standing'
 import {findNakedPair}          from './s03-naked-pair'
 import {findHiddenPair}         from './s04-hidden-pair'
-import {pencilForVisibility}    from './s05-visibility'
+import {findXWing}              from './s05-xwing'
+import {pencilForVisibility}    from './s06-visibility'
 
 const solverStep = state => (
     findSingleCandidate(state)
  ?? checkOnlyCandidates(state)
  ?? findNakedPair(state)
  ?? findHiddenPair(state)
+ ?? findXWing(state)
  ?? pencilForVisibility(state)
 ) 
 
@@ -28,7 +30,7 @@ export function skyscraperSolve(state) {
         const step = solverStep(state)
         if (!step) break;
 
-        console.log(step)
+        console.log(`*** ${step.label} ***`)
         if (Array.isArray(step)) {
             res = res.concat(step)
         }
