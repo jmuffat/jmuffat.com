@@ -23,8 +23,8 @@ function Step({index,sel,step,t0,onClick}) {
             )}
             onClick={onClick}
         >
-            <div className="w-12 text-right">{index+1}</div>
-            <div className="w-12 text-right">{sClock}ms</div>
+            <div className="w-16 text-right">{index+1}</div>
+            <div className="w-16 text-right">{sClock}ms</div>
             <div>{label}</div> 
         </div>
     )

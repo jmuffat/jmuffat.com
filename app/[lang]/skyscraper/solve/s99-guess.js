@@ -46,19 +46,12 @@ export function guess(state, solverStep) {
             const valMask = candidateMask(val+1)
             if (!(valMask&mask)) continue
 
-            console.log(`GUESSING ${val+1} at ${gridCoords(row,col)}`)
-            
             const state2 = structuredClone(state)
             setCell(state2, row, col, val+1)
 
             const res=[]
             res.push(solveStep(state2, `<GUESSING ${val+1} at ${gridCoords(row,col)}>`))
-            if (tryGuess(res,state2,solverStep)) {
-                console.log(res)
-                return res
-            }
-
-            console.log(`     NOT ${val+1} at ${gridCoords(row,col)}`)
+            if (tryGuess(res,state2,solverStep)) return res
         }
     }
 
