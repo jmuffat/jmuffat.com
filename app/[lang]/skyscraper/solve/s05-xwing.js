@@ -51,7 +51,23 @@ export function findXWing(state) {
                     change += pencilCell(state, rowB,col, ~valMask)
                 }
                 
-                if (change) return solveStep(state, `X-wing of ${a+1}'s, at ${gridCoords(rowA,colA)},${gridCoords(rowA,colB)},${gridCoords(rowB,colA)},${gridCoords(rowB,colB)}`)
+                if (change) {
+                    const   AA = gridCoords(rowA,colA),
+                            AB = gridCoords(rowA,colB),
+                            BA = gridCoords(rowB,colA),
+                            BB = gridCoords(rowB,colB)
+                    return solveStep(
+                        state, 
+                        `X-wing of ${a+1}'s, at ${AA}-${AB}-${BA}-${BB}`,
+                        [
+                            AA,AB,BA,BB,
+                            `${AA}.${a+1}`,
+                            `${AB}.${a+1}`,
+                            `${BA}.${a+1}`,
+                            `${BB}.${a+1}`,
+                        ]
+                    )
+                }
             }
         }
     }

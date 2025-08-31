@@ -47,14 +47,20 @@ function SkyscraperPage() {
     const prev = Math.max(current-1,0)
     const next = Math.min(current+1, steps.length-1)
     const t0 = steps[0].clock
+    const highlights = new Set( steps[current]?.highlights )
 
+    console.log(highlights)
     return (
         <NarrowPageBody>
             <div className='markdown'>
                 <h1>Skyscraper solver <span className="text-sm">(wip)</span></h1>
             </div>
             
-            <SkyscraperGrid data={steps[current].state} prev={steps[prev].state}/>
+            <SkyscraperGrid 
+                data={steps[current].state} 
+                prev={steps[prev].state}
+                highlights={highlights}
+            />
             
             <div className='flex flex-row justify-center text-muted-foreground mb-2'>
                 <div>{steps[current]?.label}</div>

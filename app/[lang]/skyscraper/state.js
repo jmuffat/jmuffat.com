@@ -110,8 +110,9 @@ export function isSolved(state) {
     return !!(x&knownMask)
 }
 
-export const solveStep = (state, label)=> ({
+export const solveStep = (state, label, highlights)=> ({
     label,
+    highlights,
     clock: performance.now(), 
     state: structuredClone(state)
 })

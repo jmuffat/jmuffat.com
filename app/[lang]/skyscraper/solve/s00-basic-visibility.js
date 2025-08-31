@@ -1,4 +1,4 @@
-import {candidateMask,setCell,pencilCell,solveStep} from '../state'
+import {candidateMask,setCell,pencilCell,solveStep, gridCoords} from '../state'
 
 function impossibleList(sz,vis) {
     let res=[]
@@ -21,12 +21,14 @@ function impossibleListN(s) {
 
     for(let col=0; col<sz; col++) {
         const X = impossibleList(sz, N[col])
+        const highlights=[]
         let change = 0
         for(let j=0; j<X.length; j++) {
+            highlights.push(gridCoords(j,col))
             change += pencilCell(s, j, col, X[j])
         }
 
-        if (change) res.push( solveStep(s, `basic visibility N${col+1}`) )
+        if (change) res.push( solveStep(s, `basic visibility N${col+1}`, highlights) )
     }
     
     return res
@@ -38,12 +40,14 @@ function impossibleListE(s) {
 
     for(let row=0; row<sz; row++) {
         const X = impossibleList(sz, E[row])
+        const highlights=[]
         let change = 0
         for(let j=0; j<X.length; j++) {
+            highlights.push(gridCoords(row, sz-j-1))
             change += pencilCell(s, row, sz-j-1, X[j])
         }
 
-        if (change) res.push( solveStep(s, `basic visibility E${row+1}`) )
+        if (change) res.push( solveStep(s, `basic visibility E${row+1}`, highlights) )
     }
 
     return res
@@ -55,12 +59,14 @@ function impossibleListS(s) {
 
     for(let col=0; col<sz; col++) {
         const X = impossibleList(sz, S[col])
+        const highlights=[]
         let change = 0
         for(let j=0; j<X.length; j++) {
+            highlights.push(gridCoords(sz-j-1, col))
             change += pencilCell(s, sz-j-1, col, X[j])
         }
 
-        if (change) res.push( solveStep(s, `basic visibility S${col+1}`) )
+        if (change) res.push( solveStep(s, `basic visibility S${col+1}`, highlights) )
     }
 
     return res
@@ -72,12 +78,14 @@ function impossibleListW(s) {
 
     for(let row=0; row<sz; row++) {
         const X = impossibleList(sz, W[row])
+        const highlights=[]
         let change = 0
         for(let j=0; j<X.length; j++) {
+            highlights.push(gridCoords(row, j))
             change += pencilCell(s, row, j, X[j])
         }
 
-        if (change) res.push( solveStep(s, `basic visibility W${row+1}`) )
+        if (change) res.push( solveStep(s, `basic visibility W${row+1}`, highlights) )
     }
 
     return res

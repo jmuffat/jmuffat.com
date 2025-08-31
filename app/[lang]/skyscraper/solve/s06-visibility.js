@@ -1,4 +1,4 @@
-import {knownMask,pencilCell,getKnownCell,candidateMask,solveStep} from '../state'
+import {knownMask,pencilCell,getKnownCell,candidateMask,solveStep, gridCoords} from '../state'
 
 function prepSeq(state,seq) {
     const {sz,c} = state
@@ -121,8 +121,11 @@ function processSeq(state,seq) {
         change += pencilCell(state, row+i*dr, col+i*dc, ~valueSurvey.mask)
     }
 
+    let highlights=[]
+    for(let i=0;i<valueSurvey.maxLen;i++) highlights.push(gridCoords(row+i*dr, col+i*dc))
+
     // if it changes anything, it is a step forward
-    if (change) return solveStep(state, `visibility ${seq.label}`)
+    if (change) return solveStep(state, `visibility ${seq.label}`,highlights)
 }
 
 export function pencilForVisibility(state) {
