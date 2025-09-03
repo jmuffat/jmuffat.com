@@ -40,10 +40,10 @@ function pencilXWing(state, a, rowA,colA,rowB,colB) {
         `X-wing of ${a}'s, at ${AA}-${AB}-${BA}-${BB}`,
         [
             AA,AB,BA,BB,
-            `${AA}.${a+1}`,
-            `${AB}.${a+1}`,
-            `${BA}.${a+1}`,
-            `${BB}.${a+1}`,
+            `${AA}.${a}`,
+            `${AB}.${a}`,
+            `${BA}.${a}`,
+            `${BB}.${a}`,
         ]
     )
 }
