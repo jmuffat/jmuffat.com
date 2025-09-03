@@ -1,15 +1,16 @@
 import { popCount } from '../util'
-import { pencilCell,candidateMask,solveStep } from '../state'
+import { pencilCell,candidateMask,solveStep, gridCoords } from '../state'
 
 
 export function findHiddenPair(state) {
     const {sz,c} = state
 
-    function findPairs(label,where, row,col, dr, dc) {
+    function findPairs(where, row,col, dr, dc) {
 
         function gotPair(a,b, loc) {
             const mask = candidateMask(a)|candidateMask(b)
             let change = 0
+            let cells = []
             for(let i=0; i<sz; i++) {
                 const ir = row+i*dr
                 const ic = col+i*dc
@@ -17,6 +18,7 @@ export function findHiddenPair(state) {
                 if (loc&(1<<i)) {
                     // cell can only be either candidates ("hidden pair")
                     change += pencilCell(state,ir,ic,mask) 
+                    cells.push(gridCoords(ir,ic))
                 }
                 else {
                     // cell cannot be either candidate ("naked pair")
@@ -24,7 +26,11 @@ export function findHiddenPair(state) {
                 }
             }
 
-            if (change) return solveStep(state, `hidden pair (${a},${b}) found in ${label}`)
+            if (change) {
+                const A = cells[0]
+                const B = cells[1]
+                return solveStep(state, `hidden pair ${A}/${B}`, [A,B])
+            }
         }
 
         for(let i=0; i<sz-1; i++) {
@@ -50,7 +56,7 @@ export function findHiddenPair(state) {
             }
         }
         // find pairs
-        const change = findPairs(`row ${i+1}`, where, i,0, 0,1)
+        const change = findPairs(where, i,0, 0,1)
         if (change) return change
     }
 

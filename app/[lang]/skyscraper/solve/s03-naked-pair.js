@@ -22,7 +22,11 @@ export function findNakedPair(state) {
                         change += pencilCell(state, row, col, ~maskA)
                     }
 
-                    if (change) return solveStep(state, `naked pair ${gridCoords(row,colA)}/${gridCoords(row,colB)}`)
+                    if (change) {
+                        const A = gridCoords(row,colA)
+                        const B = gridCoords(row,colB)
+                        return solveStep(state, `naked pair ${A}/${B}`, [A,B])
+                    }
                 }
             }
         }
@@ -45,7 +49,11 @@ export function findNakedPair(state) {
                         change += pencilCell(state, row, col, ~maskA)
                     }
                     
-                    if (change) return solveStep(state, `naked pair ${gridCoords(rowA,col)}/${gridCoords(rowB,col)}`)
+                    if (change) {
+                        const A = gridCoords(rowA,col)
+                        const B = gridCoords(rowB,col)
+                        return solveStep(state, `naked pair ${A}/${B}`, [A,B])
+                    }
                 }
             }
         }
