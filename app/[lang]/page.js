@@ -5,6 +5,7 @@ import {NarrowPageBody} from '@/components/narrow-body'
 import cover from '@/data/2019-jerlock.jpg'
 import iconCv from '@/data/cv.svg'
 import iconMap from '@/data/map.svg'
+import iconSksc from '@/data/skyscraper.svg'
 
 import { Open_Sans, Merriweather } from 'next/font/google'
 const openSans = Open_Sans({ subsets: ['latin'] })
@@ -34,6 +35,7 @@ export default async function HomePage({params}) {
             <div className="flex flex-row gap-4">
                 <Icon icon={iconCv} href="/download/cvjmm.pdf" hasLocale target="_blank">cvjmm.pdf</Icon>
                 <Icon icon={iconMap} href="/maps">maps</Icon>
+                <Icon icon={iconSksc} href="/skyscraper">skyscraper</Icon>
             </div>
         </NarrowPageBody>
     )

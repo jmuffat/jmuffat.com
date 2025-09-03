@@ -1,7 +1,6 @@
 import { popCount } from '../util'
 import { pencilCell,candidateMask,solveStep, gridCoords } from '../state'
 
-
 export function findHiddenPair(state) {
     const {sz,c} = state
 
@@ -71,7 +70,7 @@ export function findHiddenPair(state) {
             }
         }
         // find pairs
-        const change = findPairs(`col ${i+1}`, where, 0,i, 1,0)
+        const change = findPairs(where, 0,i, 1,0)
         if (change) return change
     }
 }
