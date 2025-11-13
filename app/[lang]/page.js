@@ -33,7 +33,7 @@ export default async function HomePage({params}) {
             </div>
             
             <div className="flex flex-row gap-4">
-                <Icon icon={iconCv} href="/download/cvjmm.pdf" hasLocale target="_blank">cvjmm.pdf</Icon>
+                <Icon icon={iconCv} href="/download/cv-jmm-v2.pdf" hasLocale target="_blank">cv-jmm-v2.pdf</Icon>
                 <Icon icon={iconMap} href="/maps">maps</Icon>
                 <Icon icon={iconSksc} href="/skyscraper">skyscraper</Icon>
             </div>
