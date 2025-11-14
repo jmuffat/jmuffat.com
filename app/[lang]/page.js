@@ -32,8 +32,10 @@ export default async function HomePage({params}) {
                 <div {...merriweather} className="text-base italic text-gray-600 dark:text-gray-400">what can be done can be done better</div>
             </div>
             
-            <div className="flex flex-row gap-4">
-                <Icon icon={iconCv} href="/download/cv-jmm-v2.pdf" hasLocale target="_blank">cv-jmm-v2.pdf</Icon>
+            <div className="pt-24 flex flex-row gap-4 justify-center">
+                <Icon icon={iconCv} href="/download/cv-jmm-en.pdf" hasLocale target="_blank">cv-jmm-en.pdf</Icon>
+                <Icon icon={iconCv} href="/download/cv-jmm-fr.pdf" hasLocale target="_blank">cv-jmm-fr.pdf</Icon>
+                <div className="w-16"/>
                 <Icon icon={iconMap} href="/maps">maps</Icon>
                 <Icon icon={iconSksc} href="/skyscraper">skyscraper</Icon>
             </div>
