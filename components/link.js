@@ -9,7 +9,7 @@ export function Link({href,className,hasLocale=false,children,...props}) {
     if (href[0]==='/' && !hasLocale) href=`/${intl.locale}${href}`
 
     return (
-        <NextLink className={cn("link", className)} href={href} {...props} legacyBehavior>
+        <NextLink className={cn("link", className)} href={href} {...props}>
             {children}
         </NextLink>
     );

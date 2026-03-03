@@ -1,12 +1,6 @@
 import path from 'path'
 
 import createMDX from '@next/mdx'
-import remarkGfm from 'remark-gfm'
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
-
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeHighlight from 'rehype-highlight'
 
 async function redirects() {
 	// old blog used this format : /2020/03/04/my-first-paid-job
@@ -35,13 +29,13 @@ const nextConfig = {
 const withMDX = createMDX({
 	options: {
 		remarkPlugins: [
-			remarkGfm,
-			remarkFrontmatter, 
-			[remarkMdxFrontmatter, {name: 'matter'}]
+			['remark-gfm'],
+			['remark-frontmatter'], 
+			['remark-mdx-frontmatter', {name: 'matter'}]
 		],
 		rehypePlugins: [
-			[rehypeExternalLinks, { target: '_blank' }],
-			rehypeHighlight,
+			['rehype-external-links', {target: '_blank' }],
+			['rehype-highlight'],
 		],
 	}
 })

@@ -17,11 +17,9 @@ import { FormattedMessage } from 'react-intl'
 
 const NavItem = ({href,children})=>(
 	<NavigationMenuItem>
-		<Link href={href} legacyBehavior passHref>
-			<NavigationMenuLink className={navigationMenuTriggerStyle()}>
-				{children}
-			</NavigationMenuLink>
-		</Link>
+		<NavigationMenuLink className={navigationMenuTriggerStyle()} href={href}>
+			{children}
+		</NavigationMenuLink>
 	</NavigationMenuItem>
 )
 
