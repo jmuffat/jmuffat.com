@@ -1,15 +1,19 @@
 "use server"
 
+import { checkDebug } from './sites/debug'
 import { checkLinkedIn }from './sites/linkedin'
 import { checkYoutube } from './sites/youtube'
-import { checkFranceTravail } from './sites/france-travail'
-import { checkOkt } from './sites/okt-to'
+import { checkRedirectors } from './sites/redirectors'
+import { checkWLServices } from './sites/wlservices'
+import { checkAwsTrackMe } from './sites/aws-track-me'
 
 const checks = [
     checkLinkedIn,
     checkYoutube,
-    checkOkt,
-    checkFranceTravail
+    checkRedirectors,
+    checkWLServices,
+    checkAwsTrackMe,
+    checkDebug
 ]
 
 async function processUrl(text) {
