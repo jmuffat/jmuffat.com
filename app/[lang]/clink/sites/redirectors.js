@@ -2,7 +2,8 @@ import * as cheerio from 'cheerio'
 import { hostRules, testHostRules, loadText } from "../util"
 
 const rulesRedirect = hostRules([
-    "cta.narvar.com"
+    "cta.narvar.com",
+    "c.gle"
 ])
 
 const rulesMetaRefresh = hostRules([
