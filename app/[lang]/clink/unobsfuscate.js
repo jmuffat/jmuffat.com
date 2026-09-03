@@ -6,6 +6,7 @@ import { checkYoutube } from './sites/youtube'
 import { checkRedirectors } from './sites/redirectors'
 import { checkWLServices } from './sites/wlservices'
 import { checkAwsTrackMe } from './sites/aws-track-me'
+import { checkGoogle } from './sites/google'
 
 const checks = [
     checkLinkedIn,
@@ -13,6 +14,7 @@ const checks = [
     checkRedirectors,
     checkWLServices,
     checkAwsTrackMe,
+    checkGoogle,
     checkDebug
 ]
 
