@@ -3,7 +3,8 @@ import { hostRules, testHostRules, loadText } from "../util"
 
 const rulesRedirect = hostRules([
     "cta.narvar.com",
-    "c.gle"
+    "c.gle",
+    "share.google"
 ])
 
 const rulesMetaRefresh = hostRules([
