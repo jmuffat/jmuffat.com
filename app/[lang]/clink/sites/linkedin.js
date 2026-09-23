@@ -3,7 +3,7 @@ import { loadText } from "../util"
 
 export async function checkLinkedIn(processor,res) {
     if (res.host==="www.linkedin.com") {
-        if (res.path==="/safety/go/") {
+        if (res.path==="/safety/go") {
             if (!res.search.url) return res
             return {...res, actualLink: await processor.recurse(res.search.url)}
         }
@@ -18,7 +18,7 @@ export async function checkLinkedIn(processor,res) {
             link: {selector:'a[data-tracking-control-name="external_url_click"]',value:'href'}
         })
         if (el.link) return {...res, actualLink: await processor.recurse(el.link)}
-        if (loaded.url) return {...res, actualLink: loaded.url}
+        if (loaded.url) return {...res, actualLink: await processor.recurse(loaded.url)}
         return res
     }
 

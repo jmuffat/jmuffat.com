@@ -35,7 +35,7 @@ async function processUrl(text) {
     for (const [key, value] of url.searchParams) {
         if (
                 /^utm_/.test(key)
-            ||  ignoreParm(key, "www.linkedin.com", ['lipi','trk','li_source','trackingId'])
+            ||  ignoreParm(key, "www.linkedin.com", ['lipi','trk','li_source','trackingId','rcm'])
         ) {
             badparms.push(key)
             continue
