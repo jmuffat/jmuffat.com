@@ -3,7 +3,8 @@ import { loadText } from "../util"
 
 export async function checkLinkedIn(processor,res) {
     if (res.host==="www.linkedin.com") {
-        if (res.path==="/safety/go") {
+        // if (res.path==="/safety/go") {
+        if (res.path.match(/\/safety\/go\/?/)) {
             if (!res.search.url) return res
             return {...res, actualLink: await processor.recurse(res.search.url)}
         }
