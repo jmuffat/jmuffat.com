@@ -34,7 +34,10 @@ async function processUrl(text) {
 
     for (const [key, value] of url.searchParams) {
         if (
-                /^utm_/.test(key)
+                ['fbclid','gclid'].includes(key)
+            ||  /^utm_/.test(key)   // Google Analytics
+            ||  /^at_/.test(key)    // Piano Analytics
+            ||  /^mtm_/.test(key)   // Matomo
             ||  ignoreParm(key, "www.linkedin.com", ['lipi','trk','li_source','trackingId','rcm'])
         ) {
             badparms.push(key)
