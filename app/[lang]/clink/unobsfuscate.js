@@ -66,4 +66,14 @@ async function processUrl(text) {
     return res
 }
 
-export async function unobfuscate(url) {return processUrl(url)}
+export async function unobfuscate(str) {
+    const reURLs = /(https?):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/gm
+    
+    let array = []
+    while ((array = reURLs.exec(str)) !== null) {
+        // we process only the first url for now
+        return processUrl(array[0])
+    }
+
+    return {error: "no url"}
+}

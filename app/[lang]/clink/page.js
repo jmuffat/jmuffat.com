@@ -50,7 +50,7 @@ function ClinkPage() {
 
             <div className="flex flex-col gap-4 mb-4">
                  <InputGroup>
-                    <InputGroupInput type="text" placeholder="url" value={val} onChange={onChange}/>
+                    <InputGroupInput type="text" placeholder="paste url here" value={val} onChange={onChange}/>
                     <InputGroupAddon align="inline-end">
                         <InputGroupButton
                             aria-label="Clear"
