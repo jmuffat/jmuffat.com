@@ -13,8 +13,7 @@ const rulesMetaRefresh = hostRules([
     {any:"email.francetravail.fr"}
 ]) 
 
-async function parseMetaRefresh(href) {
-    const {txt} = await loadText(href)
+async function parseMetaRefresh(txt) {
     //const $ = cheerio.load(txt, {xmlMode: true, lowerCaseAttributeNames:true, })
     const $ = cheerio.load(txt, {scriptingEnabled: false})    
     const el = $.extract({
@@ -37,19 +36,12 @@ async function parseMetaRefresh(href) {
 }
 
 export async function checkRedirectors(processor,res) {
-    if (testHostRules(rulesRedirect,res.host)) {
-        const {url} = await loadText(res.href)
-        if (url) return {...res, actualLink: await processor.recurse(url)}
-        
-        return res
-    }
+    const {url,txt} = await loadText(res.href)
 
-    if (testHostRules(rulesMetaRefresh,res.host)) {
-        const redirect = await parseMetaRefresh(res.href)
-        if (redirect) return {...res, actualLink: await processor.recurse(redirect)}
+    const redirect = await parseMetaRefresh(txt)
+    if (redirect) return {...res, actualLink: await processor.recurse(redirect)}
 
-        return res
-    }
+    if (url!==res.href) return {...res, actualLink: await processor.recurse(url)}
 
     return res
 }

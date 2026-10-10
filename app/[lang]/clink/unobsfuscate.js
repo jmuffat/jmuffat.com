@@ -11,11 +11,11 @@ import { checkGoogle } from './sites/google'
 const checks = [
     checkLinkedIn,
     checkYoutube,
-    checkRedirectors,
     checkWLServices,
     checkAwsTrackMe,
     checkGoogle,
-    checkDebug
+    checkDebug,
+    checkRedirectors
 ]
 
 async function processUrl(text) {
