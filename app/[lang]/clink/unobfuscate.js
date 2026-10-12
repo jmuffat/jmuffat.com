@@ -1,7 +1,7 @@
 "use server"
 
 import { checkDebug } from './sites/debug'
-import { checkLinkedIn }from './sites/linkedin'
+import { checkLinkedIn } from './sites/linkedin'
 import { checkYoutube } from './sites/youtube'
 import { checkRedirectors } from './sites/redirectors'
 import { checkWLServices } from './sites/wlservices'

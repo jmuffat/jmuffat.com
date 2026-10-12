@@ -6,7 +6,7 @@ import { XIcon } from "lucide-react"
 
 import { NarrowPageBody } from "@/components/narrow-body"
 
-import {unobfuscate} from "./unobsfuscate"
+import {unobfuscate} from "./unobfuscate"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
 
 function ActualLink({href}) {
@@ -29,7 +29,7 @@ function ClinkPage() {
     const [val,setVal] = React.useState("")
     const [decoded,setDecoded] = React.useState({})
 
-    function onChange(e) {
+    const onChange = React.useCallback( e=> {
         const s = e.currentTarget.value
         setDecoded({})
         setVal(s)
@@ -38,12 +38,12 @@ function ClinkPage() {
         unobfuscate(s)
         .then( newValue=>setDecoded(newValue) )
         .catch( e=>setDecoded({Error:e}))
-    }
+    })
 
-    function onClear() {
+    const onClear = React.useCallback( ()=> {
         setDecoded({})
         setVal("")
-    }
+    })
 
     return (
         <NarrowPageBody>
