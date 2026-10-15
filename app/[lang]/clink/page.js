@@ -17,7 +17,7 @@ import { NarrowPageBody } from "@/components/narrow-body"
 import { unobfuscate } from "./unobfuscate"
 
 function ActualLink({ href }) {
-    if (!href) return
+    if (!href) return null
     const url = React.useMemo(() => new URL(href), [href])
     const [exclude, setExclude] = React.useState([])
     const finalUrl = React.useMemo(
@@ -26,7 +26,7 @@ function ActualLink({ href }) {
             for(const key of exclude) res.searchParams.delete(key)
             return res.href
         },
-        [url,exclude]
+        [href,exclude]
     )
 
     return (
@@ -43,7 +43,7 @@ function ActualLink({ href }) {
                                 else         setExclude([...exclude, key])
                             }}
                         />
-                        <FieldLabel htmlFor="terms-checkbox-invalid" className="font-normal text-sm">
+                        <FieldLabel htmlFor={key} className="font-normal text-sm">
                             <em>{key}</em>: {value}
                         </FieldLabel>
                     </Field>
