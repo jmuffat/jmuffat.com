@@ -1,8 +1,7 @@
 "use client"
-// curl -w "%{url_effective}\n" -I -L -s -S $URL -o /dev/null
 
 import React from "react"
-import { XIcon } from "lucide-react"
+import { XIcon, Loader2Icon } from "lucide-react"
 
 import { NarrowPageBody } from "@/components/narrow-body"
 
@@ -11,7 +10,7 @@ import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "
 
 function ActualLink({href}) {
     if (!href) return
-    return <a className="link text-sm" href={href} target="_blank">{href}</a>
+    return <a className="link text-sm" href={href} target="_blank" rel="noopener noreferrer">{href}</a>
 }
 
 function PreJson({data}) {
@@ -26,21 +25,24 @@ function PreJson({data}) {
 }
 
 function ClinkPage() {
-    const [val,setVal] = React.useState("")
-    const [decoded,setDecoded] = React.useState({})
+    const [val, setVal] = React.useState("")
+    const [decoded, setDecoded] = React.useState({})
+    const [loading, setLoading] = React.useState(false)
 
-    const onChange = React.useCallback( e=> {
+    const onChange = React.useCallback(e => {
         const s = e.currentTarget.value
         setDecoded({})
         setVal(s)
         if (!s) return
 
+        setLoading(true)
         unobfuscate(s)
-        .then( newValue=>setDecoded(newValue) )
-        .catch( e=>setDecoded({Error:e}))
+            .then(newValue => setDecoded(newValue))
+            .catch(e => setDecoded({ Error: e }))
+            .finally(() => setLoading(false))
     })
 
-    const onClear = React.useCallback( ()=> {
+    const onClear = React.useCallback(() => {
         setDecoded({})
         setVal("")
     })
@@ -49,8 +51,14 @@ function ClinkPage() {
         <NarrowPageBody>
 
             <div className="flex flex-col gap-4 mb-4">
-                 <InputGroup>
-                    <InputGroupInput type="text" placeholder="paste url here" value={val} onChange={onChange}/>
+                <InputGroup>
+                    <InputGroupInput
+                        type="text"
+                        placeholder="paste url here"
+                        value={val}
+                        onChange={onChange}
+                        disabled={loading}
+                    />
                     <InputGroupAddon align="inline-end">
                         <InputGroupButton
                             aria-label="Clear"
@@ -58,15 +66,20 @@ function ClinkPage() {
                             size="icon-xs"
                             onClick={onClear}
                         >
-                            <XIcon/>
+                            <XIcon />
                         </InputGroupButton>
                     </InputGroupAddon>
-                 </InputGroup>
-                <ActualLink href={decoded.actualLink}/>
+                    {loading && (
+                        <div className="ml-2 flex items-center">
+                            <Loader2Icon className="animate-spin text-muted-foreground" size={16} />
+                        </div>
+                    )}
+                </InputGroup>
+                <ActualLink href={decoded.actualLink} />
             </div>
-            
+
             <div>
-                <PreJson data={decoded}/>
+                <PreJson data={decoded} />
             </div>
         </NarrowPageBody>
     )
