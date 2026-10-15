@@ -75,5 +75,5 @@ export async function unobfuscate(str) {
         return processUrl(array[0])
     }
 
-    return {error: "no url"}
+    throw new Error("no url found")
 }

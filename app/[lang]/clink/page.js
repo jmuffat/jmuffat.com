@@ -76,7 +76,12 @@ function ClinkPage() {
                     )}
                 </InputGroup>
                 <ActualLink href={decoded.actualLink} />
-            </div>
+                    {decoded?.Error && (
+                        <div className="text-sm text-red-500 mt-2">
+                            Error: {String(decoded.Error)}
+                        </div>
+                    )}
+                </div>
 
             <div>
                 <PreJson data={decoded} />
