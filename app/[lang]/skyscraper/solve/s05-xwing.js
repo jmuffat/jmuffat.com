@@ -87,7 +87,7 @@ function findXWingByCol(state, a) {
         where[col]=0
         for(let row=0; row<sz; row++) {
             const m = c[col+row*sz]
-            if (m&mask) where[col]|=1<<col
+            if (m&mask) where[col]|=1<<row
         }
     }
 

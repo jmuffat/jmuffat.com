@@ -8,6 +8,7 @@ export function skyscraperStringDecode(s) {
     const decodeVisibility = s => s.split('').map(a=>Number(a))
 
     const state = {
+        str:s,
         N: decodeVisibility(parts[1]),
         E: decodeVisibility(parts[2]),
         S: decodeVisibility(parts[3]),

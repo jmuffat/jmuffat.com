@@ -104,7 +104,7 @@ function Cells({data,prev,highlights}) {
                     label={label}
                     row={j+2} col={i+2} 
                     data={data.c[offset]} 
-                    prev={prev.c[offset]}
+                    prev={prev?.c[offset]}
                     highlights={highlights}
                 /> 
             )
