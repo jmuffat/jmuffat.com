@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 
 import { NarrowPageBody } from '@/components/narrow-body'
 import { SkyscraperGrid } from './grid'
-import { skyscraperStringDecode } from './decode'
+import { skyscraperStringDecode } from './decodeSkyscraperString'
 import { skyscraperSolve } from './solve'
 
 function Step({index,sel,step,t0,onClick}) {

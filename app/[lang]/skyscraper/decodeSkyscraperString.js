@@ -8,18 +8,17 @@ export function skyscraperStringDecode(s) {
     const decodeVisibility = s => s.split('').map(a=>Number(a))
 
     const state = {
-        str:s,
         N: decodeVisibility(parts[1]),
         E: decodeVisibility(parts[2]),
         S: decodeVisibility(parts[3]),
         W: decodeVisibility(parts[4])
     }
     
-    if (    (state.N.lengh != state.S.lengh )
-        ||  (state.E.lengh != state.W.lengh )
-        ||  (state.N.lengh != state.E.lengh )
-        ||  (state.N.lengh==0)
-        ||  (state.N.lengh> 9)
+    if (    (state.N.length != state.S.length )
+        ||  (state.E.length != state.W.length )
+        ||  (state.N.length != state.E.length )
+        ||  (state.N.length==0)
+        ||  (state.N.length> 9)
     )   return {error: "bad dimensions"}
 
     const sz = state.N.length;
@@ -42,7 +41,7 @@ export function skyscraperStringDecode(s) {
             const y = Number(hint[1])-1
             const v = Number(hint[2])
 
-            if (x<0 || y<0 || x>=sz || y>>sz) return {error: `Bad hint position "${hint}"`}
+            if (x<0 || y<0 || x>=sz || y>=sz) return {error: `Bad hint position "${hint}"`}
             if (v<1 || v>sz) return {error: `Bad hint value "${hint}"`}
 
             setCell(state, y,x,v)
