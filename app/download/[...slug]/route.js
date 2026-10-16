@@ -33,4 +33,4 @@ export async function GET(req, opt) {
     }
 }
 
-export const runtime = 'edge' // 'nodejs' (default) | 'edge'
+
