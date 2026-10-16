@@ -22,11 +22,11 @@ function ActualLink({ href }) {
     const [exclude, setExclude] = React.useState([])
     const finalUrl = React.useMemo(
         () =>{
-            const res = new URL(href)
+            const res = new URL(url)
             for(const key of exclude) res.searchParams.delete(key)
             return res.href
         },
-        [href,exclude]
+        [url,exclude]
     )
 
     return (
