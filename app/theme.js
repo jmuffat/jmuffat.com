@@ -3,16 +3,7 @@ import React from 'react'
 import { ThemeProvider } from "next-themes"
 
 function Providers({ children }) {
-	const [mounted, setMounted] = React.useState(false);
-
-	React.useEffect(
-		() => { 
-			setMounted(true) 
-		},
-		[]
-	)
-
-	if (!mounted) return null
+	const scriptProps = typeof window === "undefined" ? undefined : {type: "application/json"};
 
 	return (
 		<ThemeProvider 
@@ -20,6 +11,7 @@ function Providers({ children }) {
 			defaultTheme="system"
 			enableSystem
 			disableTransitionOnChange
+			scriptProps={scriptProps}
 		>
 			{children}
 		</ThemeProvider>

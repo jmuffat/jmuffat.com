@@ -6,7 +6,7 @@ import { XIcon, Loader2Icon, ChevronsUpDownIcon } from "lucide-react"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import {
     Collapsible,
     CollapsibleContent,
@@ -125,7 +125,9 @@ function ClinkPage() {
 
             {Object.keys(decoded).length > 0 && (
                 <Collapsible>
-                    <CollapsibleTrigger><Button variant="outline"><ChevronsUpDownIcon/> debug information</Button></CollapsibleTrigger>
+                    <CollapsibleTrigger className={buttonVariants({variant:"outline"})}>
+                        <ChevronsUpDownIcon data-icon="inline-start"/> debug information
+                    </CollapsibleTrigger>
                     <CollapsibleContent className="mt-2">
                         <PreJson data={decoded} />
                     </CollapsibleContent>
